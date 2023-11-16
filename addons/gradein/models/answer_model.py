@@ -16,4 +16,4 @@ class AnswerModel(models.Model):
     currency = fields.Many2one("res.currency", string="Currency")
     price_reduction = fields.Monetary(string="Price Reduction", currency_field="currency")
     blocking = fields.Boolean(help="Cannot continue with the form", default=False)
-    activo = fields.Boolean(help="Activate o desactivate", required=True, default=True)
+    activo = fields.Boolean(help="Activate o desactivate", default=True)
