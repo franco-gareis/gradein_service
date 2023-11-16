@@ -10,7 +10,7 @@
     "data": [
         'security/gradein_groups.xml',
         'views/services_menu.xml',
-        'views/services_menu.xml',
+        'views/answer_model.xml',
         ],
     "installable": True,
     "auto_install": False,
