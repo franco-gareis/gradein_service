@@ -13,7 +13,7 @@
     +
     <!-- submenu Configuracion -->
     <menuitem name="Configuracion" id="configuration_menu" parent="service_menu"/>
-    <menuitem name="Preguntas" id="preguntas_menu_item" parent="configuration_menu" action="question_action_window"/>
+    <menuitem name="Preguntas" id="question_menu_item" parent="configuration_menu" action="question_action_window"/>
 
 
 </odoo>
