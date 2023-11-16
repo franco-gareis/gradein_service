@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Groups from users service for security gradein area -->
+    <!-- Category of user groups for area security -->
     <record id="service_module_category" model="ir.module.category">
         <field name="name">Service groups</field>
         <field name="description">Service groups </field>
         <field name="sequence">1</field>
     </record>
 
+    <!-- Sellers users group -->
     <record id="group_seller_service" model="res.groups">
         <field name="name">Sellers</field>
         <field name="category_id" ref="service_module_category"/>
         <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
     </record>
 
+    <!-- Administrators users groups -->
     <record id="group_admin_service" model="res.groups">
-        <field name="name">Asistants</field>
+        <field name="name">Admin</field>
         <field name="category_id" ref="library_module_category"/>
         <field name="implied_ids" eval="[(4, ref('group_seller_service'))]"/>
     </record>
