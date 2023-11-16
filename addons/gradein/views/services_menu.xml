@@ -1,10 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+      
 
-    <menuitem
+    <!--##### Top menu item ###################-->
+   
+   <menuitem
         id="services_menu"
         name="Servicios"
         web_icon="gradein,static/description/icon.png"
     />
+
+        <!-- submenu Configuracion -->
+    <menuitem name="Configuracion" id="configuracion_menu" parent="service_menu"/>
+    <menuitem name="Preguntas" id="preguntas_menu_item" parent="configuracion_menu" action="preguntas_action_window"/>
+
+        <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="preguntas_action_window">
+      <field name="name">preguntas window</field>
+      <field name="res_model">gradein.question</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
 
 </odoo>
