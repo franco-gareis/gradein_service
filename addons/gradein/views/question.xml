@@ -1,0 +1,39 @@
+    <!--####explicit list view definition ####-->
+
+    <record model="ir.ui.view" id="gradein_questions_list">
+      <field name="name">questions list</field>
+      <field name="model">gradein.question</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="equipment_type_ids"/>
+        </tree>
+      </field>
+    </record>
+   
+   <!--######### Forms views ###################-->
+
+    <record model="ir.ui.view" id="gradein_question_form">
+      <field name="name">question form</field>
+      <field name="model">gradein.question</field>
+      <field name="arch" type="xml">
+      <form>
+          <group>
+          <field name="name"/>
+          <field name="active"/>
+          <field name="equipment_type_ids"/>
+          <field name="answer_ids"/>
+          </group>
+        </form>
+      </field>
+    </record> 
+ 
+ 
+
+        <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="question_action_window">
+      <field name="name">question window</field>
+      <field name="res_model">gradein.question</field>
+      <field name="view_mode">tree,form</field>
+    </record>
