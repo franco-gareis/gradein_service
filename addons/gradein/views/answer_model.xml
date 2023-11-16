@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id='action_answer_model' model='ir.actions.act_window'>
+        <field name='name'>Respuestas</field>
+        <field name='res_model'>gradein.answer</field>
+        <field name='view_mode'>tree,form</field>
+    </record>
+
+    <menuitem
+        id="answer_menu"
+        name="Respuestas"/>
+
+</odoo>
