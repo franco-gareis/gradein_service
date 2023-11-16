@@ -1,1 +1,9 @@
-docker-compose.yml
+/docker-compose.xml
+security/
+controllers/
+demo/
+/__manifest__.py
+/.env
+enterprise/
+config/
+
