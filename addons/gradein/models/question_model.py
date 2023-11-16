@@ -9,7 +9,7 @@ class QuestionModel(models.Model):
     
     name = fields.Char(string="Nombre")
     active = fields.Boolean(string="activa",default=True)
-    equipment_type_ids = fields.Many2one(comodel_name="gradein.equipment_type",string="Tipos de equipo")
+    equipment_type_ids = fields.Many2many(comodel_name="gradein.equipment.type",string="Tipos de equipo")
     answer_ids = fields.One2many(comodel_name="gradein.answer",string="Respuestas posibles")
     
 
