@@ -17,7 +17,7 @@
     <!-- Administrators users groups -->
     <record id="group_admin_service" model="res.groups">
         <field name="name">Admin</field>
-        <field name="category_id" ref="library_module_category" />
+        <field name="category_id" ref="service_module_category" />
         <field name="implied_ids" eval="[(4, ref('group_seller_service'))]" />
     </record>
 </odoo>
