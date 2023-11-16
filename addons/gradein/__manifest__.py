@@ -9,9 +9,11 @@
     "depends": ["base"],
     "data": [
         'security/gradein_groups.xml',
+        'security/ir.model.access.csv',
         'views/services_menu.xml',
         'views/answer_model.xml',
-        ],
+        'views/equipment_type.xml',
+    ],
     "installable": True,
     "auto_install": False,
     "application": True,

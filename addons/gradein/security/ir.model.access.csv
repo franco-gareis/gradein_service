@@ -1,0 +1,3 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+access_gradein_equipment_type_seller,gradein_equipment_type_seller,model_gradein_equipment_type,group_seller_service,1,0,0,0
+access_gradein_equipment_type_admin,gradein_equipment_type_admin,model_gradein_equipment_type,group_admin_service,1,1,1,1
