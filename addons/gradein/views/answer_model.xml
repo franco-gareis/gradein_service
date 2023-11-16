@@ -9,6 +9,8 @@
 
     <menuitem
         id="answer_menu"
-        name="Respuestas"/>
+        name="Respuestas"
+        parent="services_menu"
+        />
 
 </odoo>
