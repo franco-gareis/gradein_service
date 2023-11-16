@@ -42,13 +42,13 @@
 
     <!-- Top menu item -->
 <!--
-    <menuitem name="gradein" id="gradein.menu_root"/>
+    <menuitem name="gradein" id="service_menu"/>
 -->
     <!-- menu categories -->
-<!--
-    <menuitem name="Menu 1" id="gradein.menu_1" parent="gradein.menu_root"/>
-    <menuitem name="Menu 2" id="gradein.menu_2" parent="gradein.menu_root"/>
--->
+
+    <menuitem name="Menu_configuracion" id="gradein.menu_config" parent="service_menu"/>
+
+
     <!-- actions -->
 <!--
     <menuitem name="List" id="gradein.menu_1_list" parent="gradein.menu_1"
