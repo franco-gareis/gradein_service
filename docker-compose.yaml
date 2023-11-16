@@ -12,6 +12,7 @@ services:
       - odoo-web-data:/var/lib/odoo
       - ./config:/etc/odoo
       - ./addons:/mnt/extra-addons
+      - ./gradein_service/enterprise:/var/lib/odoo/addons/15.0"
     entrypoint: "/usr/bin/odoo -c /etc/odoo/odoo.conf --dev all"
   db:
     container_name: ${DB_HOST}
