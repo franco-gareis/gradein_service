@@ -10,7 +10,7 @@
     <menuitem
         id="answer_menu"
         name="Respuestas"
-        parent="services_menu"
+        parent="configuration_menu"
         />
 
 </odoo>
