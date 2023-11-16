@@ -37,3 +37,5 @@
       <field name="res_model">gradein.question</field>
       <field name="view_mode">tree,form</field>
     </record>
+
+    <menuitem name="Preguntas" id="question_menu_item" parent="configuration_menu" action="question_action_window"/>
