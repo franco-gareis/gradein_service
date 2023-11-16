@@ -1,5 +1,5 @@
 {
-    "name": "Gradein",
+    "name": "GradeIn",
     "version": "1.0",
     "category": "",
     "summary": "",
@@ -7,7 +7,9 @@
     "website": "https://www.callefalsa.com.ar",
     "license": "AGPL-3",
     "depends": ["base"],
-    "data": [],
+    "data": [
+        'views/services_menu.xml',
+        ],
     "installable": True,
     "auto_install": False,
     "application": True,
