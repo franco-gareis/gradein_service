@@ -10,6 +10,7 @@ services:
       - odoo-data:/var/lib/odoo
       - ./config:/etc/odoo
       - ./addons:/mnt/extra-addons
+      - ./enterprise:/var/lib/odoo/addons/15.0
 
   db:
     image: postgres:15-alpine3.18
