@@ -8,7 +8,6 @@
     "license": "AGPL-3",
     "depends": ["base"],
     "data": [
-        'security/gradein_groups.xml',
         'security/ir.model.access.csv',
         'views/services_menu.xml',
         'views/equipment_type.xml',
