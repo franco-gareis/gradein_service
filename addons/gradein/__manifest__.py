@@ -8,6 +8,7 @@
     "license": "AGPL-3",
     "depends": ["base"],
     "data": [
+        'security/gradein_groups.xml',
         'views/services_menu.xml',
         ],
     "installable": True,
