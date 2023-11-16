@@ -9,7 +9,7 @@ class AnswerModel(models.Model):
     Args:
         models (_type_): Model
     """
-    _name = "answer.model"
+    _name = "gradein.answer"
     _description = "Answer Model"
 
     name = fields.Char(required=True, help="Name Answer", string="Name")
