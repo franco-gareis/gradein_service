@@ -1,3 +1,3 @@
 # -*- coding: utf-8 -*-
 
-from . import Questions
+from . import question_model

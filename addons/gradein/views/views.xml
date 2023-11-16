@@ -24,21 +24,7 @@
     </record>
 -->
 
-    <!-- server action to the one above -->
-<!--
-    <record model="ir.actions.server" id="gradein.action_server">
-      <field name="name">gradein server</field>
-      <field name="model_id" ref="model_gradein_gradein"/>
-      <field name="state">code</field>
-      <field name="code">
-        action = {
-          "type": "ir.actions.act_window",
-          "view_mode": "tree,form",
-          "res_model": model._name,
-        }
-      </field>
-    </record>
--->
+
 
     <!-- Top menu item -->
 <!--
@@ -46,7 +32,7 @@
 -->
     <!-- menu categories -->
 
-    <menuitem name="Menu_configuracion" id="gradein.menu_config" parent="service_menu"/>
+    <menuitem name="Menu_configuration" id="gradein.menu_config" parent="service_menu"/>
 
 
     <!-- actions -->
