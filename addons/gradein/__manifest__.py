@@ -11,7 +11,7 @@
         'security/gradein_groups.xml',
         'security/ir.model.access.csv',
         'views/services_menu.xml',
-        'views/answer_model.xml',
+        'views/answer.xml',
         'views/equipment_type.xml',
     ],
     "installable": True,
