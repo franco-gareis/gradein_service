@@ -34,5 +34,19 @@
         </field>
     </record>
 
+    <!-- Search -->
+    <record id="gradient_equipment_view_search" model="ir.ui.view">
+        <field name="name">gradient_equipment.view.search</field>
+        <field name="model">gradient.equipment</field>
+        <field name="arch" type="xml">
+            <search string="Busqueda de equipos">
+                <field name="name" />
+                <field name="description" />
+            </search>
+
+            <!-- Filters -->
+            <filter name="active" string="Archivados" domain="[('active', '=', False)]" />
+        </field>
+    </record>
 
 </odoo>
