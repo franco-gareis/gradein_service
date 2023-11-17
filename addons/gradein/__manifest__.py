@@ -11,7 +11,7 @@
         'security/gradein_groups.xml',
         'security/ir.model.access.csv',
         'views/services_menu.xml',
-        'views/answer.xml',
+        'views/gradein_answer.xml',
         'views/equipment_type.xml',
         'views/equipment.xml',
     ],

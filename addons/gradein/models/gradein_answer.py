@@ -1,7 +1,7 @@
 from odoo import fields, models
 
 
-class AnswerModel(models.Model):
+class GradeInAnswer(models.Model):
     """Questions for gradein form, 
     if you select "blocking" you 
     cannot continue the form
