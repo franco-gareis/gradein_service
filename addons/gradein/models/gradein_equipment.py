@@ -1,4 +1,5 @@
-from odoo import fields, models
+from odoo import fields, models, api
+from odoo.exceptions import ValidationError
 
 class GradeInEquipment(models.Model):
     _name = 'gradein.equipment'
@@ -11,3 +12,12 @@ class GradeInEquipment(models.Model):
     price = fields.Monetary(string='Precio', currency_field='currency_id', help='Price of the equipment')
     description = fields.Text(string='Descripcion', help='Resume of the equipment')
     currency_id = fields.Many2one('res.currency', default=lambda x: x.env.company.currency_id, string='Moneda')
+
+    @api.model
+    def create(self, vals):
+        """Override the create method to ensure that the price is greater than zero"""
+
+        if vals['price'] <= float(0):
+            raise ValidationError("El precio tiene que ser mayor a cero")
+        else:
+            return super(GradeInEquipment, self).create(vals)
