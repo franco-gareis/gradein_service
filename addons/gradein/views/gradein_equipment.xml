@@ -29,7 +29,7 @@
                 <field name="name" />
                 <field name="description" />
                 <field name="currency_id" invisible="1" />
-                <field name="price" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                <field name="price" widget="monetary" options="{'currency_field': 'currency_id'}" />
             </tree>
         </field>
     </record>
