@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- View Tree -->
+    <record id="gradein_answer_view_tree" model="ir.ui.view">
+        <field name="name">gradein.answer.view.tree</field>
+        <field name="model">gradein.answer</field>
+        <field name="arch" type="xml">
+            <tree string="Respuestas posibles">
+                <field name="name" />
+                <field name="price_reduction" />
+                <field name="blocking" />
+            </tree>
+        </field>
+    </record>
+
+    <!-- Menu Answer-->
+    <record id="action_gradein_answer" model="ir.actions.act_window">
+        <field name="name">Respuestas</field>
+        <field name="res_model">gradein.answer</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="answer_menu"
+        name="Respuestas"
+        action="action_gradein_answer"
+        parent="configuration_menu"
+    />
+
+</odoo>

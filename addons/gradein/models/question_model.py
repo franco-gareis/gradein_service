@@ -10,6 +10,6 @@ class QuestionModel(models.Model):
     name = fields.Char(string="Nombre")
     active = fields.Boolean(string="activa",default=True)
     equipment_type_ids = fields.Many2many(comodel_name="gradein.equipment.type",string="Tipos de equipo")
-    answer_ids = fields.One2many(comodel_name="gradein.answer",string="Respuestas posibles")
+    answer_ids = fields.One2many(comodel_name="gradein.answer",string="Respuestas posibles", inverse_name="question_id")
     
 

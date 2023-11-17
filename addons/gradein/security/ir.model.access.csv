@@ -2,5 +2,7 @@ id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
 access_gradein_equipment_type_seller,gradein_equipment_type_seller,model_gradein_equipment_type,group_seller_service,1,0,0,0
 access_gradein_equipment_type_admin,gradein_equipment_type_admin,model_gradein_equipment_type,group_admin_service,1,1,1,1
 
+access_gradein_answer_admin,gradein_answer_admin,model_gradein_answer,group_admin_service,1,1,1,1
+access_gradein_question_admin,gradein_question_admin,model_gradein_question,group_admin_service,1,1,1,1
 access_gradein_equipment_seller,gradein_equipment_seller,model_gradein_equipment,group_seller_service,1,0,0,0
 access_gradein_equipment_admin,gradein_equipment_admin,model_gradein_equipment,group_admin_service,1,1,1,1
