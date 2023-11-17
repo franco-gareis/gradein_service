@@ -1,7 +1,6 @@
 from odoo import fields, models
 
-
-class EquipmentModel(models.Model):
+class GradeInEquipment(models.Model):
     _name = 'gradein.equipment'
     _description = "Equipment Model"
     _rec_name = 'name'

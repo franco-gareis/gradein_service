@@ -2,7 +2,7 @@
 <odoo>
 
     <!-- View Form -->
-    <record id="equipment_type_view_form" model="ir.ui.view">
+    <record id="gradein_equipment_type_view_form" model="ir.ui.view">
         <field name="name">equipment.type.view.form</field>
         <field name="model">gradein.equipment.type</field>
         <field name="arch" type="xml">
@@ -21,7 +21,7 @@
 
 
     <!-- View Tree -->
-    <record id="equipment_type_view_tree" model="ir.ui.view">
+    <record id="gradein_equipment_type_view_tree" model="ir.ui.view">
         <field name="name">equipment.type.view.tree</field>
         <field name="model">gradein.equipment.type</field>
         <field name="arch" type="xml">
@@ -33,7 +33,7 @@
 
 
     <!-- Search View -->
-    <record id="equipment_type_view_search" model="ir.ui.view">
+    <record id="gradein_equipment_type_view_search" model="ir.ui.view">
         <field name="name">equipment.type.view.search</field>
         <field name="model">gradein.equipment.type</field>
         <field name="arch" type="xml">
@@ -50,7 +50,7 @@
 
 
     <!-- Menu Action -->
-    <record id="action_equipment_type_model" model="ir.actions.act_window">
+    <record id="action_gradein_equipment_type_model" model="ir.actions.act_window">
         <field name="name">Tipos de equipos</field>
         <field name="res_model">gradein.equipment.type</field>
         <field name="view_mode">tree,form</field>
@@ -59,8 +59,8 @@
     <menuitem
         id="equipment_type_menu"
         name="Tipos de Equipos"
-        action="action_equipment_type_model"
-        parent='services_menu'
+        action="action_gradein_equipment_type_model"
+        parent="configuration_menu"
     />
 
 </odoo>

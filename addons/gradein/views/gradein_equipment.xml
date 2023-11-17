@@ -50,7 +50,7 @@
     </record>
 
     <!-- Menu Action -->
-    <record id="action_equipment_model" model="ir.actions.act_window">
+    <record id="action_gradein_equipment_model" model="ir.actions.act_window">
         <field name="name">Equipos</field>
         <field name="res_model">gradein.equipment</field>
         <field name="view_mode">tree,form</field>
@@ -59,7 +59,7 @@
     <menuitem
         id="equipment_menu"
         name="Equipos"
-        action="action_equipment_model"
+        action="action_gradein_equipment_model"
         parent='configuration_menu'
     />
 
