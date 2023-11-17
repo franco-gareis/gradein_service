@@ -28,7 +28,19 @@
         </form>
       </field>
     </record> 
- 
+     
+    <!--  opening views search model -->
+    
+    <record id="view_search" model="ir.ui.view">
+      <field name="name">filter_gradein_question</field>
+      <field name="model">gradein.question</field>
+      <field name="arch" type="xml">
+        <search string=" buscar pregunta">  
+          <field name="name"/>
+          <filter string="Archivadas" name="activo" domain="[('active', '=',True)]"/>
+        </search>
+      </field>
+    </record>
  
 
         <!-- actions opening views on models -->
