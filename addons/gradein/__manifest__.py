@@ -13,6 +13,7 @@
         'views/services_menu.xml',
         'views/answer_model.xml',
         'views/equipment_type.xml',
+        'views/equipment.xml',
     ],
     "installable": True,
     "auto_install": False,
