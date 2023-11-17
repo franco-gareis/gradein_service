@@ -2,7 +2,7 @@
 from odoo import models, fields, api
 
 
-class QuestionModel(models.Model):
+class GradeInQuestion(models.Model):
     
     _name = 'gradein.question'
     _description = 'gradein questions'
