@@ -31,6 +31,17 @@
     </field>
   </record>
 
+<!-- view search -->
+  <record id="view_search" model="ir.ui.view">
+    <field name="name">filter question</field>
+    <field name="model">gradein.question</field>
+    <field name="arch" type="xml">
+      <search string=" busqueda autor activo">  
+        <field name="name"/>
+        <filter string="Archivadas" name="activo" domain="[('active', '=',True)]"/>
+      </search>
+    </field>
+  </record>
   <!-- actions opening views on models -->
 
   <record model="ir.actions.act_window" id="question_action_window">
