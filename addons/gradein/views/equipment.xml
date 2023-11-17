@@ -49,4 +49,18 @@
         </field>
     </record>
 
+    <!-- Menu Action -->
+    <record id="action_equipment_model" model="ir.actions.act_window">
+        <field name="name">Equipos</field>
+        <field name="res_model">gradein.equipment</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="equipment_type_menu"
+        name="Tipos de Equipos"
+        action="action_equipment_type_model"
+        parent='services_menu'
+    />
+
 </odoo>
