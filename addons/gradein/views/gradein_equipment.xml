@@ -59,7 +59,7 @@
     <menuitem
         id="equipment_menu"
         name="Equipos"
-        action="action_gradein_equipment_model"
+        action="action_gradein_equipment"
         parent='configuration_menu'
     />
 
