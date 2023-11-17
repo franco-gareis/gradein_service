@@ -10,6 +10,10 @@
         web_icon="gradein,static/description/icon.png"
     />
 
+    +
+    <!-- submenu Configuracion -->
+    <menuitem name="Configuracion" id="configuration_menu" parent="service_menu"/>
+
 
 
 </odoo>
