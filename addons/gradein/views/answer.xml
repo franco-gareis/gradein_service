@@ -21,12 +21,11 @@
         <field name='view_mode'>tree,form</field>
     </record>
 
-    <!--parent="configuration_menu"-->
     <menuitem
         id="answer_menu"
         name="Respuestas"
         action="action_answer_model"
-        parent='services_menu'
+        parent="configuration_menu"
     />
 
 </odoo>
