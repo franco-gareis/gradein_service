@@ -11,5 +11,5 @@ class EquipmentTypeModel(models.Model):
     question_ids = fields.Many2many(
         comodel_name='gradein.question', string='Preguntas',
         help='Possible question for the equipment',
-        inverse_name="equipment_type_ids"
+       
     )
