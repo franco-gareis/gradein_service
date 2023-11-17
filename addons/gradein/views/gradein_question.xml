@@ -48,7 +48,6 @@
     <field name="view_mode">tree,form</field>
   </record>
 
-  <menuitem name="Preguntas" id="question_menu" parent="configuration_menu"
-    action="action_gradein_question" />
+  <menuitem name="Preguntas" id="question_menu" parent="configuration_menu" action="action_gradein_question" />
 
 </odoo>
