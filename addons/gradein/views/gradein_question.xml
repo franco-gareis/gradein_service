@@ -1,8 +1,8 @@
     <odoo>
     <!--####explicit list view definition ####-->
 
-    <record model="ir.ui.view" id="gradein_questions_list">
-      <field name="name">questions list</field>
+    <record model="ir.ui.view" id="gradein_questions_view_tree">
+      <field name="name">gradein.question.view.tree</field>
       <field name="model">gradein.question</field>
       <field name="arch" type="xml">
         <tree>
@@ -14,8 +14,8 @@
    
    <!--######### Forms views ###################-->
 
-    <record model="ir.ui.view" id="gradein_question_form">
-      <field name="name">question form</field>
+    <record model="ir.ui.view" id="gradein_question_view_form">
+      <field name="name">gradein.question.view.form</field>
       <field name="model">gradein.question</field>
       <field name="arch" type="xml">
       <form>
@@ -33,12 +33,12 @@
 
         <!-- actions opening views on models -->
 
-    <record model="ir.actions.act_window" id="question_action_window">
-      <field name="name">question window</field>
+    <record model="ir.actions.act_window" id="action_gradein_question">
+      <field name="name">action_gradein_question</field>
       <field name="res_model">gradein.question</field>
       <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem name="Preguntas" id="question_menu_item" parent="configuration_menu" action="gradein_question_action_window"/>
+    <menuitem name="Preguntas" id="question_menu" parent="configuration_menu" action="action_gradein_question"/>
 
   </odoo>

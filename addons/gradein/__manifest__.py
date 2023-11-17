@@ -10,7 +10,9 @@
     "data": [
         'security/gradein_groups.xml',
         'security/ir.model.access.csv',
-        'views/gradein_services_menu.xml',
+        'views/services_menu.xml',
+        'views/gradein_equipment.xml',
+        'views/gradein_answer.xml'
         'views/gradein_equipment_type.xml',
         'views/gradein_question.xml'
     ],
