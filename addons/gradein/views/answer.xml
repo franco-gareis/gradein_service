@@ -2,8 +2,8 @@
 <odoo>
 
     <!-- View Tree -->
-    <record id="answer_view_tree" model="ir.ui.view">
-        <field name="name">answer.view.tree</field>
+    <record id="gradein_answer_view_tree" model="ir.ui.view">
+        <field name="name">gradein.answer.view.tree</field>
         <field name="model">gradein.answer</field>
         <field name="arch" type="xml">
             <tree string="Respuestas posibles">
@@ -21,10 +21,12 @@
         <field name='view_mode'>tree,form</field>
     </record>
 
+    <!--parent="configuration_menu"-->
     <menuitem
         id="answer_menu"
         name="Respuestas"
-        parent="configuration_menu"
+        action="action_answer_model"
+        parent='services_menu'
     />
 
 </odoo>
