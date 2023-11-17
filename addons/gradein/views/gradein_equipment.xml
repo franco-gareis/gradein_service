@@ -60,7 +60,7 @@
         id="equipment_type_menu"
         name="Tipos de Equipos"
         action="action_equipment_type_model"
-        parent='configuration_menu'
+        parent='services_menu'
     />
 
 </odoo>

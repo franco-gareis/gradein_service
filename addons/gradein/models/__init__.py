@@ -1,3 +1,3 @@
-from . import equipment_type_model
-from . import question_model
-from . import equipment_model
+from . import gradein_equipment_type
+from . import gradein_question
+from . import gradein_equipment

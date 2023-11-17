@@ -11,11 +11,10 @@
         'security/gradein_groups.xml',
         'security/ir.model.access.csv',
         'views/services_menu.xml',
-        'views/answer_model.xml',
-        'views/equipment_type.xml',
+        'views/gradein_answer.xml',
+        'views/gradein_equipment_type.xml',
+        'views/gradein_equipment.xml',
         'views/gradein_question.xml'
-        'views/equipment.xml',
-
     ],
     "installable": True,
     "auto_install": False,
