@@ -13,7 +13,7 @@
         'views/services_menu.xml',
         'views/answer_model.xml',
         'views/equipment_type.xml',
-        'views/question.xml'
+        'views/gradein_question.xml'
         'views/equipment.xml',
 
     ],
