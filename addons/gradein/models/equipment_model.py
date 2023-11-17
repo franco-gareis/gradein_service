@@ -9,6 +9,6 @@ class EquipmentModel(models.Model):
     name = fields.Char(string='Nombre', help='Name of the equipment')
     active = fields.Boolean(string='Activo', help='If the equipment is active')
     image = fields.Image(string='Imagen', verify_resolution=True, help='Image of the equipment')
-    price = fields.Monetary(string='Precio', currency_field='_currency', help='Price of the equipment')
+    price = fields.Monetary(string='Precio', currency_field='currency_id', help='Price of the equipment')
     description = fields.Text(string='Descripcion', help='Resume of the equipment')
-    _currency = fields.Many2one('res.currency', string='Moneda')
+    currency_id = fields.Many2one('res.currency', default=lambda x: x.env.company.currency_id, string='Moneda')

@@ -2,16 +2,17 @@
 <odoo>
 
     <!-- View Form -->
-    <record id="gradient_equipment_view_form" model="ir.ui.view">
-        <field name="name">gradient.equipment.view.form</field>
-        <field name="model">gradient.equipment</field>
+    <record id="gradein_equipment_view_form" model="ir.ui.view">
+        <field name="name">gradein.equipment.view.form</field>
+        <field name="model">gradein.equipment</field>
         <field name="arch" type="xml">
-            <form string="">
+            <form string="Formulario de equipos">
                 <sheet>
                     <group>
                         <field name="name" />
                         <field name="image" />
                         <field name="active" />
+                        <field name="currency_id" />
                         <field name="price" />
                         <field name="description" />
                     </group>
@@ -20,32 +21,31 @@
         </field>
     </record>
 
-    <!-- View Tree -->
-    <record id="gradient_equipment_view_tree" model="ir.ui.view">
-        <field name="name">gradient.equipment.view.tree</field>
-        <field name="model">gradient.equipment</field>
+    <record id="gradein_equipment_view_tree" model="ir.ui.view">
+        <field name="name">gradein.equipment.view.tree</field>
+        <field name="model">gradein.equipment</field>
         <field name="arch" type="xml">
             <tree string="Equipos">
                 <field name="name" />
                 <field name="description" />
-                <field name="_currency" invisible="1" />
-                <field name="price" widget="monetary" option="{'currency_field': '_currency'}"/>
+                <field name="currency_id" invisible="1" />
+                <field name="price" widget="monetary" options="{'currency_field': 'currency_id'}"/>
             </tree>
         </field>
     </record>
 
     <!-- Search -->
-    <record id="gradient_equipment_view_search" model="ir.ui.view">
-        <field name="name">gradient_equipment.view.search</field>
-        <field name="model">gradient.equipment</field>
+    <record id="gradein_equipment_view_search" model="ir.ui.view">
+        <field name="name">gradein.equipment.view.search</field>
+        <field name="model">gradein.equipment</field>
         <field name="arch" type="xml">
             <search string="Busqueda de equipos">
                 <field name="name" />
                 <field name="description" />
-            </search>
 
-            <!-- Filters -->
-            <filter name="active" string="Archivados" domain="[('active', '=', False)]" />
+                <!-- Filters -->
+                <filter name="active" string="Archivados" domain="[('active', '=', False)]" />
+            </search>
         </field>
     </record>
 
@@ -57,10 +57,10 @@
     </record>
 
     <menuitem
-        id="equipment_type_menu"
-        name="Tipos de Equipos"
-        action="action_equipment_type_model"
-        parent='services_menu'
+        id="equipment_menu"
+        name="Equipos"
+        action="action_equipment_model"
+        parent='configuration_menu'
     />
 
 </odoo>

@@ -1,19 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-      
 
-    <!--##### Top menu item ###################-->
-   
-   <menuitem
+    <menuitem
         id="services_menu"
         name="Servicios"
         web_icon="gradein,static/description/icon.png"
     />
 
-    +
-    <!-- submenu Configuracion -->
-    <menuitem name="Configuracion" id="configuration_menu" parent="service_menu"/>
-
-
+    <menuitem
+        name="Configuracion"
+        id="configuration_menu"
+        parent="services_menu"
+    />
 
 </odoo>
