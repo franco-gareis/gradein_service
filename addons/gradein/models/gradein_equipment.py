@@ -6,7 +6,7 @@ class GradeInEquipment(models.Model):
     _description = "Equipment Model"
     _rec_name = 'name'
 
-    name = fields.Char(string='Nombre', help='Name of the equipment')
+    name = fields.Char(string='Nombre', help='Name of the equipment', required=True)
     active = fields.Boolean(string='Activo', help='If the equipment is active')
     image = fields.Image(string='Imagen', verify_resolution=True, help='Image of the equipment')
     price = fields.Monetary(string='Precio', currency_field='currency_id', help='Price of the equipment')
@@ -17,7 +17,7 @@ class GradeInEquipment(models.Model):
     def create(self, vals):
         """Override the create method to ensure that the price is greater than zero"""
 
-        if vals['price'] <= float(0):
+        if vals['price'] <= 0:
             raise ValidationError("El precio tiene que ser mayor a cero")
         else:
             return super(GradeInEquipment, self).create(vals)
