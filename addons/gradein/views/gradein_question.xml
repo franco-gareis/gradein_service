@@ -1,3 +1,4 @@
+    <odoo>
     <!--####explicit list view definition ####-->
 
     <record model="ir.ui.view" id="gradein_questions_list">
@@ -38,4 +39,6 @@
       <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem name="Preguntas" id="question_menu_item" parent="configuration_menu" action="question_action_window"/>
+    <menuitem name="Preguntas" id="question_menu_item" parent="configuration_menu" action="gradein_question_action_window"/>
+
+  </odoo>
