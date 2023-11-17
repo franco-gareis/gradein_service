@@ -10,5 +10,6 @@ class EquipmentTypeModel(models.Model):
     active = fields.Boolean(string='Activo', default=False, help='If the equipment is active')
     question_ids = fields.Many2many(
         comodel_name='gradein.question', string='Preguntas',
-        help='Possible question for the equipment'
+        help='Possible question for the equipment',
+        inverse_name="equipment_type_ids"
     )
