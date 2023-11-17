@@ -12,6 +12,7 @@
         'security/ir.model.access.csv',
         'views/services_menu.xml',
         'views/equipment_type.xml',
+        'views/question.xml'
     ],
     "installable": True,
     "auto_install": False,
