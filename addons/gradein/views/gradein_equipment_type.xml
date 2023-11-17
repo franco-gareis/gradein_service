@@ -50,7 +50,7 @@
 
 
     <!-- Menu Action -->
-    <record id="action_gradein_equipment_type_model" model="ir.actions.act_window">
+    <record id="action_gradein_equipment_type" model="ir.actions.act_window">
         <field name="name">Tipos de equipos</field>
         <field name="res_model">gradein.equipment.type</field>
         <field name="view_mode">tree,form</field>
