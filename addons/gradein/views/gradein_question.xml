@@ -30,8 +30,8 @@
 
 
   <!--  opening views search model -->
-  <record id="gradein_view_search" model="ir.ui.view">
-    <field name="name">gradein.view.search</field>
+  <record id="gradein_question_view_search" model="ir.ui.view">
+    <field name="name">gradein.question.view.search</field>
     <field name="model">gradein.question</field>
     <field name="arch" type="xml">
       <search string=" buscar pregunta">  
