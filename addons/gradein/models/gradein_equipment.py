@@ -13,11 +13,9 @@ class GradeInEquipment(models.Model):
     description = fields.Text(string='Descripcion', help='Resume of the equipment')
     currency_id = fields.Many2one('res.currency', default=lambda x: x.env.company.currency_id, string='Moneda')
 
-    @api.model
-    def create(self, vals):
-        """Override the create method to ensure that the price is greater than zero"""
+    @api.constrains('price')
+    def _check_price_not_zero(self):
+        """Method validator for records so price is not zero"""
 
-        if vals['price'] <= 0:
-            raise ValidationError("El precio tiene que ser mayor a cero")
-        else:
-            return super(GradeInEquipment, self).create(vals)
+        if self.price <= float(0):
+            raise ValidationError('El precio no puede ser menor o igual a 0')
