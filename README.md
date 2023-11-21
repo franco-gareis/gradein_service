@@ -43,6 +43,9 @@ The available fields are:
 
 WARNING: The equipment price cannot be less than or equal to zero, the model includes a validator to ensure this
 
+![Equipment Form](/addons/gradein/images/equipment_form.png?raw=true)
+![Equipment Tree](/addons/gradein/images/equipment_tree.png?raw=true)
+
 ### Equipment Type Model
 
 This is a model to store all types of equipment that are being created and their information, also you can select multiple questions related to the equipment.
@@ -53,6 +56,9 @@ The available fields are:
 - Image, Equipment image
 - Active, Whether the equipment is still active to generate an order
 - Questions, Questions related to the equipment to generate the order
+
+![Equipment Type Form](/addons/gradein/images/equipment_type_form.png?raw=true)
+![Equipment Type Tree](/addons/gradein/images/equipment_type_tree.png?raw=true)
 
 ## Authors
 
