@@ -34,9 +34,9 @@
     <field name="name">gradein.question.view.search</field>
     <field name="model">gradein.question</field>
     <field name="arch" type="xml">
-      <search string=" buscar pregunta">  
-        <field name="name"/>
-        <filter string="Archivadas" name="activo" domain="[('active', '=',True)]"/>
+      <search string="Buscar pregunta">
+        <field name="name" />
+        <filter string="Archivadas" name="activo" domain="[('active', '=', True)]" />
       </search>
     </field>
   </record>
@@ -48,7 +48,12 @@
     <field name="view_mode">tree,form</field>
   </record>
 
-  <menuitem name="Preguntas" id="question_menu" parent="configuration_menu"
-    action="action_gradein_question" />
+  <menuitem
+    name="Preguntas"
+    id="question_menu"
+    parent="configuration_menu"
+    action="action_gradein_question"
+    sequence="4"
+  />
 
 </odoo>

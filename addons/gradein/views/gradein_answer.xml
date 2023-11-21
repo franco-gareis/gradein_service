@@ -45,6 +45,7 @@
         name="Respuestas"
         action="action_gradein_answer"
         parent="configuration_menu"
+        sequence="3"
     />
 
 </odoo>
