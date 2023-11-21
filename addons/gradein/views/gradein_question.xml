@@ -20,7 +20,7 @@
       <form>
         <group>
           <field name="name" />
-          <field name="active" />
+          <field name="active" widget="boolean_toggle" />
           <field name="equipment_type_ids" />
           <field name="answer_ids" />
         </group>

@@ -28,7 +28,7 @@
             <tree string="Respuestas posibles">
                 <field name="name" />
                 <field name="price_reduction" />
-                <field name="blocking" />
+                <field name="blocking" widget="boolean_toggle" />
             </tree>
         </field>
     </record>
