@@ -11,7 +11,7 @@
                     <group>
                         <field name="name" />
                         <field name="image" />
-                        <field name="active" />
+                        <field name="active" widget="boolean_toggle" />
                         <field name="question_ids" widget="many2many_tags" />
                     </group>
                 </sheet>
