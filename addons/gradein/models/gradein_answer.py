@@ -15,5 +15,5 @@ class GradeInAnswer(models.Model):
     price_reduction = fields.Float(string="Reduce el precio en")
     blocking = fields.Boolean(help="Cannot continue with the form", default=False, string="Respuesta bloqueante")
     active = fields.Boolean(help="Activate o desactivate", default=True, string="Activo")
-    question_id = fields.Many2one(comodel_name="gradein.question")
+    question_id = fields.Many2one(comodel_name="gradein.question", required=True)
     

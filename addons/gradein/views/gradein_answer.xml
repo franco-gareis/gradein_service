@@ -12,6 +12,7 @@
                     <widget name="web_ribbon" text="Activado" bg_color="bg-success" attrs="{'invisible': [('active', '=', False)]}" />
                     <widget name="web_ribbon" text="Archivado" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}" />
                     <group>
+                        <field name="question_id" />
                         <field name="name" />
                         <field name="active" />
                         <field name="price_reduction" />
