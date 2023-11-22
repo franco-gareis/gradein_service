@@ -82,6 +82,27 @@ The available fields are:
 ### Form
 ![Equipment Type Form](/addons/gradein/images/gradein_answer/gradein_answer_view_form.png?raw=true)
 
+# GradeIn questions
+
+### Model
+
+The class GradeInQuestion is an Odoo model representing survey questions. It has the following fields:
+
+    name: A Char field representing the question's name.
+    active: A Boolean field indicating if the question is active.
+    equipment_type_ids: A Many2many field representing the associated equipment types.
+    answer_ids: A One2many field representing the possible answers associated with the question.
+
+## Images
+
+### Menu
+![Question Type Form](/addons/gradein/images/gradein_question/gradein_question_form.png?raw=true)
+### List
+![Question Type List](/addons/gradein/images/gradein_answer/gradein_question_list.png?raw=true)
+### Form
+![Question Type Search](/addons/gradein/images/gradein_answer/gradein_question_search.png?raw=true)
+
+
 ## Authors
 
 Contributors names
@@ -89,3 +110,4 @@ Contributors names
 Ariel Montenegro
 Yamil Ferrufino
 Franco Gareis
+

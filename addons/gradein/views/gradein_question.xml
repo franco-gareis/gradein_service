@@ -36,7 +36,7 @@
     <field name="arch" type="xml">
       <search string=" buscar pregunta">  
         <field name="name"/>
-        <filter string="Archivadas" name="activo" domain="[('active', '=',True)]"/>
+        <filter string="Archivadas" name="activo" domain="[('active', '=',False)]"/>
       </search>
     </field>
   </record>
