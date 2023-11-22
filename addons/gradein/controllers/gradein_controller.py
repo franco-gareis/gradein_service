@@ -32,3 +32,13 @@ class GradeInController(http.Controller):
             return request.make_response(data, headers=HEADERS)
         else:
             return request.not_found()
+    
+    @route(["/gradein/answers/","/gradein/questions/"], auth="api_key")
+    
+    def get_gradein_answer(self):
+        answers = request.env["gradein.answer"].sudo().search([])
+        data = json.dumps({'answers':1})
+        
+        return request.make_response(data, headers=HEADERS)
+        
+        # 5e71a3b7ae439318fb49d143de3d1e1f867e2fc9
