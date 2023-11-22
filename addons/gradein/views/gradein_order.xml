@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Menu Action -->
+    <record id="gradein_order_action" model="ir.actions.act_window">
+        <field name="name">Ordenes de GradeIn</field>
+        <field name="res_model">gradein.order</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="gradein_order_menu"
+        name="Ordenes de GradeIn"
+        action="gradein_order_action"
+        parent="configuration_menu"
+        sequence="1"
+    />
+
+</odoo>
