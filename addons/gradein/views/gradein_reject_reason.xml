@@ -42,7 +42,7 @@
 
   <!-- actions opening views on models -->
   <record model="ir.actions.act_window" id="action_gradein_reject_reason">
-    <field name="name">action.gradein.reject.reason</field>
+    <field name="name">Motivo de rechazo</field>
     <field name="res_model">gradein.reject.reason</field>
     <field name="view_mode">tree,form</field>
   </record>
