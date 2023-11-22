@@ -60,6 +60,28 @@ The available fields are:
 ![Equipment Type Form](/addons/gradein/images/equipment_type_form.png?raw=true)
 ![Equipment Type Tree](/addons/gradein/images/equipment_type_tree.png?raw=true)
 
+## GradeIn Answer
+
+### Model
+
+The functionality of this model is to create selectable answers for a question.
+
+The available fields are:
+
+- Name, Answer name.
+- Price reduction, Price to be deducted from the total budget.
+- Blocking, If true, the form is blocked.
+- Active, If the answer is active to be assigned to a question.
+
+## Images
+
+### Menu
+![Equipment Type Form](/addons/gradein/images/gradein_answer/gradein_answer_menu.png?raw=true)
+### List
+![Equipment Type Form](/addons/gradein/images/gradein_answer/gradein_answer_view_tree.png?raw=true)
+### Form
+![Equipment Type Form](/addons/gradein/images/gradein_answer/gradein_answer_view_form.png?raw=true)
+
 ## Authors
 
 Contributors names
