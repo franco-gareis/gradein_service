@@ -98,9 +98,9 @@ The class GradeInQuestion is an Odoo model representing survey questions. It has
 ### Menu
 ![Question Type Form](/addons/gradein/images/gradein_question/gradein_question_form.png?raw=true)
 ### List
-![Question Type List](/addons/gradein/images/gradein_answer/gradein_question_list.png?raw=true)
+![Question Type List](/addons/gradein/images/gradein_question/gradein_question_list.png?raw=true)
 ### Form
-![Question Type Search](/addons/gradein/images/gradein_answer/gradein_question_search.png?raw=true)
+![Question Type Search](/addons/gradein/images/gradein_question/gradein_question_search.png?raw=true)
 
 
 ## Authors
