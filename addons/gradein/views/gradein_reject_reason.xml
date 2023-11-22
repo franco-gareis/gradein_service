@@ -1,0 +1,53 @@
+<odoo>
+
+      <!--#### explicit list view definition ####-->
+  <record model="ir.ui.view" id="gradein_reject_reason_view_tree">
+    <field name="name">gradein.reject.reason.view.tree</field>
+    <field name="model">gradein.reject.reason</field>
+    <field name="arch" type="xml">
+      <tree>
+        <field name="name" />
+        <field name="active" />
+      </tree>
+    </field>
+  </record>
+
+      <!--######### Forms views ###################-->
+  <record model="ir.ui.view" id="gradein_reject_reason_view_form">
+    <field name="name">gradein.reject_reason.view.form</field>
+    <field name="model">gradein.reject.reason</field>
+    <field name="arch" type="xml">
+      <form>
+        <sheet>
+        <group>
+          <field name="name" />
+          <field name="active" />
+        </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+  <!--  opening views search model -->
+  <record id="gradein_reject_reason_view_search" model="ir.ui.view">
+    <field name="name">gradein.reject.reason.view.search</field>
+    <field name="model">gradein.reject.reason</field>
+    <field name="arch" type="xml">
+      <search string=" buscar motivo de rechazo">  
+        <field name="name"/>
+        <filter string="Archivadas" name="activo" domain="[('active', '=',False)]"/>
+      </search>
+    </field>
+  </record>
+
+  <!-- actions opening views on models -->
+  <record model="ir.actions.act_window" id="action_gradein_reject_reason">
+    <field name="name">action.gradein.reject.reason</field>
+    <field name="res_model">gradein.reject.reason</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+
+<menuitem name="Motivos de rechazo" id="reject_reason_menu" parent="configuration_menu"
+action="action_gradein_reject_reason" />
+
+</odoo>
