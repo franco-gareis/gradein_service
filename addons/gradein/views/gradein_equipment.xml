@@ -8,6 +8,8 @@
         <field name="arch" type="xml">
             <form string="Formulario de equipos">
                 <sheet>
+                    <widget name="web_ribbon" text="Activado" bg_color="bg-success" attrs="{'invisible': [('active', '=', False)]}" />
+                    <widget name="web_ribbon" text="Archivado" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}" />
                     <group>
                         <field name="name" />
                         <field name="image" />
@@ -15,6 +17,7 @@
                         <field name="currency_id" />
                         <field name="price" />
                         <field name="description" />
+                        <field name="image" widget="image" />
                     </group>
                 </sheet>
             </form>

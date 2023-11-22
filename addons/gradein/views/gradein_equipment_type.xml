@@ -8,11 +8,13 @@
         <field name="arch" type="xml">
             <form string="Nuevo tipo de equipo">
                 <sheet>
+                    <widget name="web_ribbon" text="Activado" bg_color="bg-success" attrs="{'invisible': [('active', '=', False)]}" />
+                    <widget name="web_ribbon" text="Archivado" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}" />
                     <group>
                         <field name="name" />
-                        <field name="image" />
                         <field name="active" widget="boolean_toggle" />
                         <field name="question_ids" widget="many2many_tags" />
+                        <field name="image" widget="image"/>
                     </group>
                 </sheet>
             </form>
