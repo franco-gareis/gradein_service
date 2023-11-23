@@ -18,12 +18,14 @@
     <field name="model">gradein.question</field>
     <field name="arch" type="xml">
       <form>
+        <sheet>
         <group>
           <field name="name" />
           <field name="active" widget="boolean_toggle" />
           <field name="equipment_type_ids" />
           <field name="answer_ids" />
         </group>
+      </sheet>
       </form>
     </field>
   </record>
