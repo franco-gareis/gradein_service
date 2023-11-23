@@ -11,8 +11,8 @@
                     <group>
                         <field name="name" />
                         <field name="image" />
-                        <field name="active" />
-                        <field name="question_ids" />
+                        <field name="active" widget="boolean_toggle" />
+                        <field name="question_ids" widget="many2many_tags" />
                     </group>
                 </sheet>
             </form>
@@ -61,6 +61,7 @@
         name="Tipos de Equipos"
         action="action_gradein_equipment_type"
         parent="configuration_menu"
+        sequence="2"
     />
 
 </odoo>
