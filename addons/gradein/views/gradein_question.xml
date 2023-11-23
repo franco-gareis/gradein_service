@@ -18,12 +18,14 @@
     <field name="model">gradein.question</field>
     <field name="arch" type="xml">
       <form>
+        <sheet>
         <group>
           <field name="name" />
-          <field name="active" />
+          <field name="active" widget="boolean_toggle" />
           <field name="equipment_type_ids" />
           <field name="answer_ids" />
         </group>
+      </sheet>
       </form>
     </field>
   </record>
@@ -36,7 +38,7 @@
     <field name="arch" type="xml">
       <search string=" buscar pregunta">  
         <field name="name"/>
-        <filter string="Archivadas" name="activo" domain="[('active', '=',False)]"/>
+        <filter string="Archivadas" name="activo" domain="[('active', '=', False)]"/>
       </search>
     </field>
   </record>
@@ -48,7 +50,12 @@
     <field name="view_mode">tree,form</field>
   </record>
 
-  <menuitem name="Preguntas" id="question_menu" parent="configuration_menu"
-    action="action_gradein_question" />
+  <menuitem
+    name="Preguntas"
+    id="question_menu"
+    parent="configuration_menu"
+    action="action_gradein_question"
+    sequence="4"
+  />
 
 </odoo>

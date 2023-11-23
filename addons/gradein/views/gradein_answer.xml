@@ -14,9 +14,9 @@
                     <group>
                         <field name="question_id" />
                         <field name="name" />
-                        <field name="active" />
+                        <field name="active" widget="boolean_toggle" />
                         <field name="price_reduction" />
-                        <field name="blocking" />
+                        <field name="blocking" widget="boolean_toggle" />
                     </group>
                 </sheet>
             </form>
@@ -29,10 +29,27 @@
         <field name="model">gradein.answer</field>
         <field name="arch" type="xml">
             <tree string="Respuestas posibles">
+                <field name="question_id" />
                 <field name="name" />
                 <field name="price_reduction" />
-                <field name="blocking" />
+                <field name="blocking" widget="boolean_toggle" />
             </tree>
+        </field>
+    </record>
+
+    <!-- Search -->
+    <record id="gradein_answer_view_search" model="ir.ui.view">
+        <field name="name">gradein.answer.view.search</field>
+        <field name="model">gradein.answer</field>
+        <field name="arch" type="xml">
+            <search string="Busqueda de respuestas">
+                <field name="name" />
+
+                <!-- Filters -->
+                <filter name="active" string="Archivados" domain="[('active', '=', False)]" />
+                <filter name="blocking" string="Bloqueantes" domain="[('blocking', '=', True)]" />
+                <filter name="blocking" string="No bloqueantes" domain="[('blocking', '=', False)]" />
+            </search>
         </field>
     </record>
 
@@ -48,6 +65,7 @@
         name="Respuestas"
         action="action_gradein_answer"
         parent="configuration_menu"
+        sequence="3"
     />
 
 </odoo>
