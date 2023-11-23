@@ -1,8 +1,8 @@
-from odoo import fields, models
-
+from odoo import fields, models, api
+from odoo.exceptions import ValidationError
 
 class GradeInAnswer(models.Model):
-    """Questions for gradein form, 
+    """Answers for gradein form, 
     if you select "blocking" you 
     cannot continue the form
     Args:
@@ -16,4 +16,13 @@ class GradeInAnswer(models.Model):
     blocking = fields.Boolean(help="Cannot continue with the form", default=False, string="Respuesta bloqueante")
     active = fields.Boolean(help="Activate o desactivate", default=True)
     question_id = fields.Many2one(comodel_name="gradein.question", string="Pregunta")
+    
+
+    @api.constrains('price_reduction')
+    def _validate_price_reduction_not_negative(self):
+        """Validator method so that the price reduction is not negative"""
+
+        if self.price_reduction < 0:
+            raise ValidationError('El precio a reducir no puede ser negativo')    
+
     
