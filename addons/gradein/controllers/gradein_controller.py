@@ -25,7 +25,7 @@ class GradeInController(http.Controller):
         )
         return data
 
-    @route("/gradein/questions/", type="http", auth="public", methods=["GET"])
+    @route("/gradein/questions/", type="http", auth="api_key", methods=["GET"])
     def get_gradein_questions(self):
 
         equipment_type_id = request.params.get("equipment_type_id")
