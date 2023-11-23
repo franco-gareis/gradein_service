@@ -15,7 +15,7 @@ class GradeInAnswer(models.Model):
     price_reduction = fields.Float(string="Reduce el precio en")
     blocking = fields.Boolean(help="Cannot continue with the form", default=False, string="Respuesta bloqueante")
     active = fields.Boolean(help="Activate o desactivate", default=True)
-    question_id = fields.Many2one(comodel_name="gradein.question")
+    question_id = fields.Many2one(comodel_name="gradein.question", string="Pregunta")
     
 
     @api.constrains('price_reduction')
@@ -24,3 +24,5 @@ class GradeInAnswer(models.Model):
 
         if self.price_reduction < 0:
             raise ValidationError('El precio a reducir no puede ser negativo')    
+
+    
