@@ -18,12 +18,16 @@
     <field name="model">gradein.question</field>
     <field name="arch" type="xml">
       <form>
+        <sheet>
+          <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active','=','True')]}"/>
+          <widget name="web_ribbon" title="Archived" bg_color="bg-success" attrs="{'invisible': [('active','=','False')]}"/>
         <group>
           <field name="name" />
           <field name="active" />
           <field name="equipment_type_ids" />
           <field name="answer_ids" />
         </group>
+      </sheet>
       </form>
     </field>
   </record>
