@@ -24,7 +24,7 @@
           <widget name="web_ribbon" title="Archived" bg_color="bg-success" attrs="{'invisible': [('active','=','False')]}"/>
         <group>
           <field name="name" />
-          <field name="active" />
+          <field name="active" widget="boolean_toggle"/>
           <field name="equipment_type_ids" />
           <field name="answer_ids" />
         </group>
@@ -54,6 +54,6 @@
   </record>
 
   <menuitem name="Preguntas" id="question_menu" parent="configuration_menu"
-    action="action_gradein_question" />
+    action="action_gradein_question" sequence="4"/>
 
 </odoo>
