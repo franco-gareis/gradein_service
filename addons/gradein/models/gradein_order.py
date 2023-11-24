@@ -51,9 +51,9 @@ class GradeInOrder(models.Model):
 
 
     @api.model
-    def create(self, vals):
-        if vals.get('name', ('New')) == ('New'):
-            vals['name'] = self.env['ir.sequence'].next_by_code(
+    def create(self, vals_list):
+        if vals_list.get('name', ('New')) == ('New'):
+            vals_list['name'] = self.env['ir.sequence'].next_by_code(
                 'gradein.order.name') or ('New')
-        res = super(GradeInOrder, self).create(vals)
+        res = super().create(vals_list)
         return res
