@@ -12,6 +12,7 @@
                     <widget name="web_ribbon" text="Archivado" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}" />
                     <group>
                         <field name="name" />
+                        <field name="equipment_type_id"/>
                         <field name="active" widget="boolean_toggle" />
                         <field name="currency_id" />
                         <field name="price" />

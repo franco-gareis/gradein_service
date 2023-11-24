@@ -6,7 +6,11 @@ class GradeInEquipmentType(models.Model):
     _description = "Equipment type model"
     _rec_name = "name"
 
-    name = fields.Char(string="Nombre", required=True, help="Name of the equipment")
+    name = fields.Char(
+        string="Nombre",
+        help="Name of the equipment",
+        required=True
+    )
     image = fields.Image(
         string="Imagen",
         verify_resolution=True,
@@ -16,8 +20,8 @@ class GradeInEquipmentType(models.Model):
     active = fields.Boolean(
         string="Activo",
         default=True,
-        help="If the equipment is active",
-        required=True
+        required=True,
+        help="If the equipment is active"
     )
     question_ids = fields.Many2many(
         comodel_name="gradein.question",
