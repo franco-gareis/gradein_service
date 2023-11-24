@@ -1,5 +1,6 @@
-from datetime import datetime
-from odoo import fields, models
+from datetime import datetime,timedelta
+from odoo import fields, models,api
+from odoo.exceptions import ValidationError
 
 
 class GradeInOrder(models.Model):
@@ -48,3 +49,16 @@ class GradeInOrder(models.Model):
         string="Respuestas",
         required=True,
     )
+    
+    @api.constrains("partner_id")
+    def validate_order_user (self):
+        
+        for record in self:
+            days_diff = datetime.today() - timedelta(days=30)
+            today = datetime.today()
+            result = self.env["gradein.order"].search_count([('partner_id','=',record.partner_id.id),('date','>',days_diff),('date','<=',today)])
+            if result > int (self.env['ir.config_parameter'].sudo().get_param('max_orders')):
+                raise ValidationError('El usuario cargo varias ordenes en un periodo de 30 dias')
+
+
+        
