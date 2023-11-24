@@ -41,5 +41,6 @@ class GradeInEquipment(models.Model):
     def _check_price_not_zero(self):
         """Method validator for records so price is not zero"""
 
-        if self.price <= 0:
-            raise ValidationError('El precio no puede ser menor o igual a 0')
+        for record in self:
+            if record.price <= 0:
+                raise ValidationError('El precio no puede ser menor o igual a 0')

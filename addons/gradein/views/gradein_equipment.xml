@@ -64,6 +64,7 @@
         action="action_gradein_equipment"
         parent="configuration_menu"
         sequence="1"
+        groups="gradein.group_admin_service"
     />
 
 </odoo>
