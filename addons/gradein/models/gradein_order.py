@@ -17,8 +17,9 @@ class GradeInOrder(models.Model):
         string="Equipo",
         help="Equipment of the order"
     )
-    image_ids = fields.Many2many(
+    image_id = fields.One2many(
         comodel_name="gradein.images",
+        inverse_name="order_id",
         string="Imagenes",
         help="Images the of the equipment",
     )

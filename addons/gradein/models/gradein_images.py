@@ -10,3 +10,7 @@ class GradeInImages(models.Model):
         verify_resolution=True,
         help="Image from the equipment"
     )
+    order_id = fields.Many2one(
+        comodel_name="gradein.order",
+        help="Order ID wich is linked to"
+    )
