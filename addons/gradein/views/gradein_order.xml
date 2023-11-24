@@ -43,11 +43,16 @@
             <tree string="Ordenes">
                 <field name="name" />
                 <field name="date" />
-                <field name="state" />
+                <field name="state"
+                    widget="badge"
+                    decoration-info="state == 'draft'"
+                    decoration-success="state == 'confirmed'"
+                    decoration-danger="state == 'rejected'"
+                />
                 <field name="equipment_id" />
                 <field name="imei" />
                 <field name="partner_id" />
-                <field name="reject_motive_id" />
+                <field name="reject_motive_id" attrs="{'invisible': [('state', '!=', 'rejected')]}" />
                 <field name="price" />
             </tree>
         </field>
@@ -92,6 +97,7 @@
         name="Ordenes de GradeIn"
         action="gradein_order_action"
         parent="configuration_menu"
+        groups="gradein.group_seller_service"
         sequence="1"
     />
 
