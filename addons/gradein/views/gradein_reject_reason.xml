@@ -19,8 +19,8 @@
     <field name="arch" type="xml">
       <form>
         <sheet>
-            <widget name="web_ribbon" title="Archivado" bg_color="bg-danger" attrs="{'invisible': [('active','=','False')]}"/>
-            <widget name="web_ribbon" title="Activo" bg_color="bg-success" attrs="{'invisible': [('active','=','True')]}"/>
+            <widget name="web_ribbon" text="Archivado" bg_color="bg-danger" attrs="{'invisible': [('active','=','False')]}"/>
+            <widget name="web_ribbon" text="Activo" bg_color="bg-success" attrs="{'invisible': [('active','=','True')]}"/>
         <group>
           <field name="name" />
           <field name="active" widget="boolean_toggle"/>
