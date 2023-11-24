@@ -4,11 +4,15 @@
     <menuitem
         id="services_menu"
         name="Servicios"
-        web_icon="gradein,static/description/odoo_icon.png" />
+        web_icon="gradein,static/description/odoo_icon.png"
+        groups="gradein.group_seller_service"
+    />
 
     <menuitem
         name="Configuracion"
         id="configuration_menu"
-        parent="services_menu" />
+        parent="services_menu"
+        groups="gradein.group_admin_service"
+    />
 
 </odoo>
