@@ -6,7 +6,7 @@ class GradeInOrder(models.Model):
     _name = "gradein.order"
     _description = "GradeIn Order"
 
-    name = fields.Char(string="Nombre", help="Name of the order", required=True, default=lambda self: _('New'))
+    name = fields.Char(string="Nombre", help="Name of the order", required=True, default=lambda self: ('New'))
     date = fields.Date(default=datetime.today(), required=True)
     state = fields.Selection(
         [("draft", "Borrador"), ("confirmed", "Confirmado"), ("rejected", "Rechazado")],
@@ -52,8 +52,8 @@ class GradeInOrder(models.Model):
 
     @api.model
     def create(self, vals):
-        if vals.get('name', _('New')) == _('New'):
+        if vals.get('name', ('New')) == ('New'):
             vals['name'] = self.env['ir.sequence'].next_by_code(
-                'gradein.order.name') or _('New')
+                'gradein.order.name') or ('New')
         res = super(GradeInOrder, self).create(vals)
         return res
