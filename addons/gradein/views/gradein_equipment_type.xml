@@ -63,6 +63,7 @@
         name="Tipos de Equipos"
         action="action_gradein_equipment_type"
         parent="configuration_menu"
+        groups="gradein.group_admin_service"
         sequence="2"
     />
 
