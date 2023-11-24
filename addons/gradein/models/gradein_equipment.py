@@ -26,6 +26,11 @@ class GradeInEquipment(models.Model):
         help="Price of the equipment",
         required=True,
     )
+    equipment_type_id = fields.Many2one(
+        comodel_name="gradein.equipment.type",
+        string="Tipo de equipo",
+        help="Wich type is the equipment"
+    )
     description = fields.Text(
         string="Descripcion", help="Resume of the equipment", required=True
     )
