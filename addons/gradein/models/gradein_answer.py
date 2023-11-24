@@ -20,8 +20,9 @@ class GradeInAnswer(models.Model):
     @api.constrains('price_reduction')
     def _validate_price_reduction_not_negative(self):
         """Validator method so that the price reduction is not negative"""
-
-        if self.price_reduction < 0:
-            raise ValidationError('El precio a reducir no puede ser negativo')    
+        
+        for record in self:
+            if record.price_reduction < 0:
+                raise ValidationError('El precio a reducir no puede ser negativo')
 
     
