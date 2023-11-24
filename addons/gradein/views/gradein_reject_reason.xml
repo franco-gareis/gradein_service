@@ -20,10 +20,12 @@
     <field name="arch" type="xml">
       <form>
         <sheet>
-          <widget name="web_ribbon" text="Activado" bg_color="bg-success" attrs="{'invisible': [('active', '=', False)]}" />
-          <widget name="web_ribbon" text="Archivado" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}" />
+          <widget name="web_ribbon" text="Activado" bg_color="bg-success"
+            attrs="{'invisible': [('active', '=', False)]}" />
+          <widget name="web_ribbon" text="Archivado" bg_color="bg-danger"
+            attrs="{'invisible': [('active', '=', True)]}" />
           <group>
-            <field name="active" widget="boolean_toggle" />            
+            <field name="active" widget="boolean_toggle" />
             <field name="name" />
           </group>
         </sheet>
