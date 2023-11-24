@@ -35,6 +35,24 @@
         </field>
     </record>
 
+    <!-- Tree View-->
+    <record id="gradein_order_view_tree" model="ir.ui.view">
+        <field name="name">gradein.order.view.tree</field>
+        <field name="model">gradein.order</field>
+        <field name="arch" type="xml">
+            <tree string="Ordenes">
+                <field name="name" />
+                <field name="date" />
+                <field name="state" />
+                <field name="equipment_id" />
+                <field name="imei" />
+                <field name="partner_id" />
+                <field name="reject_motive_id" />
+                <field name="price" />
+            </tree>
+        </field>
+    </record>
+
     <!-- Menu Action -->
     <record id="gradein_order_action" model="ir.actions.act_window">
         <field name="name">Ordenes de GradeIn</field>
