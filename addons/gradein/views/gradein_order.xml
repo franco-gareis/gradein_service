@@ -1,6 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
+    <!-- Form View -->
+    <record id="gradein_order_view_form" model="ir.ui.view">
+        <field name="name">gradein.order.view.form</field>
+        <field name="model">gradein.order</field>
+        <field name="arch" type="xml">
+            <form string="Ordenes">
+                <sheet>
+                    <group>
+                        <field name="name" />
+                        <field name="date" />
+                        <field name="state" />
+                        <field name="equipment_id" />
+                        <field name="partner_id" />
+                        <field name="imei" />
+                        <field name="price" />
+                        <field name="reject_motive_id" attrs="{'invisible': [('state', '!=', 'rejected')]}"/>
+                        <field name="review" />
+                        <field name="image_id" >
+                            <tree editable="bottom">
+                                <field name="image"/>
+                            </tree>
+                        </field>
+                        <field name="question_answer_id">
+                            <tree editable="bottom">
+                                <field name="question_id"/>
+                                <field name="answer_id"/>
+                            </tree>
+                        </field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
     <!-- Menu Action -->
     <record id="gradein_order_action" model="ir.actions.act_window">
         <field name="name">Ordenes de GradeIn</field>
