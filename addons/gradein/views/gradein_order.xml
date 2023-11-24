@@ -53,6 +53,33 @@
         </field>
     </record>
 
+    <!-- Search View -->
+    <record id="gradein_order_view_search" model="ir.ui.view">
+        <field name="name">gradein.order.view.search</field>
+        <field name="model">gradein.order</field>
+        <field name="arch" type="xml">
+            <!-- Search -->
+            <search string="Busqueda de campos">
+                <field name="name" />
+                <field name="date" />
+                <field name="imei" />
+                <field name="equipment_id" />
+
+                <!-- Filters -->
+                <filter name="state" string="Estado: Borrador" domain="[('state', '=', 'draft')]"/>
+                <filter name="state" string="Estado: Confirmado" domain="[('state', '=', 'confirmed')]"/>
+                <filter name="state" string="Estado: Rechazado" domain="[('state', '=', 'rejected')]"/>
+
+                <!-- Group by -->
+                <group expand="1" string="Filtro agrupadores">
+                    <filter string="Equipos" name="Equipos" context="{'group_by': 'equipment_id'}"/>
+                    <filter string="Motivo de rechazo" name="Motivo de rechazo" context="{'group_by': 'reject_motive_id'}"/>
+                </group>
+
+            </search>
+        </field>
+    </record>
+
     <!-- Menu Action -->
     <record id="gradein_order_action" model="ir.actions.act_window">
         <field name="name">Ordenes de GradeIn</field>
