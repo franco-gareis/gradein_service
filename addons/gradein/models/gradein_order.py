@@ -1,12 +1,12 @@
 from datetime import datetime
-from odoo import fields, models
+from odoo import fields, models, api
 
 
 class GradeInOrder(models.Model):
     _name = "gradein.order"
     _description = "GradeIn Order"
 
-    name = fields.Char(string="Nombre", help="Name of the order", required=True)
+    name = fields.Char(string="Nombre", help="Name of the order", required=True, default=lambda self: _('New'))
     date = fields.Date(default=datetime.today(), required=True)
     state = fields.Selection(
         [("draft", "Borrador"), ("confirmed", "Confirmado"), ("rejected", "Rechazado")],
@@ -48,3 +48,12 @@ class GradeInOrder(models.Model):
         string="Respuestas",
         required=True,
     )
+
+
+    @api.model
+    def create(self, vals):
+        if vals.get('name', _('New')) == _('New'):
+            vals['name'] = self.env['ir.sequence'].next_by_code(
+                'gradein.order.name') or _('New')
+        res = super(GradeInOrder, self).create(vals)
+        return res
