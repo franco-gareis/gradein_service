@@ -16,4 +16,93 @@
         sequence="1"
     />
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    <record id="seq_gradein_order" model="ir.sequence">
+        <field name="name">Graderin Order Name</field>
+        <field name="code">gradein.order.name</field>
+        <field name="prefix">GRAD/</field>
+        <field name="padding">6</field>
+        <field name="company_id" eval="False"/>
+    </record>
 </odoo>
