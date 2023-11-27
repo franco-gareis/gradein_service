@@ -1,5 +1,5 @@
 from datetime import datetime
-from odoo import fields, models
+from odoo import fields, models, api
 
 
 class GradeInOrder(models.Model):
@@ -10,7 +10,8 @@ class GradeInOrder(models.Model):
         string="Nombre",
         required=True,
         help="Name of the order",
-        readonly=True
+        readonly=True,
+        default=lambda self: ('New')
     )
     date = fields.Date(default=datetime.today(), required=True)
     state = fields.Selection(
@@ -53,3 +54,12 @@ class GradeInOrder(models.Model):
         string="Respuestas",
         required=True,
     )
+
+
+    @api.model
+    def create(self, vals_list):
+        if vals_list.get('name', ('New')) == ('New'):
+            vals_list['name'] = self.env['ir.sequence'].next_by_code(
+                'gradein.order.name') or ('New')
+        res = super().create(vals_list)
+        return res
