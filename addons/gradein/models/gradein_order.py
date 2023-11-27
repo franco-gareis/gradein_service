@@ -1,7 +1,10 @@
 from datetime import datetime,timedelta
 from odoo.exceptions import ValidationError
-from odoo import fields, models, api
+from odoo import fields, models,api
 
+import logging
+
+#_logger = logging.getLogger(__name__)
 
 class GradeInOrder(models.Model):
     _name = "gradein.order"
@@ -55,6 +58,9 @@ class GradeInOrder(models.Model):
         string="Respuestas",
         required=True,
     )
+    
+
+            
     
     @api.constrains("partner_id")
     def validate_order_user (self):
