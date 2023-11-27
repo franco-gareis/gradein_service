@@ -15,6 +15,7 @@
                         <field name="equipment_id" widget="selection" />
                         <field name="partner_id" widget="selection" />
                         <field name="imei" />
+                        <field name="currency_id" />
                         <field name="price" />
                         <field name="reject_motive_id"
                             attrs="{'invisible': [('state', '!=', 'rejected')]}" />

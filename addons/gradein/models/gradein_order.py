@@ -45,15 +45,24 @@ class GradeInOrder(models.Model):
     partner_id = fields.Many2one(
         comodel_name="res.partner", string="Cliente", required=True
     )
-    price = fields.Float(
-        string="Importe a pagar", help="Price that client will pay", required=True
+    
+    price = fields.Monetary(
+        string="Precio",
+        currency_field="currency_id",
+        help="Price of the equipment",
+        required=True,
     )
+    
+    currency_id = fields.Many2one(
+        related = "equipment_id.currency_id"        
+    )        
     question_answer_id = fields.One2many(
         comodel_name="gradein.question.answer",
         inverse_name="order_id",
         string="Respuestas",
         required=True,
     )
+
 
 
     @api.model
@@ -63,3 +72,4 @@ class GradeInOrder(models.Model):
                 'gradein.order.name') or ('New')
         res = super().create(vals_list)
         return res
+
