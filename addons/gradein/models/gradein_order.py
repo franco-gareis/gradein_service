@@ -1,11 +1,6 @@
-<<<<<<< HEAD
 from datetime import datetime,timedelta
-from odoo import fields, models,api
 from odoo.exceptions import ValidationError
-=======
-from datetime import datetime
 from odoo import fields, models, api
->>>>>>> b1e1a175d7d27d9604463079598a54e43b4c70aa
 
 
 class GradeInOrder(models.Model):
