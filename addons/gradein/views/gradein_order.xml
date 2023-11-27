@@ -16,17 +16,18 @@
                         <field name="partner_id" widget="selection" />
                         <field name="imei" />
                         <field name="price" />
-                        <field name="reject_motive_id" attrs="{'invisible': [('state', '!=', 'rejected')]}" />
+                        <field name="reject_motive_id"
+                            attrs="{'invisible': [('state', '!=', 'rejected')]}" />
                         <field name="review" />
-                        <field name="image_id" >
+                        <field name="image_id">
                             <tree editable="bottom">
                                 <field name="image" widget="image" />
                             </tree>
                         </field>
                         <field name="question_answer_id">
                             <tree editable="bottom">
-                                <field name="question_id"/>
-                                <field name="answer_id"/>
+                                <field name="question_id" />
+                                <field name="answer_id" />
                             </tree>
                         </field>
                     </group>
@@ -52,7 +53,7 @@
                 <field name="equipment_id" />
                 <field name="imei" />
                 <field name="partner_id" widget="many2one_avatar_user" optional="show" />
-                <field name="reject_motive_id"/>
+                <field name="reject_motive_id" />
                 <field name="price" />
             </tree>
         </field>
@@ -71,14 +72,17 @@
                 <field name="equipment_id" />
 
                 <!-- Filters -->
-                <filter name="state" string="Estado: Borrador" domain="[('state', '=', 'draft')]"/>
-                <filter name="state" string="Estado: Confirmado" domain="[('state', '=', 'confirmed')]"/>
-                <filter name="state" string="Estado: Rechazado" domain="[('state', '=', 'rejected')]"/>
+                <filter name="state" string="Estado: Borrador" domain="[('state', '=', 'draft')]" />
+                <filter name="state" string="Estado: Confirmado"
+                    domain="[('state', '=', 'confirmed')]" />
+                <filter name="state" string="Estado: Rechazado"
+                    domain="[('state', '=', 'rejected')]" />
 
                 <!-- Group by -->
                 <group expand="1" string="Filtro agrupadores">
-                    <filter string="Equipos" name="Equipos" context="{'group_by': 'equipment_id'}"/>
-                    <filter string="Motivo de rechazo" name="Motivo de rechazo" context="{'group_by': 'reject_motive_id'}"/>
+                    <filter string="Equipos" name="Equipos" context="{'group_by': 'equipment_id'}" />
+                    <filter string="Motivo de rechazo" name="Motivo de rechazo"
+                        context="{'group_by': 'reject_motive_id'}" />
                 </group>
 
             </search>
@@ -101,93 +105,11 @@
         sequence="1"
     />
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
     <record id="seq_gradein_order" model="ir.sequence">
         <field name="name">Graderin Order Name</field>
         <field name="code">gradein.order.name</field>
         <field name="prefix">GRAD/</field>
         <field name="padding">6</field>
-        <field name="company_id" eval="False"/>
+        <field name="company_id" eval="False" />
     </record>
 </odoo>
