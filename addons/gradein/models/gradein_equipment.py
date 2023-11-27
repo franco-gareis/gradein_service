@@ -1,7 +1,5 @@
 from odoo import fields, models, api
 from odoo.exceptions import ValidationError
-
-
 class GradeInEquipment(models.Model):
     _name = "gradein.equipment"
     _description = "Equipment Model"

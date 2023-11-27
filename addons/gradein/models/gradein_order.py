@@ -1,5 +1,6 @@
 from datetime import datetime
 from odoo import fields, models, api
+from odoo.exceptions import ValidationError
 
 
 class GradeInOrder(models.Model):
@@ -54,7 +55,14 @@ class GradeInOrder(models.Model):
         string="Respuestas",
         required=True,
     )
-
+    
+    @api.constrains("question_answer_id")
+    def validate_answers(self):
+        
+        questions_answers = self.question_answer_id
+        for record in questions_answers:
+            if record.answer_id.blocking == True:
+                raise ValidationError('Se ha ingresado una respuesta bloqueante, usted no puede continuar con la orden')
 
     @api.model
     def create(self, vals_list):
