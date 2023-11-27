@@ -6,7 +6,13 @@ class GradeInOrder(models.Model):
     _name = "gradein.order"
     _description = "GradeIn Order"
 
-    name = fields.Char(string="Nombre", help="Name of the order", required=True, default=lambda self: ('New'))
+    name = fields.Char(
+        string="Nombre",
+        required=True,
+        help="Name of the order",
+        readonly=True,
+        default=lambda self: ('New')
+    )
     date = fields.Date(default=datetime.today(), required=True)
     state = fields.Selection(
         [("draft", "Borrador"), ("confirmed", "Confirmado"), ("rejected", "Rechazado")],

@@ -1,6 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
+    <!-- Form View -->
+    <record id="gradein_order_view_form" model="ir.ui.view">
+        <field name="name">gradein.order.view.form</field>
+        <field name="model">gradein.order</field>
+        <field name="arch" type="xml">
+            <form string="Ordenes">
+                <sheet>
+                    <group>
+                        <field name="name" />
+                        <field name="date" />
+                        <field name="state" />
+                        <field name="equipment_id" widget="selection" />
+                        <field name="partner_id" widget="selection" />
+                        <field name="imei" />
+                        <field name="price" />
+                        <field name="reject_motive_id" attrs="{'invisible': [('state', '!=', 'rejected')]}" />
+                        <field name="review" />
+                        <field name="image_id" >
+                            <tree editable="bottom">
+                                <field name="image" widget="image" />
+                            </tree>
+                        </field>
+                        <field name="question_answer_id">
+                            <tree editable="bottom">
+                                <field name="question_id"/>
+                                <field name="answer_id"/>
+                            </tree>
+                        </field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Tree View-->
+    <record id="gradein_order_view_tree" model="ir.ui.view">
+        <field name="name">gradein.order.view.tree</field>
+        <field name="model">gradein.order</field>
+        <field name="arch" type="xml">
+            <tree string="Ordenes">
+                <field name="name" />
+                <field name="date" />
+                <field name="state"
+                    widget="badge"
+                    decoration-info="state == 'draft'"
+                    decoration-success="state == 'confirmed'"
+                    decoration-danger="state == 'rejected'"
+                />
+                <field name="equipment_id" />
+                <field name="imei" />
+                <field name="partner_id" widget="many2one_avatar_user" optional="show" />
+                <field name="reject_motive_id"/>
+                <field name="price" />
+            </tree>
+        </field>
+    </record>
+
+    <!-- Search View -->
+    <record id="gradein_order_view_search" model="ir.ui.view">
+        <field name="name">gradein.order.view.search</field>
+        <field name="model">gradein.order</field>
+        <field name="arch" type="xml">
+            <!-- Search -->
+            <search string="Busqueda de campos">
+                <field name="name" />
+                <field name="date" />
+                <field name="imei" />
+                <field name="equipment_id" />
+
+                <!-- Filters -->
+                <filter name="state" string="Estado: Borrador" domain="[('state', '=', 'draft')]"/>
+                <filter name="state" string="Estado: Confirmado" domain="[('state', '=', 'confirmed')]"/>
+                <filter name="state" string="Estado: Rechazado" domain="[('state', '=', 'rejected')]"/>
+
+                <!-- Group by -->
+                <group expand="1" string="Filtro agrupadores">
+                    <filter string="Equipos" name="Equipos" context="{'group_by': 'equipment_id'}"/>
+                    <filter string="Motivo de rechazo" name="Motivo de rechazo" context="{'group_by': 'reject_motive_id'}"/>
+                </group>
+
+            </search>
+        </field>
+    </record>
+
     <!-- Menu Action -->
     <record id="gradein_order_action" model="ir.actions.act_window">
         <field name="name">Ordenes de GradeIn</field>
@@ -13,6 +97,7 @@
         name="Ordenes de GradeIn"
         action="gradein_order_action"
         parent="configuration_menu"
+        groups="gradein.group_seller_service"
         sequence="1"
     />
 
