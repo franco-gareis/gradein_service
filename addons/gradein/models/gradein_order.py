@@ -1,13 +1,24 @@
+<<<<<<< HEAD
 from datetime import datetime,timedelta
 from odoo import fields, models,api
 from odoo.exceptions import ValidationError
+=======
+from datetime import datetime
+from odoo import fields, models, api
+>>>>>>> b1e1a175d7d27d9604463079598a54e43b4c70aa
 
 
 class GradeInOrder(models.Model):
     _name = "gradein.order"
     _description = "GradeIn Order"
 
-    name = fields.Char(string="Nombre", help="Name of the order", required=True)
+    name = fields.Char(
+        string="Nombre",
+        required=True,
+        help="Name of the order",
+        readonly=True,
+        default=lambda self: ('New')
+    )
     date = fields.Date(default=datetime.today(), required=True)
     state = fields.Selection(
         [("draft", "Borrador"), ("confirmed", "Confirmado"), ("rejected", "Rechazado")],
@@ -62,3 +73,12 @@ class GradeInOrder(models.Model):
 
 
         
+
+
+    @api.model
+    def create(self, vals_list):
+        if vals_list.get('name', ('New')) == ('New'):
+            vals_list['name'] = self.env['ir.sequence'].next_by_code(
+                'gradein.order.name') or ('New')
+        res = super().create(vals_list)
+        return res
