@@ -60,7 +60,7 @@ class GradeInOrder(models.Model):
     def validate_answers(self):
         
         for record in self.question_answer_id:
-            if record.answer_id.blocking :
+            if record.answer_id.blocking:
                 raise ValidationError('Se ha ingresado una respuesta bloqueante, usted no puede continuar con la orden')
 
     @api.model
