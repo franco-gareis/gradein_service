@@ -1,5 +1,6 @@
 from datetime import datetime
 from odoo import fields, models, api
+from odoo.exceptions import ValidationError
 
 
 class GradeInOrder(models.Model):
@@ -11,7 +12,7 @@ class GradeInOrder(models.Model):
         required=True,
         help="Name of the order",
         readonly=True,
-        default=lambda self: ('New')
+        default=lambda self: ("New"),
     )
     date = fields.Date(default=datetime.today(), required=True)
     state = fields.Selection(
@@ -45,31 +46,53 @@ class GradeInOrder(models.Model):
     partner_id = fields.Many2one(
         comodel_name="res.partner", string="Cliente", required=True
     )
-    
+
     price = fields.Monetary(
-        string="Precio",
+        string="Importe a pagar",
         currency_field="currency_id",
-        help="Price of the equipment",
+        help="Price that client will pay",
         required=True,
     )
-    
-    currency_id = fields.Many2one(
-        related = "equipment_id.currency_id"        
-    )        
-    question_answer_id = fields.One2many(
+
+    currency_id = fields.Many2one(related="equipment_id.currency_id")
+    question_answer_ids = fields.One2many(
         comodel_name="gradein.question.answer",
         inverse_name="order_id",
         string="Respuestas",
         required=True,
     )
 
-
-
     @api.model
     def create(self, vals_list):
-        if vals_list.get('name', ('New')) == ('New'):
-            vals_list['name'] = self.env['ir.sequence'].next_by_code(
-                'gradein.order.name') or ('New')
+        if vals_list.get("name", ("GRAD/0000000")) == ("New"):
+            vals_list["name"] = self.env["ir.sequence"].next_by_code(
+                "gradein.order.name"
+            ) or ("New")
         res = super().create(vals_list)
         return res
+
+    @api.onchange("equipment_id")
+    def on_change_equipment(self):
+        """_summary_
+        """
+        lines = [(5, 0, 0)]
+        if self.equipment_id:
+            for question in self.equipment_id.equipment_type_id.question_ids:
+                questions_dict = {"question_id": question.id}
+                lines.append((0, 0, questions_dict))
+        self.question_answer_ids = lines
+
+
+    @api.constrains("question_answer_ids")
+    def _check_price_not_zero_negative(self):
+        """Method validator for records so price is not zero or negative"""
+        total = 0
+        for question_answer in self.question_answer_ids:
+            total += question_answer.answer_id.price_reduction
+        if (self.equipment_id.price - total) <= 0:
+            raise ValidationError(
+                "El importe a pagar no puede ser menor o igual a cero"
+            )
+        self.price = total
+
 

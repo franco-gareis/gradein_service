@@ -6,15 +6,9 @@ class GradeInQuestionAnswer(models.Model):
     _description = "Intermediate model of questions and answers"
 
     question_id = fields.Many2one(
-        comodel_name="gradein.question",
-        string="Preguntas",
-        help="Possible questions"
+        comodel_name="gradein.question", string="Preguntas", help="Possible questions"
     )
     answer_id = fields.Many2one(
-        comodel_name="gradein.answer",
-        string="Respuestas",
-        help="Possible answer"
+        comodel_name="gradein.answer", string="Respuestas", help="Possible answer"
     )
-    order_id = fields.Many2one(
-        comodel_name="gradein.order"
-    )
+    order_id = fields.Many2one(comodel_name="gradein.order", ondelete='cascade')
