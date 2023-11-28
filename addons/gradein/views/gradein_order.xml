@@ -102,6 +102,7 @@
         action="gradein_order_action"
         parent="services_menu"
         groups="gradein.group_seller_service"
+        sequence="1"
     />
 
     <record id="seq_gradein_order" model="ir.sequence">
