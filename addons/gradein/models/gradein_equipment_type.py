@@ -6,8 +6,10 @@ class GradeInEquipmentType(models.Model):
     _description = "Equipment type model"
     _rec_name = "name"
 
-    name = fields.Char(
-        string="Nombre",
+    name = fields.Selection(
+        "_equipment_type_selection",
+        default="smartphone",
+        string="Tipo de equipo",
         help="Name of the equipment",
         required=True
     )
@@ -29,3 +31,12 @@ class GradeInEquipmentType(models.Model):
         help="Possible question for the equipment",
         required=True,
     )
+
+
+    def _equipment_type_selection(self):
+        return [
+            ("smartphone", "Telefono"),
+            ("tv", "Television"),
+            ("tablet", "Tablet"),
+            ("smartwatch", "SmartWatch")
+        ]
