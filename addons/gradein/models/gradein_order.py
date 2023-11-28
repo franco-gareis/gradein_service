@@ -64,10 +64,10 @@ class GradeInOrder(models.Model):
         string="Respuestas",
         required=True,
     )
-    
+
     @api.constrains("question_answer_id")
     def validate_answers(self):
-        
+
         for record in self.question_answer_id:
             if record.answer_id.blocking:
                 raise ValidationError('Se ha ingresado una respuesta bloqueante, usted no puede continuar con la orden')
@@ -106,7 +106,7 @@ class GradeInOrder(models.Model):
         total = 0
         for question_answer in self.question_answer_ids:
             total += question_answer.answer_id.price_reduction
-        
+
         if (self.equipment_id.price - total) <= 0:
             raise ValidationError(
                 "El importe a pagar no puede ser menor o igual a cero"

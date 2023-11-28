@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="order_report">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Muchas gracias por utilizar el servicio GradeIn</h2>
+                        <h3>Adjuntamos la informacion del servicio</h3>
+                        <p>Nombre de la orden: <t t-out="doc.name"/></p>
+                        <p>Fecha: <t t-out="doc.date"/></p>
+                        <p>Nombre del equipo: <t t-out="doc.equipment_id.name"/></p>
+                        <t t-if="doc.imei">
+                            <p>IMEI: <t t-out="doc.imei.name"/></p>
+                        </t>
+                        <p>Cliente: <t t-out="doc.partner_id.name"/></p>
+                        <t t-if="doc.state == 'rejected'">
+                            <p>Motivo de rechazo: <t t-out="doc.reject_motive_id.name"/></p>
+                        </t>
+                        <p>Importe a pagar: <t t-out="doc.price"/></p>
+                        <p>Resumen de la evaluacion: <t t-out="doc.review"/></p>
+                        <p>Imagenes del equipo</p>
+                        <t t-foreach="doc.image_id" t-as="image">
+                            <img t-att-src="image_data_uri(image.image)" style="max-height: 300px;"/>
+                        </t>
+                        <p>Muchas gracias por utilizar nuestro servicio de compra!</p>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <record id="action_print_report_pdf" model="ir.actions.report">
+        <field name="name">Imprimir factura</field>
+        <field name="model">gradein.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">gradein.order_report</field>
+        <field name="report_file">gradein.order_report</field>
+        <field name="binding_model_id" ref="model_gradein_order"/>
+    </record>
+
+</odoo>
