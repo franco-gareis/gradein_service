@@ -2,6 +2,7 @@ from datetime import datetime,timedelta
 from odoo.exceptions import ValidationError
 from odoo import fields, models,api
 
+
 import logging
 
 #_logger = logging.getLogger(__name__)
@@ -19,7 +20,7 @@ class GradeInOrder(models.Model):
     )
     date = fields.Date(default=datetime.today(), required=True)
     state = fields.Selection(
-        [("draft", "Borrador"), ("confirmed", "Confirmado"), ("rejected", "Rechazado")],
+        "_gradein_order_states",
         default="draft",
         string="Estado de la orden",
         required=True,
@@ -29,6 +30,9 @@ class GradeInOrder(models.Model):
         string="Equipo",
         help="Equipment of the order",
         required=True,
+    )
+    equipment_type_name = fields.Selection(
+        related="equipment_id.equipment_type_id.name"
     )
     image_id = fields.One2many(
         comodel_name="gradein.images",
@@ -72,7 +76,22 @@ class GradeInOrder(models.Model):
             max_orders = int (self.env['ir.config_parameter'].sudo().get_param('max_orders'))
             if result > max_orders:
                 raise ValidationError('El usuario ha superado el limite de ordenes permitidos en un periodo de 30 días')
+    
+    @api.constrains("question_answer_id")
+    def validate_answers(self):
+        
+        for record in self.question_answer_id:
+            if record.answer_id.blocking:
+                raise ValidationError('Se ha ingresado una respuesta bloqueante, usted no puede continuar con la orden')
 
+    def _gradein_order_states(self):
+        return [
+            ("draft", "Borrador"),
+            ("confirmed", "Confirmado"),
+            ("paid", "Pagado"),
+            ("cancelled", "Cancelado"),
+            ("rejected", "Rechazado"),
+        ]
 
     @api.model
     def create(self, vals_list):
