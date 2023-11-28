@@ -66,14 +66,12 @@ class GradeInOrder(models.Model):
     def validate_order_user (self):
         
         for record in self:
-            days_diff = datetime.today() - timedelta(days=30)
+            monthly_user_orders = datetime.today() - timedelta(days=30)
             today = datetime.today()
-            result = self.env["gradein.order"].search_count([('partner_id','=',record.partner_id.id),('date','>',days_diff),('date','<=',today)])
-            if result > int (self.env['ir.config_parameter'].sudo().get_param('max_orders')):
+            result = self.env["gradein.order"].search_count([('partner_id','=',record.partner_id.id),('date','>',monthly_user_orders),('date','<=',today)])
+            max_orders = int (self.env['ir.config_parameter'].sudo().get_param('max_orders'))
+            if result > max_orders:
                 raise ValidationError('El usuario ha superado el limite de ordenes permitidos en un periodo de 30 días')
-
-
-        
 
 
     @api.model
