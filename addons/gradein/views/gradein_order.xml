@@ -14,10 +14,10 @@
                         <field name="state" />
                         <field name="equipment_id" widget="selection" />
                         <field name="partner_id" widget="selection" />
-                        <field name="imei" />
+                        <field name="equipment_type_name" attrs="{'invisible': True}" />
+                        <field name="imei" attrs="{'invisible': [('equipment_type_name', '!=', 'smartphone')]}" />
                         <field name="price" />
-                        <field name="reject_motive_id"
-                            attrs="{'invisible': [('state', '!=', 'rejected')]}" />
+                        <field name="reject_motive_id" attrs="{'invisible': [('state', '!=', 'rejected')]}" />
                         <field name="review" />
                         <field name="image_id">
                             <tree editable="bottom">
@@ -100,7 +100,7 @@
         id="gradein_order_menu"
         name="Ordenes de GradeIn"
         action="gradein_order_action"
-        parent="configuration_menu"
+        parent="services_menu"
         groups="gradein.group_seller_service"
         sequence="1"
     />

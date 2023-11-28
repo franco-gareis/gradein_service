@@ -15,7 +15,7 @@ class GradeInOrder(models.Model):
     )
     date = fields.Date(default=datetime.today(), required=True)
     state = fields.Selection(
-        [("draft", "Borrador"), ("confirmed", "Confirmado"), ("rejected", "Rechazado")],
+        "_gradein_order_states",
         default="draft",
         string="Estado de la orden",
         required=True,
@@ -25,6 +25,9 @@ class GradeInOrder(models.Model):
         string="Equipo",
         help="Equipment of the order",
         required=True,
+    )
+    equipment_type_name = fields.Selection(
+        related="equipment_id.equipment_type_id.name"
     )
     image_id = fields.One2many(
         comodel_name="gradein.images",
@@ -55,6 +58,15 @@ class GradeInOrder(models.Model):
         required=True,
     )
 
+
+    def _gradein_order_states(self):
+        return [
+            ("draft", "Borrador"),
+            ("confirmed", "Confirmado"),
+            ("paid", "Pagado"),
+            ("cancelled", "Cancelado"),
+            ("rejected", "Rechazado"),
+        ]
 
     @api.model
     def create(self, vals_list):
