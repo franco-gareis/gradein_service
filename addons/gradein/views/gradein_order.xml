@@ -55,7 +55,8 @@
                 <field name="imei" />
                 <field name="partner_id" widget="many2one_avatar_user" optional="show" />
                 <field name="reject_motive_id" />
-                <field name="price" />
+                <field name="currency_id" invisible="1"/>
+                <field name="price" widget="monetary" options="{'currency_field': 'currency_id'}" />
             </tree>
         </field>
     </record>
