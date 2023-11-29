@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 from odoo import fields, models, api
 from odoo.exceptions import ValidationError
 
@@ -112,3 +112,25 @@ class GradeInOrder(models.Model):
                 "El importe a pagar no puede ser menor o igual a cero"
             )
         self.price = self.equipment_id.price - total
+
+    @api.constrains("partner_id")
+    def validate_order_user(self):
+        """Control how many order an user can have in days"""
+
+        max_orders = int(self.env['ir.config_parameter'].sudo().get_param('max_orders'))
+
+        if not max_orders:
+            max_orders = self.env['ir.config_parameter'].set_param('max_orders', '2')
+
+        for record in self:
+            monthly_user_orders = datetime.today() - timedelta(days=30)
+            numbers_of_records = self.env["gradein.order"].search_count(
+                [
+                    ('partner_id', '=', record.partner_id.id),
+                    ('date', '>', monthly_user_orders),
+                    ('date', '<=', datetime.today())
+                ]
+            )
+
+            if numbers_of_records > max_orders:
+                raise ValidationError('El usuario ha superado el limite de ordenes permitidos en un periodo de 30 días')
