@@ -1,6 +1,6 @@
-from datetime import datetime,timedelta
+from datetime import datetime
+from odoo import fields, models, api
 from odoo.exceptions import ValidationError
-from odoo import fields, models,api
 
 
 class GradeInOrder(models.Model):
@@ -12,7 +12,7 @@ class GradeInOrder(models.Model):
         required=True,
         help="Name of the order",
         readonly=True,
-        default=lambda self: ('New')
+        default=lambda self: ("Nueva Orden"),
     )
     date = fields.Date(default=datetime.today(), required=True)
     state = fields.Selection(
@@ -49,31 +49,21 @@ class GradeInOrder(models.Model):
     partner_id = fields.Many2one(
         comodel_name="res.partner", string="Cliente", required=True
     )
-    price = fields.Float(
-        string="Importe a pagar", help="Price that client will pay", required=True
+
+    price = fields.Monetary(
+        string="Importe a pagar",
+        currency_field="currency_id",
+        help="Price that client will pay",
+        required=True,
     )
-    question_answer_id = fields.One2many(
+
+    currency_id = fields.Many2one(related="equipment_id.currency_id")
+    question_answer_ids = fields.One2many(
         comodel_name="gradein.question.answer",
         inverse_name="order_id",
         string="Respuestas",
         required=True,
     )
-    
-
-            
-    
-    @api.constrains("partner_id")
-    def validate_order_user (self):
-        
-        IS_VALID_FOR = 30
-        
-        for record in self:
-            monthly_user_orders = datetime.today() - timedelta(days=IS_VALID_FOR)
-            today = datetime.today()
-            numbers_of_records = self.env["gradein.order"].search_count([('partner_id','=',record.partner_id.id),('date','>',monthly_user_orders),('date','<=',today)])
-            max_orders = int(self.env['ir.config_parameter'].sudo().get_param('max_orders'))
-            if numbers_of_records > max_orders:
-                raise ValidationError('El usuario ha superado el limite de ordenes permitidos en un periodo de 30 días')
     
     @api.constrains("question_answer_id")
     def validate_answers(self):
@@ -93,8 +83,32 @@ class GradeInOrder(models.Model):
 
     @api.model
     def create(self, vals_list):
-        if vals_list.get('name', ('New')) == ('New'):
-            vals_list['name'] = self.env['ir.sequence'].next_by_code(
-                'gradein.order.name') or ('New')
+        if vals_list.get("name", ("Nueva Orden")) == ("Nueva Orden"):
+            vals_list["name"] = self.env["ir.sequence"].next_by_code(
+                "gradein.order.name"
+            ) or ("Nueva Orden")
         res = super().create(vals_list)
         return res
+
+    @api.onchange("equipment_id")
+    def on_change_equipment(self):
+        """When you select the equipment you get the questions and answers from the form"""
+        commands_data = [(5, 0, 0)]  # We delete all the questions first
+        if self.equipment_id:
+            for question in self.equipment_id.equipment_type_id.question_ids:
+                questions_dict = {"question_id": question.id}
+                commands_data.append((0, 0, questions_dict))  # We create this records with the questions of the equipment
+        self.question_answer_ids = commands_data
+
+    @api.constrains("question_answer_ids")
+    def _check_price_not_zero_negative(self):
+        """Method validator for records so price is not zero or negative"""
+        total = 0
+        for question_answer in self.question_answer_ids:
+            total += question_answer.answer_id.price_reduction
+        
+        if (self.equipment_id.price - total) <= 0:
+            raise ValidationError(
+                "El importe a pagar no puede ser menor o igual a cero"
+            )
+        self.price = self.equipment_id.price - total
