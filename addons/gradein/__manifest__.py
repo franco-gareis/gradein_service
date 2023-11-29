@@ -17,6 +17,7 @@
         "views/gradein_question.xml",
         "views/gradein_reject_reason.xml",
         "views/gradein_order.xml",
+        "report/gradein_order_report.xml",
     ],
     "installable": True,
     "auto_install": False,

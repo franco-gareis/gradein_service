@@ -7,6 +7,14 @@
         <field name="model">gradein.order</field>
         <field name="arch" type="xml">
             <form string="Ordenes">
+                <header>
+                    <button
+                        string="Imprimir informe"
+                        name="%(action_print_report_pdf)d"
+                        type="action"
+                        class="oe_highlight"
+                    />
+                </header>
                 <sheet>
                     <group>
                         <field name="name" />
