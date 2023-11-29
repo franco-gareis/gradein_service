@@ -3,10 +3,6 @@ from odoo.exceptions import ValidationError
 from odoo import fields, models,api
 
 
-import logging
-
-#_logger = logging.getLogger(__name__)
-
 class GradeInOrder(models.Model):
     _name = "gradein.order"
     _description = "GradeIn Order"
@@ -69,12 +65,14 @@ class GradeInOrder(models.Model):
     @api.constrains("partner_id")
     def validate_order_user (self):
         
+        IS_VALID_FOR = 30
+        
         for record in self:
-            monthly_user_orders = datetime.today() - timedelta(days=30)
+            monthly_user_orders = datetime.today() - timedelta(days=IS_VALID_FOR)
             today = datetime.today()
-            result = self.env["gradein.order"].search_count([('partner_id','=',record.partner_id.id),('date','>',monthly_user_orders),('date','<=',today)])
-            max_orders = int (self.env['ir.config_parameter'].sudo().get_param('max_orders'))
-            if result > max_orders:
+            numbers_of_records = self.env["gradein.order"].search_count([('partner_id','=',record.partner_id.id),('date','>',monthly_user_orders),('date','<=',today)])
+            max_orders = int(self.env['ir.config_parameter'].sudo().get_param('max_orders'))
+            if numbers_of_records > max_orders:
                 raise ValidationError('El usuario ha superado el limite de ordenes permitidos en un periodo de 30 días')
     
     @api.constrains("question_answer_id")
