@@ -114,7 +114,7 @@ class GradeInOrder(models.Model):
             )
         self.price = self.equipment_id.price - total
 
-    def _set_or_get_max_order_per_month(self):
+    def _set_or_get_max_order_per_month_env(self):
         """
         Returns:
             The max_order environment variable value
@@ -142,7 +142,7 @@ class GradeInOrder(models.Model):
 
         ORDER_LIMIT_DAYS = 30
 
-        max_orders = self._set_or_get_max_order_per_month()
+        max_orders = int(self._set_or_get_max_order_per_month_env())
         for record in self:
             monthly_user_orders = datetime.today() - timedelta(days=ORDER_LIMIT_DAYS)
             numbers_of_records = self.env["gradein.order"].search_count(
@@ -153,7 +153,7 @@ class GradeInOrder(models.Model):
                 ]
             )
 
-            if numbers_of_records > int(max_orders):
+            if numbers_of_records > max_orders:
                 raise ValidationError(
                     f"El usuario ha superado el limite de {max_orders} ordenes permitidos en un periodo de {ORDER_LIMIT_DAYS} días"
                 )
