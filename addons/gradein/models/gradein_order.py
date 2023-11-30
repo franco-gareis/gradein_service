@@ -77,8 +77,6 @@ class GradeInOrder(models.Model):
         return [
             ("draft", "Borrador"),
             ("confirmed", "Confirmado"),
-            ("paid", "Pagado"),
-            ("cancelled", "Cancelado"),
             ("rejected", "Rechazado"),
         ]
 
