@@ -9,6 +9,20 @@
             <form string="Ordenes">
                 <header>
                     <button
+                        string="Aceptar orden"
+                        name="action_save_order"
+                        type="object"
+                        class="oe_highlight"
+                        style="background-color:green;"
+                    />
+                    <!-- <button -->
+                        <!-- string="Rechazar orden" -->
+                        <!-- name=""  Agregar el action del wizard para el rechazo de la orden -->
+                        <!-- type="action" -->
+                        <!-- class="oe_highlight" -->
+                        <!-- style="background-color:red;" -->
+                    <!-- /> -->
+                    <button
                         string="Imprimir informe"
                         name="%(action_print_report_pdf)d"
                         type="action"

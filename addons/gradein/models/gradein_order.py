@@ -49,14 +49,12 @@ class GradeInOrder(models.Model):
     partner_id = fields.Many2one(
         comodel_name="res.partner", string="Cliente", required=True
     )
-
     price = fields.Monetary(
         string="Importe a pagar",
         currency_field="currency_id",
         help="Price that client will pay",
         required=True,
     )
-
     currency_id = fields.Many2one(related="equipment_id.currency_id")
     question_answer_ids = fields.One2many(
         comodel_name="gradein.question.answer",
@@ -157,3 +155,13 @@ class GradeInOrder(models.Model):
                 raise ValidationError(
                     f"El usuario ha superado el limite de {max_orders} ordenes permitidos en un periodo de {ORDER_LIMIT_DAYS} días"
                 )
+
+
+    def action_save_order(self):
+        """
+        Simple action to save the order
+
+        Returns:
+            None
+        """
+        self.write({"state": "confirmed"})
