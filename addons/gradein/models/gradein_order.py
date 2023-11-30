@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 from odoo import fields, models, api
 from odoo.exceptions import ValidationError
-
+import requests
 
 class GradeInOrder(models.Model):
     _name = "gradein.order"
@@ -157,3 +157,28 @@ class GradeInOrder(models.Model):
                 raise ValidationError(
                     f"El usuario ha superado el limite de {max_orders} ordenes permitidos en un periodo de {ORDER_LIMIT_DAYS} días"
                 )
+    @api.constrains("imei")
+    def validate_imei (self):
+        
+        for record in self:
+            response = requests.get(f"https://mirgor-alkemy-imei-api.azurewebsites.net/api/check_imei/{record.imei}")
+            response_dict = response.json()
+            is_valid = response_dict.get("valid")
+            
+            if not is_valid:
+                raise ValidationError ("El imei no es valido para realizar esta operacion")
+            else :
+                
+                notification = {
+                    'type': 'ir.actions.client',
+                    'tag': 'display_notification',
+                    'params': {
+                        'title': ('Validador de IMEI'),
+                        'message': 'El IMEI ingresado es valido',
+                        'type':'success',  #types: success,warning,danger,info
+                        'sticky': True,  #True/False will display for few seconds if false
+                    }
+                }
+                return notification
+
+            
