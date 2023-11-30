@@ -21,10 +21,10 @@
                         <field name="date" />
                         <field name="state" />
                         <field name="equipment_type_id" widget="selection"/>                        
-                        <field name="equipment_id" widget="selection"/>
+                        <field name="equipment_id" widget="selection" domain="[('equipment_type_id', '=', equipment_type_id)]"/>
                         <field name="partner_id" widget="selection" />
                         <field name="currency_id" />
-                        <field name="imei" attrs="{'invisible': [('equipment_type_id', '!=', 'smartphone')]}" />
+                        <field name="imei" attrs="{'invisible': [('equipment_type_id.name', '!=', 'smartphone')]}" />
                         <field name="reject_motive_id" attrs="{'invisible': [('state', '!=', 'rejected')]}" />
                         <field name="review" />
                         <field name="price" />                        
