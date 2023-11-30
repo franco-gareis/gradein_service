@@ -30,13 +30,6 @@ class GradeInOrder(models.Model):
     equipment_type_name = fields.Selection(
         related="equipment_id.equipment_type_id.name"
     )
-    image_id = fields.One2many(
-        comodel_name="gradein.images",
-        inverse_name="order_id",
-        string="Imagenes",
-        help="Images the of the equipment",
-        required=True,
-    )
     review = fields.Text(
         string="Resumen de la evaluacion",
         help="Short review of the evaluation",
