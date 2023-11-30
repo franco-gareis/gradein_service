@@ -21,14 +21,17 @@ class GradeInOrder(models.Model):
         string="Estado de la orden",
         required=True,
     )
+    equipment_type_id = fields.Many2one(
+        comodel_name="gradein.equipment.type",
+        string="Tipo de Equipo",
+        help="Equipment Type of the order",
+        required=True,
+    )    
     equipment_id = fields.Many2one(
         comodel_name="gradein.equipment",
         string="Equipo",
         help="Equipment of the order",
         required=True,
-    )
-    equipment_type_name = fields.Selection(
-        related="equipment_id.equipment_type_id.name"
     )
     image_id = fields.One2many(
         comodel_name="gradein.images",
@@ -65,7 +68,7 @@ class GradeInOrder(models.Model):
         required=True,
     )
 
-    @api.constrains("question_answer_id")
+    @api.constrains("question_answer_ids")
     def validate_answers(self):
         for record in self.question_answer_id:
             if record.answer_id.blocking:

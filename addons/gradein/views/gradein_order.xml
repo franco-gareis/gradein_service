@@ -20,14 +20,14 @@
                         <field name="name" />
                         <field name="date" />
                         <field name="state" />
-                        <field name="equipment_id" widget="selection" />
+                        <field name="equipment_type_id" widget="selection"/>                        
+                        <field name="equipment_id" widget="selection"/>
                         <field name="partner_id" widget="selection" />
                         <field name="currency_id" />
-                        <field name="equipment_type_name" attrs="{'invisible': True}" />
-                        <field name="imei" attrs="{'invisible': [('equipment_type_name', '!=', 'smartphone')]}" />
-                        <field name="price" />
+                        <field name="imei" attrs="{'invisible': [('equipment_type_id', '!=', 'smartphone')]}" />
                         <field name="reject_motive_id" attrs="{'invisible': [('state', '!=', 'rejected')]}" />
                         <field name="review" />
+                        <field name="price" />                        
                         <field name="image_id">
                             <tree editable="bottom">
                                 <field name="image" widget="image" />
