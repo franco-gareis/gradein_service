@@ -162,17 +162,30 @@ class GradeInOrder(models.Model):
     @api.constrains("imei")
     def validate_imei (self):
         
+        url = f"https://mirgor-alkemy-imei-api.azurewebsites.net/api/check_imei/{self.imei}"
+        
         try:
             
-            response = requests.get(f"https://mirgor-alkemy-imei-api.azurewebsites.net/api/check_imei/{self.imei}")
+            response = requests.get(url)
             response.raise_for_status()
-            response_dict = response.json()
-            is_valid_imei = response_dict.get("valid")
             
-            if not is_valid_imei:
+        except requests.exceptions.HTTPError as errh: 
+            
+            if response.status_code == 404:
+                raise ValidationError (f"La URL: {url} no es valida  ")
+  
+        except requests.exceptions.ConnectionError as conerr: 
+            
+            raise ValidationError("Hubo un error al iniciar la conexion al servidor")
+  
+        
+        response_dict = response.json()
+        is_valid_imei = response_dict.get("valid")    
+        
+        if not is_valid_imei:
                 raise ValidationError ("El imei no es valido para realizar esta operacion")
         
-            else:
+        else:
                 
                 notification = {
                 "type": "ir.actions.client",
@@ -185,11 +198,9 @@ class GradeInOrder(models.Model):
                 }
             }
             
-            return notification
+                return notification
         
-        except Exception as e:
-            
-            raise ValidationError (str(e))
+
 
     def action_save_order(self):
         """
