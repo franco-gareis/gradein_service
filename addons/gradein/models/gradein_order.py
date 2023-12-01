@@ -30,13 +30,6 @@ class GradeInOrder(models.Model):
     equipment_type_name = fields.Selection(
         related="equipment_id.equipment_type_id.name"
     )
-    image_id = fields.One2many(
-        comodel_name="gradein.images",
-        inverse_name="order_id",
-        string="Imagenes",
-        help="Images the of the equipment",
-        required=True,
-    )
     review = fields.Text(
         string="Resumen de la evaluacion",
         help="Short review of the evaluation",
@@ -56,6 +49,13 @@ class GradeInOrder(models.Model):
         required=True,
     )
     currency_id = fields.Many2one(related="equipment_id.currency_id")
+    attachment_ids = fields.Many2many(
+        "ir.attachment",
+        "project_issue_ir_attachments_rel",
+        "issue_id",
+        "attachment_id",
+        "Attachments"
+    )
     question_answer_ids = fields.One2many(
         comodel_name="gradein.question.answer",
         inverse_name="order_id",
@@ -94,7 +94,9 @@ class GradeInOrder(models.Model):
         if self.equipment_id:
             for question in self.equipment_id.equipment_type_id.question_ids:
                 questions_dict = {"question_id": question.id}
-                commands_data.append((0, 0, questions_dict))  # We create this records with the questions of the equipment
+                commands_data.append(
+                    (0, 0, questions_dict)
+                )  # We create this records with the questions of the equipment
         self.question_answer_ids = commands_data
 
     @api.constrains("question_answer_ids")
