@@ -7,4 +7,4 @@ class GradeInRejectReason(models.Model):
     _description = "gradein reject reason"
     
     name = fields.Char(string="Nombre",required=True)
-    active = fields.Boolean(string="activa",default=True)
+    active = fields.Boolean(string="Activo",default=True)
