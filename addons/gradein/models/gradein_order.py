@@ -33,17 +33,8 @@ class GradeInOrder(models.Model):
         help="Equipment of the order",
         required=True,
     )
-<<<<<<< HEAD
-    image_id = fields.One2many(
-        comodel_name="gradein.images",
-        inverse_name="order_id",
-        string="Imagenes",
-        help="Images the of the equipment",
-        required=True,
-=======
     equipment_type_name = fields.Selection(
         related="equipment_id.equipment_type_id.name"
->>>>>>> ea189b827981da0779965902c7be52da2e40c0be
     )
     review = fields.Text(
         string="Resumen de la evaluacion",
