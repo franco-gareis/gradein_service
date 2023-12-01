@@ -10,6 +10,7 @@
     "data": [
         "security/gradein_groups.xml",
         "security/ir.model.access.csv",
+        "report/gradein_order_report.xml",
         "views/services_menu.xml",
         "views/gradein_equipment.xml",
         "views/gradein_answer.xml",
@@ -17,7 +18,6 @@
         "views/gradein_question.xml",
         "views/gradein_reject_reason.xml",
         "views/gradein_order.xml",
-        "report/gradein_order_report.xml",
     ],
     "installable": True,
     "auto_install": False,

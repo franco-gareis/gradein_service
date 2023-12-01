@@ -33,12 +33,17 @@ class GradeInOrder(models.Model):
         help="Equipment of the order",
         required=True,
     )
+<<<<<<< HEAD
     image_id = fields.One2many(
         comodel_name="gradein.images",
         inverse_name="order_id",
         string="Imagenes",
         help="Images the of the equipment",
         required=True,
+=======
+    equipment_type_name = fields.Selection(
+        related="equipment_id.equipment_type_id.name"
+>>>>>>> ea189b827981da0779965902c7be52da2e40c0be
     )
     review = fields.Text(
         string="Resumen de la evaluacion",
@@ -52,15 +57,20 @@ class GradeInOrder(models.Model):
     partner_id = fields.Many2one(
         comodel_name="res.partner", string="Cliente", required=True
     )
-
     price = fields.Monetary(
         string="Importe a pagar",
         currency_field="currency_id",
         help="Price that client will pay",
         required=True,
     )
-
     currency_id = fields.Many2one(related="equipment_id.currency_id")
+    attachment_ids = fields.Many2many(
+        "ir.attachment",
+        "project_issue_ir_attachments_rel",
+        "issue_id",
+        "attachment_id",
+        "Attachments"
+    )
     question_answer_ids = fields.One2many(
         comodel_name="gradein.question.answer",
         inverse_name="order_id",
@@ -83,8 +93,6 @@ class GradeInOrder(models.Model):
         return [
             ("draft", "Borrador"),
             ("confirmed", "Confirmado"),
-            ("paid", "Pagado"),
-            ("cancelled", "Cancelado"),
             ("rejected", "Rechazado"),
         ]
 
@@ -104,7 +112,9 @@ class GradeInOrder(models.Model):
         if self.equipment_id:
             for question in self.equipment_id.equipment_type_id.question_ids:
                 questions_dict = {"question_id": question.id}
-                commands_data.append((0, 0, questions_dict))  # We create this records with the questions of the equipment
+                commands_data.append(
+                    (0, 0, questions_dict)
+                )  # We create this records with the questions of the equipment
         self.question_answer_ids = commands_data
 
     @api.constrains("question_answer_ids")
@@ -149,11 +159,13 @@ class GradeInOrder(models.Model):
         ORDER_LIMIT_DAYS = 30
 
         max_orders = int(self._set_or_get_max_order_per_month_env())
+        monthly_user_orders = datetime.today() - timedelta(days=ORDER_LIMIT_DAYS)
+
         for record in self:
-            monthly_user_orders = datetime.today() - timedelta(days=ORDER_LIMIT_DAYS)
             numbers_of_records = self.env["gradein.order"].search_count(
                 [
                     ("partner_id", "=", record.partner_id.id),
+                    ("state", "=", "confirmed"),
                     ("date", ">", monthly_user_orders),
                     ("date", "<=", datetime.today()),
                 ]
@@ -163,3 +175,12 @@ class GradeInOrder(models.Model):
                 raise ValidationError(
                     f"El usuario ha superado el limite de {max_orders} ordenes permitidos en un periodo de {ORDER_LIMIT_DAYS} días"
                 )
+
+    def action_save_order(self):
+        """
+        Simple action to save the order
+
+        Returns:
+            None
+        """
+        self.write({"state": "confirmed"})
