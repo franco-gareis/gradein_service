@@ -20,7 +20,7 @@
     <field name="arch" type="xml">
       <form>
         <sheet>
-          <widget name="web_ribbon" text="Activo" bg_color="bg-success"
+          <widget name="web_ribbon" text="Activada" bg_color="bg-success"
             attrs="{'invisible': [('active', '=', False)]}" />
           <widget name="web_ribbon" text="Archivado" bg_color="bg-danger"
             attrs="{'invisible': [('active', '=', True)]}" />
@@ -40,7 +40,7 @@
     <field name="arch" type="xml">
       <search string=" buscar motivo de rechazo">
         <field name="name" />
-        <filter string="Archivadas" name="Activo" domain="[('active', '=',False)]" />
+        <filter string="Archivadas" name="Activada" domain="[('active', '=',False)]" />
       </search>
     </field>
   </record>
