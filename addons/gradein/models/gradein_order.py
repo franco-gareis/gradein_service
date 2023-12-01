@@ -96,12 +96,12 @@ class GradeInOrder(models.Model):
         res = super().create(vals_list)
         return res
 
-    @api.onchange("equipment_id")
-    def on_change_equipment(self):
+    @api.onchange("equipment_type_id")
+    def get_questions_by_equipment_type(self):
         """When you select the equipment you get the questions and answers from the form"""
         commands_data = [(5, 0, 0)]  # We delete all the questions first
-        if self.equipment_id:
-            for question in self.equipment_id.equipment_type_id.question_ids:
+        if self.equipment_type_id:
+            for question in self.equipment_type_id.question_ids:
                 questions_dict = {"question_id": question.id}
                 commands_data.append(
                     (0, 0, questions_dict)
