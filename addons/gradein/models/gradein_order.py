@@ -145,11 +145,13 @@ class GradeInOrder(models.Model):
         ORDER_LIMIT_DAYS = 30
 
         max_orders = int(self._set_or_get_max_order_per_month_env())
+        monthly_user_orders = datetime.today() - timedelta(days=ORDER_LIMIT_DAYS)
+
         for record in self:
-            monthly_user_orders = datetime.today() - timedelta(days=ORDER_LIMIT_DAYS)
             numbers_of_records = self.env["gradein.order"].search_count(
                 [
                     ("partner_id", "=", record.partner_id.id),
+                    ("state", "=", "confirmed"),
                     ("date", ">", monthly_user_orders),
                     ("date", "<=", datetime.today()),
                 ]
