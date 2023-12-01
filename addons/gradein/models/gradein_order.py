@@ -51,6 +51,13 @@ class GradeInOrder(models.Model):
     )
 
     currency_id = fields.Many2one(related="equipment_id.currency_id")
+    attachment_ids = fields.Many2many(
+        "ir.attachment",
+        "project_issue_ir_attachments_rel",
+        "issue_id",
+        "attachment_id",
+        "Attachments"
+    )
     question_answer_ids = fields.One2many(
         comodel_name="gradein.question.answer",
         inverse_name="order_id",
@@ -58,9 +65,9 @@ class GradeInOrder(models.Model):
         required=True,
     )
 
-    @api.constrains("question_answer_id")
+    @api.constrains("question_answer_ids")
     def validate_answers(self):
-        for record in self.question_answer_id:
+        for record in self.question_answer_ids:
             if record.answer_id.blocking:
                 raise ValidationError(
                     "Se ha ingresado una respuesta bloqueante, usted no puede continuar con la orden"
@@ -91,7 +98,9 @@ class GradeInOrder(models.Model):
         if self.equipment_id:
             for question in self.equipment_id.equipment_type_id.question_ids:
                 questions_dict = {"question_id": question.id}
-                commands_data.append((0, 0, questions_dict))  # We create this records with the questions of the equipment
+                commands_data.append(
+                    (0, 0, questions_dict)
+                )  # We create this records with the questions of the equipment
         self.question_answer_ids = commands_data
 
     @api.constrains("question_answer_ids")
