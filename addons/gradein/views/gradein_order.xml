@@ -13,7 +13,6 @@
                         name="action_save_order"
                         type="object"
                         class="oe_highlight"
-                        style="background-color:green;"
                     />
                     <!-- <button -->
                         <!-- string="Rechazar orden" -->
@@ -22,12 +21,6 @@
                         <!-- class="oe_highlight" -->
                         <!-- style="background-color:red;" -->
                     <!-- /> -->
-                    <button
-                        string="Imprimir informe"
-                        name="%(action_print_report_pdf)d"
-                        type="action"
-                        class="oe_highlight"
-                    />
                     <field
                         name="state"
                         widget="statusbar"
@@ -38,9 +31,9 @@
                     <group>
                         <field name="name" />
                         <field name="date" />
-                        <field name="equipment_type_id" widget="selection"/>  
-                        <field name="equipment_type_name" invisible="1"/>                    
-                        <field name="equipment_id" widget="selection" domain="[('equipment_type_id', '=', equipment_type_id)]"/>
+                        <field name="equipment_type_id" widget="selection" />
+                        <field name="equipment_type_name" invisible="1" />
+                        <field name="equipment_id" widget="selection" domain="[('equipment_type_id', '=', equipment_type_id)]" />
                         <field name="partner_id" widget="selection" />
                         <field name="currency_id" />
                         <field name="imei" attrs="{'invisible': [('equipment_type_name', '!=', 'smartphone')]}" />
