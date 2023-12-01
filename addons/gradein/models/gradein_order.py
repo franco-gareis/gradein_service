@@ -163,33 +163,33 @@ class GradeInOrder(models.Model):
     def validate_imei (self):
         
         try:
-            
             response = requests.get(f"https://mirgor-alkemy-imei-api.azurewebsites.net/api/check_imei/{self.imei}")
             response.raise_for_status()
-            response_dict = response.json()
-            is_valid_imei = response_dict.get("valid")
-            
-            if not is_valid_imei:
-                raise ValidationError ("El imei no es valido para realizar esta operacion")
-        
-            else:
-                
-                notification = {
-                "type": "ir.actions.client",
-                "tag": "display_notification",
-                "params": {
-                    "title": ("Validador de IMEI"),
-                    "message": "El IMEI ingresado es valido",
-                    "type":"success",  #types: success,warning,danger,info
-                    "sticky": True,  #True/False will display for few seconds if false
-                }
-            }
-            
-            return notification
-        
         except Exception as e:
+            raise ValidationError ("No hay conexion con el server")
+        
+        response_dict = response.json()
+        is_valid_imei = response_dict.get("valid")
+        
+        if not is_valid_imei:
+            raise ValidationError ("El imei no es valido para realizar esta operacion")
+    
+        else:
             
-            raise ValidationError (str(e))
+            notification = {
+            "type": "ir.actions.client",
+            "tag": "display_notification",
+            "params": {
+                "title": ("Validador de IMEI"),
+                "message": "El IMEI ingresado es valido",
+                "type":"success",  #types: success,warning,danger,info
+                "sticky": True,  #True/False will display for few seconds if false
+            }
+        }
+        
+        return notification
+        
+
 
     def action_save_order(self):
         """
