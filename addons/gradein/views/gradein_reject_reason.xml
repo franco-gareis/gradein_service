@@ -1,58 +1,61 @@
 <odoo>
 
   <!--#### explicit list view definition ####-->
-  <record model="ir.ui.view" id="gradein_reject_reason_view_tree">
-    <field name="name">gradein.reject.reason.view.tree</field>
-    <field name="model">gradein.reject.reason</field>
+  <record model="ir.ui.view" id="gradein_questions_view_tree">
+    <field name="name">gradein.question.view.tree</field>
+    <field name="model">gradein.question</field>
     <field name="arch" type="xml">
       <tree>
         <field name="name" />
-        <field name="active" widget="boolean_toggle" />
+        <field name="equipment_type_ids" />
       </tree>
     </field>
   </record>
 
   <!--#########
   Forms views ###################-->
-  <record model="ir.ui.view" id="gradein_reject_reason_view_form">
-    <field name="name">gradein.reject_reason.view.form</field>
-    <field name="model">gradein.reject.reason</field>
+  <record model="ir.ui.view" id="gradein_question_view_form">
+    <field name="name">gradein.question.view.form</field>
+    <field name="model">gradein.question</field>
     <field name="arch" type="xml">
       <form>
         <sheet>
-          <widget name="web_ribbon" text="Activada" bg_color="bg-success"
+          <widget name="web_ribbon" text="Activado" bg_color="bg-success"
             attrs="{'invisible': [('active', '=', False)]}" />
           <widget name="web_ribbon" text="Archivado" bg_color="bg-danger"
             attrs="{'invisible': [('active', '=', True)]}" />
           <group>
-            <field name="active" widget="boolean_toggle" />
             <field name="name" />
+            <field name="active" widget="boolean_toggle" />
+            <field name="equipment_type_ids" />
+            <field name="answer_ids" />
           </group>
         </sheet>
       </form>
     </field>
   </record>
 
+
   <!--  opening views search model -->
-  <record id="gradein_reject_reason_view_search" model="ir.ui.view">
-    <field name="name">gradein.reject.reason.view.search</field>
-    <field name="model">gradein.reject.reason</field>
+  <record id="gradein_question_view_search" model="ir.ui.view">
+    <field name="name">gradein.question.view.search</field>
+    <field name="model">gradein.question</field>
     <field name="arch" type="xml">
-      <search string=" buscar motivo de rechazo">
+      <search string=" buscar pregunta">
         <field name="name" />
-        <filter string="Archivadas" name="Activada" domain="[('active', '=',False)]" />
+        <filter string="Archivada" name="activo" domain="[('active', '=',False)]" />
       </search>
     </field>
   </record>
 
   <!-- actions opening views on models -->
-  <record model="ir.actions.act_window" id="action_gradein_reject_reason">
-    <field name="name">Motivo de rechazo</field>
-    <field name="res_model">gradein.reject.reason</field>
+  <record model="ir.actions.act_window" id="action_gradein_question">
+    <field name="name">Preguntas</field>
+    <field name="res_model">gradein.question</field>
     <field name="view_mode">tree,form</field>
   </record>
 
-  <menuitem name="Motivos de rechazo" id="reject_reason_menu" parent="configuration_menu"
-    action="action_gradein_reject_reason" />
+  <menuitem name="Preguntas" id="question_menu" parent="configuration_menu"
+    action="action_gradein_question" sequence="4" />
 
 </odoo>

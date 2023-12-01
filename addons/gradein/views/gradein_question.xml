@@ -20,7 +20,7 @@
     <field name="arch" type="xml">
       <form>
         <sheet>
-          <widget name="web_ribbon" text="Activada" bg_color="bg-success"
+          <widget name="web_ribbon" text="Activado" bg_color="bg-success"
             attrs="{'invisible': [('active', '=', False)]}" />
           <widget name="web_ribbon" text="Archivado" bg_color="bg-danger"
             attrs="{'invisible': [('active', '=', True)]}" />
@@ -43,7 +43,7 @@
     <field name="arch" type="xml">
       <search string=" buscar pregunta">
         <field name="name" />
-        <filter string="Archivada" name="Activada" domain="[('active', '=',False)]" />
+        <filter string="Archivada" name="activo" domain="[('active', '=',False)]" />
       </search>
     </field>
   </record>
