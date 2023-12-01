@@ -15,6 +15,12 @@
                         class="oe_highlight"
                         style="background-color:green;"
                     />
+                    <button
+                        string="Validar IMEI"
+                        name="validate_imei"
+                        type="object"
+                        class="oe_highlight"
+                    />
                     <!-- <button -->
                         <!-- string="Rechazar orden" -->
                         <!-- name=""  Agregar el action del wizard para el rechazo de la orden -->
