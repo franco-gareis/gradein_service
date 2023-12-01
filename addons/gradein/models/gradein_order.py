@@ -148,6 +148,7 @@ class GradeInOrder(models.Model):
             numbers_of_records = self.env["gradein.order"].search_count(
                 [
                     ("partner_id", "=", record.partner_id.id),
+                    ("state", "=", "confirmed"),
                     ("date", ">", monthly_user_orders),
                     ("date", "<=", datetime.today()),
                 ]
