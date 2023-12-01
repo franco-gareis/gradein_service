@@ -67,10 +67,13 @@ class GradeInOrder(models.Model):
         string="Respuestas",
         required=True,
     )
+    equipment_type_name = fields.Selection(
+        related="equipment_type_id.name"
+    )
 
     @api.constrains("question_answer_ids")
     def validate_answers(self):
-        for record in self.question_answer_id:
+        for record in self.question_answer_ids:
             if record.answer_id.blocking:
                 raise ValidationError(
                     "Se ha ingresado una respuesta bloqueante, usted no puede continuar con la orden"
