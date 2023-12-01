@@ -31,7 +31,10 @@ class GradeInEquipmentType(models.Model):
         help="Possible question for the equipment",
         required=True,
     )
-
+    equipment_ids = fields.One2many(
+        comodel_name="gradein.equipment",
+        inverse_name="equipment_type_id",
+    )
 
     def _equipment_type_selection(self):
         return [
