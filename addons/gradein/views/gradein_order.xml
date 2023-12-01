@@ -18,6 +18,7 @@
                     string="Validar IMEI"
                     name="validate_imei"
                     type="object"
+                    class="oe_highlight"
                 />
                 </header>
                 <sheet>

@@ -161,6 +161,7 @@ class GradeInOrder(models.Model):
     def validate_imei (self):
         
         for record in self:
+            
             response = requests.get(f"https://mirgor-alkemy-imei-api.azurewebsites.net/api/check_imei/{record.imei}")
             response_dict = response.json()
             is_valid = response_dict.get("valid")
