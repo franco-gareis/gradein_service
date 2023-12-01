@@ -157,6 +157,7 @@ class GradeInOrder(models.Model):
                 raise ValidationError(
                     f"El usuario ha superado el limite de {max_orders} ordenes permitidos en un periodo de {ORDER_LIMIT_DAYS} días"
                 )
+                
     @api.constrains("imei")
     def validate_imei (self):
         
@@ -171,13 +172,13 @@ class GradeInOrder(models.Model):
             else :
                 
                 notification = {
-                    'type': 'ir.actions.client',
-                    'tag': 'display_notification',
-                    'params': {
-                        'title': ('Validador de IMEI'),
-                        'message': 'El IMEI ingresado es valido',
-                        'type':'success',  #types: success,warning,danger,info
-                        'sticky': True,  #True/False will display for few seconds if false
+                    "type": "ir.actions.client",
+                    "tag": "display_notification",
+                    "params": {
+                        "title": ("Validador de IMEI"),
+                        "message": "El IMEI ingresado es valido",
+                        "type":"success",  #types: success,warning,danger,info
+                        "sticky": True,  #True/False will display for few seconds if false
                     }
                 }
                 return notification
