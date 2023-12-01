@@ -121,23 +121,6 @@ class GradeInOrder(models.Model):
             )
         self.price = self.equipment_id.price - total
 
-    def _set_or_get_max_order_per_month_env(self):
-        """
-        Returns:
-            The max_order environment variable value
-        """
-        MAX_ORDERS_PER_MONTH = "2"
-
-        max_orders = self.env["ir.config_parameter"].sudo().get_param("max_orders")
-
-        if not max_orders:
-            self.env["ir.config_parameter"].set_param(
-                "max_orders", MAX_ORDERS_PER_MONTH
-            )
-            max_orders = self.env["ir.config_parameter"].sudo().get_param("max_orders")
-
-        return max_orders
-
     @api.constrains("partner_id")
     def validate_order_user(self):
         """
@@ -149,7 +132,7 @@ class GradeInOrder(models.Model):
 
         ORDER_LIMIT_DAYS = 30
 
-        max_orders = int(self._set_or_get_max_order_per_month_env())
+        max_orders = int(self.env["ir.config_parameter"].sudo().get_param("max_orders"))
         monthly_user_orders = datetime.today() - timedelta(days=ORDER_LIMIT_DAYS)
 
         for record in self:
@@ -162,7 +145,7 @@ class GradeInOrder(models.Model):
                 ]
             )
 
-            if numbers_of_records > max_orders:
+            if numbers_of_records >= max_orders:
                 raise ValidationError(
                     f"El usuario ha superado el limite de {max_orders} ordenes permitidos en un periodo de {ORDER_LIMIT_DAYS} días"
                 )
