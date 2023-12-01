@@ -56,6 +56,7 @@ class GradeInOrder(models.Model):
         "attachment_id",
         "Attachments"
     )
+    image_ids = fields.Many2many("ir.attachment", string="Imágenes", tracking=True)    
     question_answer_ids = fields.One2many(
         comodel_name="gradein.question.answer",
         inverse_name="order_id",
