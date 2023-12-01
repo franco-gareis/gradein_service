@@ -57,7 +57,7 @@
                             </field>
                         </page>
                         <page string="Imagenes">
-                            <field name="attachment_ids" widget="many2many_binary" string="Imagenes"/>
+                            <field name="image_ids" widget="many2many_binary"/>
                         </page>
                     </notebook>
                 </sheet>

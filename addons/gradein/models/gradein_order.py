@@ -55,13 +55,7 @@ class GradeInOrder(models.Model):
         required=True,
     )
     currency_id = fields.Many2one(related="equipment_id.currency_id")
-    attachment_ids = fields.Many2many(
-        "ir.attachment",
-        "project_issue_ir_attachments_rel",
-        "issue_id",
-        "attachment_id",
-        "Attachments"
-    )
+    image_ids = fields.Many2many("ir.attachment", string="Imágenes", tracking=True)    
     question_answer_ids = fields.One2many(
         comodel_name="gradein.question.answer",
         inverse_name="order_id",
