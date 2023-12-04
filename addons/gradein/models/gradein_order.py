@@ -162,32 +162,43 @@ class GradeInOrder(models.Model):
     @api.constrains("imei")
     def validate_imei (self):
         
+        url = f"https://mirgor-alkemy-imei-api.azurewebsites.net/api/check_ime/{self.imei}"
+        
         try:
-            response = requests.get(f"https://mirgor-alkemy-imei-api.azurewebsites.net/api/check_imei/{self.imei}")
+            
+            response = requests.get(url)
             response.raise_for_status()
-        except Exception as e:
-            raise ValidationError ("No hay conexion con el server")
+            
+        except requests.exceptions.HTTPError as errh:
+            
+            if response.status_code == 404:
+                raise ValidationError (f"La URL: {url} no es valida  ") from errh
+  
+        except requests.exceptions.ConnectionError as conerr: 
+            
+            raise ValidationError("Hubo un error al iniciar la conexion al servidor") from conerr
+  
         
         response_dict = response.json()
-        is_valid_imei = response_dict.get("valid")
+        is_valid_imei = response_dict.get("valid")    
         
         if not is_valid_imei:
-            raise ValidationError ("El imei no es valido para realizar esta operacion")
-    
-        else:
-            
-            notification = {
-            "type": "ir.actions.client",
-            "tag": "display_notification",
-            "params": {
-                "title": ("Validador de IMEI"),
-                "message": "El IMEI ingresado es valido",
-                "type":"success",  #types: success,warning,danger,info
-                "sticky": True,  #True/False will display for few seconds if false
-            }
-        }
+                raise ValidationError ("El imei no es valido para realizar esta operacion")
         
-        return notification
+        else:
+                
+                notification = {
+                "type": "ir.actions.client",
+                "tag": "display_notification",
+                "params": {
+                    "title": ("Validador de IMEI"),
+                    "message": "El IMEI ingresado es valido",
+                    "type":"success",  #types: success,warning,danger,info
+                    "sticky": True,  #True/False will display for few seconds if false
+                }
+            }
+            
+                return notification
         
 
 
