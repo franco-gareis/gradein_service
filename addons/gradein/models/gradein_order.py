@@ -166,17 +166,17 @@ class GradeInOrder(models.Model):
         
         try:
             
-            response = requests.get(url)
+            response = requests.get(url,timeout=10)
             response.raise_for_status()
             
         except requests.exceptions.HTTPError as errh: 
             
             if response.status_code == 404:
-                raise ValidationError (f"La URL: {url} no es valida  ")
+                raise ValidationError (f"La URL: {url} no es valida  ") from errh
   
         except requests.exceptions.ConnectionError as conerr: 
             
-            raise ValidationError("Hubo un error al iniciar la conexion al servidor")
+            raise ValidationError("Hubo un error al iniciar la conexion al servidor") from conerr
   
         
         response_dict = response.json()
