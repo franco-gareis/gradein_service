@@ -73,7 +73,7 @@ class GradeInOrder(models.Model):
     )
     equipment_type_name = fields.Selection(related="equipment_type_id.name")
 
-    @api.constrains("question_answer_ids")
+    @api.constrains("question_answer_ids") # TODO: quitar la validacion de aca
     def validate_answers(self):
         for record in self.question_answer_ids:
             if record.answer_id.blocking:
@@ -151,7 +151,7 @@ class GradeInOrder(models.Model):
                     f"El usuario ha superado el limite de {max_orders} ordenes permitidos en un periodo de {ORDER_LIMIT_DAYS} días"
                 )
 
-    def action_confirm_order(self):
+    def action_confirm_order(self): #TODO:Agregar valdiacion aqui
         """
         Simple action to confirm the order
 
