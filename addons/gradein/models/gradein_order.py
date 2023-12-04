@@ -162,7 +162,7 @@ class GradeInOrder(models.Model):
     @api.constrains("imei")
     def validate_imei (self):
         
-        url = f"https://mirgor-alkemy-imei-api.azurewebsites.net/api/check_ime/{self.imei}"
+        url = f"https://mirgor-alkemy-imei-api.azurewebsites.net/api/check_imei/{self.imei}"
         
         try:
             
