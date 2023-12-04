@@ -144,7 +144,7 @@ class GradeInOrder(models.Model):
                     f"El usuario ha superado el limite de {max_orders} ordenes permitidos en un periodo de {ORDER_LIMIT_DAYS} días"
                 )
 
-    def action_confirm_order(self): #TODO:Agregar valdiacion aqui
+    def action_confirm_order(self):
         """
         Simple action to confirm the order
 
