@@ -73,13 +73,6 @@ class GradeInOrder(models.Model):
     )
     equipment_type_name = fields.Selection(related="equipment_type_id.name")
 
-    @api.constrains("question_answer_ids") # TODO: quitar la validacion de aca
-    def validate_answers(self):
-        for record in self.question_answer_ids:
-            if record.answer_id.blocking:
-                raise ValidationError(
-                    "Se ha ingresado una respuesta bloqueante, usted no puede continuar con la orden"
-                )
 
     def _gradein_order_states(self):
         return [
@@ -158,6 +151,11 @@ class GradeInOrder(models.Model):
         Returns:
             None
         """
+        for record in self.question_answer_ids:
+            if record.answer_id.blocking:
+                raise ValidationError(
+                    "Se ha ingresado una respuesta bloqueante, usted no puede continuar con la orden"
+                )
         self.write({"state": "confirmed"})
 
     def action_draft_order(self):
