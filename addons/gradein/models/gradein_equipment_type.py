@@ -31,7 +31,14 @@ class GradeInEquipmentType(models.Model):
         help="Possible question for the equipment",
         required=True,
     )
-
+    equipment_ids = fields.One2many(
+        comodel_name="gradein.equipment",
+        inverse_name="equipment_type_id",
+    )
+    display_name = fields.Char(
+        store=True,
+        compute="_compute_display_name"
+    )
 
     def _equipment_type_selection(self):
         return [
@@ -40,3 +47,11 @@ class GradeInEquipmentType(models.Model):
             ("tablet", "Tablet"),
             ("smartwatch", "SmartWatch")
         ]
+
+    def _compute_display_name(self):
+        """Simple method to compute the display_name field"""
+        selection = self._equipment_type_selection()
+
+        for sel in selection:
+            if sel[0] == self.name:
+                self.display_name = sel[1]

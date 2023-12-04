@@ -6,24 +6,30 @@
             <t t-foreach="docs" t-as="doc">
                 <t t-call="web.external_layout">
                     <div class="page">
-                        <h3>Adjuntamos la informacion del servicio</h3>
+                        <h3>Informacion del servicio</h3>
+                        <p></p>
                         <p>Nombre de la orden: <t t-out="doc.name"/></p>
                         <p>Fecha: <t t-out="doc.date"/></p>
                         <p>Nombre del equipo: <t t-out="doc.equipment_id.name"/></p>
                         <t t-if="doc.imei">
-                            <p>IMEI: <t t-out="doc.imei.name"/></p>
+                            <p>IMEI: <t t-out="doc.imei"/></p>
                         </t>
                         <p>Cliente: <t t-out="doc.partner_id.name"/></p>
                         <t t-if="doc.state == 'rejected'">
                             <p>Motivo de rechazo: <t t-out="doc.reject_motive_id.name"/></p>
                         </t>
                         <p>Importe a pagar: <t t-out="doc.price"/></p>
-                        <p>Resumen de la evaluacion: <t t-out="doc.review"/></p>
-                        <p>Imagenes del equipo</p>
-                        <t t-foreach="doc.image_id" t-as="image">
-                            <img t-att-src="image_data_uri(image.image)" style="max-height: 200px;"/>
+                        <t t-if="doc.review">
+                            <p>Resumen de la evaluacion: <t t-out="doc.review"/></p>
                         </t>
-                        <p>Muchas gracias por utilizar nuestro servicio de compra!</p>
+                        <p>Preguntas y respuestas del equipo</p>
+                        <ul>
+                            <t t-foreach="doc.question_answer_ids" t-as="question_answer_related">
+                                <li>
+                                    <t t-esc="question_answer_related.question_id.name"/> - <t t-esc="question_answer_related.answer_id.name"/>
+                                </li>
+                            </t>
+                        </ul>
                     </div>
                 </t>
             </t>
@@ -31,7 +37,7 @@
     </template>
 
     <record id="action_print_report_pdf" model="ir.actions.report">
-        <field name="name">Imprimir factura</field>
+        <field name="name">Imprimir informe</field>
         <field name="model">gradein.order</field>
         <field name="report_type">qweb-pdf</field>
         <field name="report_name">gradein.order_report</field>

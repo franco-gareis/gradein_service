@@ -23,6 +23,12 @@ class GradeInOrder(models.Model):
         string="Estado de la orden",
         required=True,
     )
+    equipment_type_id = fields.Many2one(
+        comodel_name="gradein.equipment.type",
+        string="Tipo de Equipo",
+        help="Equipment Type of the order",
+        required=True,
+    )    
     equipment_id = fields.Many2one(
         comodel_name="gradein.equipment",
         string="Equipo",
@@ -51,18 +57,15 @@ class GradeInOrder(models.Model):
         required=True,
     )
     currency_id = fields.Many2one(related="equipment_id.currency_id")
-    attachment_ids = fields.Many2many(
-        "ir.attachment",
-        "project_issue_ir_attachments_rel",
-        "issue_id",
-        "attachment_id",
-        "Attachments"
-    )
+    image_ids = fields.Many2many("ir.attachment", string="Imágenes", tracking=True)    
     question_answer_ids = fields.One2many(
         comodel_name="gradein.question.answer",
         inverse_name="order_id",
         string="Respuestas",
         required=True,
+    )
+    equipment_type_name = fields.Selection(
+        related="equipment_type_id.name"
     )
 
     @api.constrains("question_answer_ids")
@@ -89,12 +92,12 @@ class GradeInOrder(models.Model):
         res = super().create(vals_list)
         return res
 
-    @api.onchange("equipment_id")
-    def on_change_equipment(self):
+    @api.onchange("equipment_type_id")
+    def get_questions_by_equipment_type(self):
         """When you select the equipment you get the questions and answers from the form"""
         commands_data = [(5, 0, 0)]  # We delete all the questions first
-        if self.equipment_id:
-            for question in self.equipment_id.equipment_type_id.question_ids:
+        if self.equipment_type_id:
+            for question in self.equipment_type_id.question_ids:
                 questions_dict = {"question_id": question.id}
                 commands_data.append(
                     (0, 0, questions_dict)
@@ -114,23 +117,6 @@ class GradeInOrder(models.Model):
             )
         self.price = self.equipment_id.price - total
 
-    def _set_or_get_max_order_per_month_env(self):
-        """
-        Returns:
-            The max_order environment variable value
-        """
-        MAX_ORDERS_PER_MONTH = "2"
-
-        max_orders = self.env["ir.config_parameter"].sudo().get_param("max_orders")
-
-        if not max_orders:
-            self.env["ir.config_parameter"].set_param(
-                "max_orders", MAX_ORDERS_PER_MONTH
-            )
-            max_orders = self.env["ir.config_parameter"].sudo().get_param("max_orders")
-
-        return max_orders
-
     @api.constrains("partner_id")
     def validate_order_user(self):
         """
@@ -142,7 +128,7 @@ class GradeInOrder(models.Model):
 
         ORDER_LIMIT_DAYS = 30
 
-        max_orders = int(self._set_or_get_max_order_per_month_env())
+        max_orders = int(self.env["ir.config_parameter"].sudo().get_param("max_orders"))
         monthly_user_orders = datetime.today() - timedelta(days=ORDER_LIMIT_DAYS)
 
         for record in self:
@@ -155,7 +141,7 @@ class GradeInOrder(models.Model):
                 ]
             )
 
-            if numbers_of_records > max_orders:
+            if numbers_of_records >= max_orders:
                 raise ValidationError(
                     f"El usuario ha superado el limite de {max_orders} ordenes permitidos en un periodo de {ORDER_LIMIT_DAYS} días"
                 )
