@@ -13,6 +13,7 @@
                         name="action_save_order"
                         type="object"
                         class="oe_highlight"
+                        attrs="{'invisible': [('state', 'in', ['rejected', 'confirmed'])]}"
                     />
                     <!-- <button -->
                         <!-- string="Rechazar orden" -->
@@ -21,6 +22,13 @@
                         <!-- class="oe_highlight" -->
                         <!-- style="background-color:red;" -->
                     <!-- /> -->
+                    <button
+                        string="Volver orden a borrador"
+                        name="action_draft_order"
+                        type="object"
+                        class="oe_highlight"
+                        attrs="{'invisible': [('state', '=', 'draft')]}"
+                    />
                     <field
                         name="state"
                         widget="statusbar"
@@ -32,13 +40,13 @@
                         <field name="name" />
                         <field name="date" />
                         <field name="equipment_type_id" widget="selection" />
-                        <field name="equipment_type_name" invisible="1" />
-                        <field name="equipment_id" widget="selection" domain="[('equipment_type_id', '=', equipment_type_id)]" />
-                        <field name="partner_id" widget="selection" />
-                        <field name="currency_id" />
+                        <field name="equipment_type_name" invisible="1"/>
+                        <field name="equipment_id" widget="selection" domain="[('equipment_type_id', '=', equipment_type_id)]"/>
+                        <field name="partner_id" widget="res_partner_many2one" context="{'res_partner_search_mode': 'partner_id', 'show_address': 1, 'show_vat': True}" options='{"always_reload": True}' />
+                        <field name="currency_id" invisible="1" />
                         <field name="imei" attrs="{'invisible': [('equipment_type_name', '!=', 'smartphone')]}" />
                         <field name="reject_motive_id" attrs="{'invisible': [('state', '!=', 'rejected')]}" />
-                        <field name="review" />
+                        <field name="price" />
                     </group>
                     <notebook>
                         <page string="Preguntas y respuestas">
@@ -48,6 +56,9 @@
                                     <field name="answer_id" domain="[('question_id', '=', question_id)]" required="1"/>
                                 </tree>
                             </field>
+                        </page>
+                        <page string="Resumen de la orden">
+                            <field name="review" />
                         </page>
                         <page string="Imagenes">
                             <field name="image_ids" widget="many2many_binary"/>
@@ -66,18 +77,17 @@
             <tree string="Ordenes">
                 <field name="name" />
                 <field name="date" />
+                <field name="equipment_id" />
+                <field name="imei" />
+                <field name="partner_id" />
+                <field name="currency_id" invisible="1"/>
+                <field name="price" widget="monetary" options="{'currency_field': 'currency_id'}" />
                 <field name="state"
                     widget="badge"
                     decoration-info="state == 'draft'"
                     decoration-success="state == 'confirmed'"
                     decoration-danger="state == 'rejected'"
                 />
-                <field name="equipment_id" />
-                <field name="imei" />
-                <field name="partner_id" widget="many2one_avatar_user" optional="show" />
-                <field name="reject_motive_id" />
-                <field name="currency_id" invisible="1"/>
-                <field name="price" widget="monetary" options="{'currency_field': 'currency_id'}" />
             </tree>
         </field>
     </record>

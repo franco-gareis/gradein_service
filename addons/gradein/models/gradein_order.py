@@ -26,7 +26,7 @@ class GradeInOrder(models.Model):
         string="Tipo de Equipo",
         help="Equipment Type of the order",
         required=True,
-    )    
+    )
     equipment_id = fields.Many2one(
         comodel_name="gradein.equipment",
         string="Equipo",
@@ -55,7 +55,7 @@ class GradeInOrder(models.Model):
         required=True,
     )
     currency_id = fields.Many2one(related="equipment_id.currency_id")
-    image_ids = fields.Many2many("ir.attachment", string="Imágenes", tracking=True)    
+    image_ids = fields.Many2many("ir.attachment", string="Imágenes", tracking=True)
     question_answer_ids = fields.One2many(
         comodel_name="gradein.question.answer",
         inverse_name="order_id",
@@ -152,3 +152,7 @@ class GradeInOrder(models.Model):
             None
         """
         self.write({"state": "confirmed"})
+
+    def action_draft_order(self):
+        """Simple action to draft the order"""
+        self.write({"state": "draft"})
