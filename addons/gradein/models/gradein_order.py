@@ -140,12 +140,12 @@ class GradeInOrder(models.Model):
                 raise ValidationError(
                     f"El usuario ha superado el limite de {max_orders} ordenes permitidos en un periodo de {ORDER_LIMIT_DAYS} días"
                 )
-    
+
     @api.constrains("imei")
     def validate_imei(self):
-        
+
         if self.equipment_type_name == "smartphone":
-            
+
             url = f"https://mirgor-alkemy-imei-api.azurewebsites.net/api/check_imei/{self.imei}"
 
             try:
