@@ -10,7 +10,7 @@
                 <header>
                     <button
                         string="Aceptar orden"
-                        name="action_confirm_order"
+                        name="action_save_order"
                         type="object"
                         class="oe_highlight"
                         attrs="{'invisible': [('state', 'in', ['rejected', 'confirmed'])], 'readonly': [('state', '=', 'rejected')]}"
@@ -32,9 +32,9 @@
                     <group>
                         <field name="name" />
                         <field name="date" />
-                        <field name="equipment_type_id" widget="res_partner_many2one" />
+                        <field name="equipment_type_id" widget="selection" />
                         <field name="equipment_type_name" invisible="1"/>
-                        <field name="equipment_id" widget="res_partner_many2one" domain="[('equipment_type_id', '=', equipment_type_id)]"/>
+                        <field name="equipment_id" widget="selection" domain="[('equipment_type_id', '=', equipment_type_id)]"/>
                         <field name="partner_id" widget="res_partner_many2one" context="{'res_partner_search_mode': 'partner_id', 'show_address': 1, 'show_vat': True}" options='{"always_reload": True}' />
                         <field name="currency_id" invisible="1" />
                         <field name="imei" attrs="{'invisible': [('equipment_type_name', '!=', 'smartphone')]}" />
