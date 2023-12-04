@@ -166,7 +166,7 @@ class GradeInOrder(models.Model):
         
         try:
             
-            response = requests.get(url)
+            response = requests.get(url,timeout=10)
             response.raise_for_status()
             
         except requests.exceptions.HTTPError as errh:
