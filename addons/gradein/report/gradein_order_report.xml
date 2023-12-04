@@ -12,7 +12,7 @@
                         <p>Fecha: <t t-out="doc.date"/></p>
                         <p>Nombre del equipo: <t t-out="doc.equipment_id.name"/></p>
                         <t t-if="doc.imei">
-                            <p>IMEI: <t t-out="doc.imei.name"/></p>
+                            <p>IMEI: <t t-out="doc.imei"/></p>
                         </t>
                         <p>Cliente: <t t-out="doc.partner_id.name"/></p>
                         <t t-if="doc.state == 'rejected'">
