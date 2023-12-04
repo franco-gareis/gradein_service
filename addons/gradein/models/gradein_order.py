@@ -22,6 +22,7 @@ class GradeInOrder(models.Model):
         default="draft",
         string="Estado de la orden",
         required=True,
+        tracking=True
     )
     equipment_type_id = fields.Many2one(
         comodel_name="gradein.equipment.type",
@@ -42,9 +43,10 @@ class GradeInOrder(models.Model):
         string="Resumen de la evaluacion",
         help="Short review of the evaluation",
         required=True,
+        tracking=True
     )
     reject_motive_id = fields.Many2one(
-        comodel_name="gradein.reject.reason", string="Motivo de rechazo"
+        comodel_name="gradein.reject.reason", string="Motivo de rechazo",tracking=True
     )
     imei = fields.Char(string="IMEI", help="IMEI of the equipment to check")
     partner_id = fields.Many2one(
