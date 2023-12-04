@@ -10,18 +10,17 @@
                 <header>
                     <button
                         string="Aceptar orden"
-                        name="action_save_order"
+                        name="action_confirm_order"
                         type="object"
                         class="oe_highlight"
                         attrs="{'invisible': [('state', 'in', ['rejected', 'confirmed'])]}"
                     />
-                    <!-- <button -->
-                    <!-- string="Rechazar orden" -->
-                    <!-- name=""  Agregar el action del wizard para el rechazo de la orden -->
-                    <!-- type="action" -->
-                    <!-- class="oe_highlight" -->
-                    <!-- style="background-color:red;" -->
-                    <!-- /> -->
+                    <button
+                        string="Rechazar orden"
+                        name="%(gradein_reject_reason_wizard_action)d"
+                        type="action"
+                        class="oe_highlight"
+                    />
                     <button
                         string="Volver orden a borrador"
                         name="action_draft_order"
@@ -99,6 +98,12 @@
                     decoration-success="state == 'confirmed'"
                     decoration-danger="state == 'rejected'"
                 />
+                <field name="equipment_id" />
+                <field name="imei" />
+                <field name="partner_id" widget="many2one_avatar_user" optional="show" />
+                <field name="reject_motive_id" />
+                <field name="currency_id" invisible="1" />
+                <field name="price" widget="monetary" options="{'currency_field': 'currency_id'}" />
             </tree>
         </field>
     </record>
@@ -156,4 +161,7 @@
         <field name="padding">6</field>
         <field name="company_id" eval="False" />
     </record>
+
+
+
 </odoo>

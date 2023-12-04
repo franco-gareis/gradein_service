@@ -151,9 +151,9 @@ class GradeInOrder(models.Model):
                     f"El usuario ha superado el limite de {max_orders} ordenes permitidos en un periodo de {ORDER_LIMIT_DAYS} días"
                 )
 
-    def action_save_order(self):
+    def action_confirm_order(self):
         """
-        Simple action to save the order
+        Simple action to confirm the order
 
         Returns:
             None

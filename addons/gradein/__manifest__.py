@@ -19,6 +19,7 @@
         "views/gradein_question.xml",
         "views/gradein_reject_reason.xml",
         "views/gradein_order.xml",
+        'wizard/gradein_reject_reason_wizard.xml',
     ],
     "installable": True,
     "auto_install": False,
