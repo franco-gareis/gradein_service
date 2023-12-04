@@ -80,7 +80,6 @@
                     decoration-info="state == 'draft'"
                     decoration-success="state == 'confirmed'"
                     decoration-danger="state == 'rejected'"
-                    class="text-right"
                 />
             </tree>
         </field>
