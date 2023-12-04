@@ -12,5 +12,8 @@ class GradeInQuestionAnswer(models.Model):
         comodel_name="gradein.answer", string="Respuestas", help="Possible answer"
     )
     order_id = fields.Many2one(comodel_name="gradein.order", ondelete='cascade')
-
-    #def related
+    
+    answer_blocking = fields.Boolean(
+        related="answer_id.blocking"
+    )
+        

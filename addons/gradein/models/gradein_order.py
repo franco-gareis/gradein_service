@@ -35,9 +35,6 @@ class GradeInOrder(models.Model):
         help="Equipment of the order",
         required=True,
     )
-    equipment_type_name = fields.Selection(
-        related="equipment_id.equipment_type_id.name"
-    )
     review = fields.Text(
         string="Resumen de la evaluacion",
         help="Short review of the evaluation",
