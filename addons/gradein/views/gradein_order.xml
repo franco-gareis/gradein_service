@@ -22,6 +22,13 @@
                         <!-- class="oe_highlight" -->
                         <!-- style="background-color:red;" -->
                     <!-- /> -->
+                    <button
+                        string="Volver orden a borrador"
+                        name="action_draft_order"
+                        type="object"
+                        class="oe_highlight"
+                        attrs="{'invisible': [('state', '=', 'draft')]}"
+                    />
                     <field
                         name="state"
                         widget="statusbar"
