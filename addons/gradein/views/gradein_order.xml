@@ -13,7 +13,7 @@
                         name="action_save_order"
                         type="object"
                         class="oe_highlight"
-                        attrs="{'invisible': [('state', 'in', ['rejected', 'confirmed'])], 'readonly': [('state', '=', 'rejected')]}"
+                        attrs="{'invisible': [('state', 'in', ['rejected', 'confirmed'])]}"
                     />
                     <!-- <button -->
                         <!-- string="Rechazar orden" -->
