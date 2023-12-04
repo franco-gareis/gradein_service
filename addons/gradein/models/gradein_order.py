@@ -4,8 +4,10 @@ from odoo.exceptions import ValidationError
 
 
 class GradeInOrder(models.Model):
+    
     _name = "gradein.order"
     _description = "GradeIn Order"
+    _inherit = ["mail.thread", "mail.activity.mixin"]
 
     name = fields.Char(
         string="Nombre",
@@ -14,7 +16,7 @@ class GradeInOrder(models.Model):
         readonly=True,
         default=lambda self: ("Nueva Orden"),
     )
-    date = fields.Date(default=datetime.today(), required=True)
+    date = fields.Date(default=datetime.today(), required=True,tracking=True)
     state = fields.Selection(
         "_gradein_order_states",
         default="draft",
@@ -40,7 +42,7 @@ class GradeInOrder(models.Model):
     )
     imei = fields.Char(string="IMEI", help="IMEI of the equipment to check")
     partner_id = fields.Many2one(
-        comodel_name="res.partner", string="Cliente", required=True
+        comodel_name="res.partner", string="Cliente", required=True,tracking=True
     )
     price = fields.Monetary(
         string="Importe a pagar",
