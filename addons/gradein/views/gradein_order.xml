@@ -35,6 +35,12 @@
                     type="object"
                     class="oe_highlight"
                     />
+                    <button
+                    string="Validate IMEI"
+                    name="validate_imei"
+                    type="object"
+                    class="oe_highlight"
+                    />
                     <field
                         name="state"
                         widget="statusbar"
