@@ -6,6 +6,7 @@ from odoo.exceptions import ValidationError
 class GradeInOrder(models.Model):
     _name = "gradein.order"
     _description = "GradeIn Order"
+    _inherit = ["mail.thread", "mail.activity.mixin"]
 
     name = fields.Char(
         string="Nombre",
@@ -20,6 +21,7 @@ class GradeInOrder(models.Model):
         default="draft",
         string="Estado de la orden",
         required=True,
+        tracking=True,
     )
     equipment_type_id = fields.Many2one(
         comodel_name="gradein.equipment.type",

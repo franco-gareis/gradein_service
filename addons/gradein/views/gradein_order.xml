@@ -16,11 +16,11 @@
                         attrs="{'invisible': [('state', 'in', ['rejected', 'confirmed'])]}"
                     />
                     <!-- <button -->
-                        <!-- string="Rechazar orden" -->
-                        <!-- name=""  Agregar el action del wizard para el rechazo de la orden -->
-                        <!-- type="action" -->
-                        <!-- class="oe_highlight" -->
-                        <!-- style="background-color:red;" -->
+                    <!-- string="Rechazar orden" -->
+                    <!-- name=""  Agregar el action del wizard para el rechazo de la orden -->
+                    <!-- type="action" -->
+                    <!-- class="oe_highlight" -->
+                    <!-- style="background-color:red;" -->
                     <!-- /> -->
                     <button
                         string="Volver orden a borrador"
@@ -40,20 +40,26 @@
                         <field name="name" />
                         <field name="date" />
                         <field name="equipment_type_id" widget="selection" />
-                        <field name="equipment_type_name" invisible="1"/>
-                        <field name="equipment_id" widget="selection" domain="[('equipment_type_id', '=', equipment_type_id)]"/>
-                        <field name="partner_id" widget="res_partner_many2one" context="{'res_partner_search_mode': 'partner_id', 'show_address': 1, 'show_vat': True}" options='{"always_reload": True}' />
+                        <field name="equipment_type_name" invisible="1" />
+                        <field name="equipment_id" widget="selection"
+                            domain="[('equipment_type_id', '=', equipment_type_id)]" />
+                        <field name="partner_id" widget="res_partner_many2one"
+                            context="{'res_partner_search_mode': 'partner_id', 'show_address': 1, 'show_vat': True}"
+                            options='{"always_reload": True}' />
                         <field name="currency_id" invisible="1" />
-                        <field name="imei" attrs="{'invisible': [('equipment_type_name', '!=', 'smartphone')]}" />
-                        <field name="reject_motive_id" attrs="{'invisible': [('state', '!=', 'rejected')]}" />
+                        <field name="imei"
+                            attrs="{'invisible': [('equipment_type_name', '!=', 'smartphone')]}" />
+                        <field name="reject_motive_id"
+                            attrs="{'invisible': [('state', '!=', 'rejected')]}" />
                         <field name="price" />
                     </group>
                     <notebook>
                         <page string="Preguntas y respuestas">
                             <field name="question_answer_ids">
                                 <tree editable="bottom">
-                                    <field name="question_id" readonly="1" force_save="1"/>
-                                    <field name="answer_id" domain="[('question_id', '=', question_id)]" required="1"/>
+                                    <field name="question_id" readonly="1" force_save="1" />
+                                    <field name="answer_id"
+                                        domain="[('question_id', '=', question_id)]" required="1" />
                                 </tree>
                             </field>
                         </page>
@@ -61,10 +67,15 @@
                             <field name="review" />
                         </page>
                         <page string="Imagenes">
-                            <field name="image_ids" widget="many2many_binary"/>
+                            <field name="image_ids" widget="many2many_binary" />
                         </page>
                     </notebook>
                 </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" />
+                    <field name="activity_ids" />
+                    <field name="message_ids" />
+                </div>
             </form>
         </field>
     </record>
@@ -80,7 +91,7 @@
                 <field name="equipment_id" />
                 <field name="imei" />
                 <field name="partner_id" />
-                <field name="currency_id" invisible="1"/>
+                <field name="currency_id" invisible="1" />
                 <field name="price" widget="monetary" options="{'currency_field': 'currency_id'}" />
                 <field name="state"
                     widget="badge"
