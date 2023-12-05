@@ -56,7 +56,7 @@
                     <notebook>
                         <page string="Preguntas y respuestas">
                             <field name="question_answer_ids">
-                                <tree editable="bottom" decoration-danger="answer_blocking">
+                                <tree editable="bottom" delete="false" create="false" decoration-danger="answer_blocking">
                                     <field name="question_id" readonly="1" force_save="1" />
                                     <field name="answer_id"
                                         domain="[('question_id', '=', question_id)]" required="1" />
