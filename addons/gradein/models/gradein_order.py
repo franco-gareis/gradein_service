@@ -186,6 +186,11 @@ class GradeInOrder(models.Model):
             None
         """
         for record in self.question_answer_ids:
+            if not record.answer_id:
+                raise ValidationError(
+                    "Debe ingresar todas las respuestas"
+                )
+
             if record.answer_id.blocking:
                 raise ValidationError(
                     "Se ha ingresado una respuesta bloqueante, usted no puede continuar con la orden"
