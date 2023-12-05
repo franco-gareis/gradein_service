@@ -11,6 +11,7 @@
         "security/gradein_groups.xml",
         "security/ir.model.access.csv",
         "data/ir_config_parameter.xml",
+        'wizard/gradein_reject_reason_wizard.xml',
         "report/gradein_order_report.xml",
         "views/services_menu.xml",
         "views/gradein_equipment.xml",
