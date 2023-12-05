@@ -6,7 +6,7 @@
         <div class="header">
             <ul>
                 <li>
-                    <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 50px;" alt="Logo"/>
+                    <img src="/gradein/static/description/odoo_icon.png" style="max-height: 50px;" alt="Logo"/>
                     <p>Gradein</p>
                 </li>
             </ul>
