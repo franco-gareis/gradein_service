@@ -35,9 +35,6 @@ class GradeInOrder(models.Model):
         help="Equipment of the order",
         required=True,
     )
-    equipment_type_name = fields.Selection(
-        related="equipment_id.equipment_type_id.name"
-    )
     review = fields.Text(
         string="Resumen de la evaluacion",
         help="Short review of the evaluation",
@@ -73,13 +70,6 @@ class GradeInOrder(models.Model):
     )
     equipment_type_name = fields.Selection(related="equipment_type_id.name")
 
-    @api.constrains("question_answer_ids")
-    def validate_answers(self):
-        for record in self.question_answer_ids:
-            if record.answer_id.blocking:
-                raise ValidationError(
-                    "Se ha ingresado una respuesta bloqueante, usted no puede continuar con la orden"
-                )
 
     def _gradein_order_states(self):
         return [
@@ -151,13 +141,18 @@ class GradeInOrder(models.Model):
                     f"El usuario ha superado el limite de {max_orders} ordenes permitidos en un periodo de {ORDER_LIMIT_DAYS} días"
                 )
 
-    def action_save_order(self):
+    def action_confirm_order(self):
         """
-        Simple action to save the order
+        Simple action to confirm the order
 
         Returns:
             None
         """
+        for record in self.question_answer_ids:
+            if record.answer_id.blocking:
+                raise ValidationError(
+                    "Se ha ingresado una respuesta bloqueante, usted no puede continuar con la orden"
+                )
         self.write({"state": "confirmed"})
 
     def action_draft_order(self):
