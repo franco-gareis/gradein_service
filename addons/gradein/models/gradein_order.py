@@ -43,7 +43,6 @@ class GradeInOrder(models.Model):
     review = fields.Text(
         string="Resumen de la evaluacion",
         help="Short review of the evaluation",
-        required=True,
         tracking=True,
     )
     reject_motive_id = fields.Many2one(
