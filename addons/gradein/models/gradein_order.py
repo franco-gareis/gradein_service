@@ -43,7 +43,6 @@ class GradeInOrder(models.Model):
     review = fields.Text(
         string="Resumen de la evaluacion",
         help="Short review of the evaluation",
-        required=True,
         tracking=True,
     )
     reject_motive_id = fields.Many2one(
@@ -186,6 +185,11 @@ class GradeInOrder(models.Model):
             None
         """
         for record in self.question_answer_ids:
+            if not record.answer_id:
+                raise ValidationError(
+                    "Debe ingresar todas las respuestas"
+                )
+
             if record.answer_id.blocking:
                 raise ValidationError(
                     "Se ha ingresado una respuesta bloqueante, usted no puede continuar con la orden"
