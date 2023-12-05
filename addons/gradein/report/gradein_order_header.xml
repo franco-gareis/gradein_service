@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <template id="custom_header">
+        <t t-set="company" t-value="user.company_id"/>
+        <div class="header">
+            <ul>
+                <li>
+                    <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 50px;" alt="Logo"/>
+                    <p>Gradein</p>
+                </li>
+            </ul>
+        </div>
+    </template>
+
+</odoo>
