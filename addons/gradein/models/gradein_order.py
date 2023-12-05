@@ -6,7 +6,16 @@ from odoo import fields, models, api
 from odoo.exceptions import ValidationError
 
 REQUEST_ERRORS = (ConnectionError, HTTPError, ConnectTimeout)
-
+IMEI_NOTIFICATION = {
+    "type": "ir.actions.client",
+    "tag": "display_notification",
+    "params": {
+        "title": ("Validador de IMEI"),
+        "message": None,
+        "type": None,
+        "sticky": False,
+    },
+}
 
 class GradeInOrder(models.Model):
     _name = "gradein.order"
@@ -153,7 +162,6 @@ class GradeInOrder(models.Model):
             try:
                 response = requests.get(url, timeout=10)
                 response.raise_for_status()
-
             except REQUEST_ERRORS as err:
                 raise ValidationError(
                     f"Ocurrio un error inesperado: {err}"
@@ -163,22 +171,15 @@ class GradeInOrder(models.Model):
             is_valid_imei = response_json.get("valid")
 
             if not is_valid_imei:
-                raise ValidationError(
-                    "El imei no es valido para realizar esta operacion"
+                IMEI_NOTIFICATION["params"].update(
+                    {"message": "El IMEI no es valido", "type": "danger"}
                 )
             else:
-                notification = {
-                    "type": "ir.actions.client",
-                    "tag": "display_notification",
-                    "params": {
-                        "title": ("Validador de IMEI"),
-                        "message": "El IMEI ingresado es valido",
-                        "type": "success",
-                        "sticky": True,
-                    },
-                }
+                IMEI_NOTIFICATION["params"].update(
+                    {"message": "El IMEI es valido", "type": "success"}
+                )
 
-            return notification
+        return IMEI_NOTIFICATION
 
     def action_confirm_order(self):
         """
