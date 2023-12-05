@@ -2,6 +2,8 @@ from datetime import datetime, timedelta
 from odoo import fields, models, api
 from odoo.exceptions import ValidationError
 import requests
+from requests.exceptions import ConnectionError,Timeout,HTTPError
+
 
 class GradeInOrder(models.Model):
     _name = "gradein.order"
@@ -46,7 +48,7 @@ class GradeInOrder(models.Model):
         string="Motivo de rechazo",
         tracking=True,
     )
-    imei = fields.Char(string="IMEI", help="IMEI of the equipment to check")
+    imei = fields.Char(string="IMEI", help="IMEI of the equipment to check",size=15)
     partner_id = fields.Many2one(
         comodel_name="res.partner",
         string="Cliente",
@@ -147,18 +149,15 @@ class GradeInOrder(models.Model):
         if self.equipment_type_name == "smartphone":
 
             url = f"https://mirgor-alkemy-imei-api.azurewebsites.net/api/check_imei/{self.imei}"
+            errors = (ConnectionError,Timeout)
 
             try:
                 response = requests.get(url, timeout=10)
                 response.raise_for_status()
 
-            except requests.exceptions.HTTPError as errh:
-                if response.status_code == 404:
-                    raise ValidationError(f"La URL: {url} no es valida  ") from errh
-
-            except requests.exceptions.ConnectionError as conerr:
+            except errors as conerr:
                 raise ValidationError(
-                    "Hubo un error al iniciar la conexion al servidor"
+                    "Hubo un error al iniciar la conexion "
                 ) from conerr
 
             response_dict = response.json()
