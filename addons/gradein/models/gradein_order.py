@@ -6,6 +6,7 @@ from odoo.exceptions import ValidationError
 class GradeInOrder(models.Model):
     _name = "gradein.order"
     _description = "GradeIn Order"
+    _inherit = ["mail.thread", "mail.activity.mixin"]
 
     name = fields.Char(
         string="Nombre",
@@ -20,6 +21,7 @@ class GradeInOrder(models.Model):
         default="draft",
         string="Estado de la orden",
         required=True,
+        tracking=True,
     )
     equipment_type_id = fields.Many2one(
         comodel_name="gradein.equipment.type",
@@ -40,13 +42,19 @@ class GradeInOrder(models.Model):
         string="Resumen de la evaluacion",
         help="Short review of the evaluation",
         required=True,
+        tracking=True,
     )
     reject_motive_id = fields.Many2one(
-        comodel_name="gradein.reject.reason", string="Motivo de rechazo"
+        comodel_name="gradein.reject.reason",
+        string="Motivo de rechazo",
+        tracking=True,
     )
     imei = fields.Char(string="IMEI", help="IMEI of the equipment to check")
     partner_id = fields.Many2one(
-        comodel_name="res.partner", string="Cliente", required=True
+        comodel_name="res.partner",
+        string="Cliente",
+        required=True,
+        tracking=True,
     )
     price = fields.Monetary(
         string="Importe a pagar",
@@ -61,10 +69,9 @@ class GradeInOrder(models.Model):
         inverse_name="order_id",
         string="Respuestas",
         required=True,
+        tracking=True,
     )
-    equipment_type_name = fields.Selection(
-        related="equipment_type_id.name"
-    )
+    equipment_type_name = fields.Selection(related="equipment_type_id.name")
 
     @api.constrains("question_answer_ids")
     def validate_answers(self):
