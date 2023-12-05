@@ -1,4 +1,4 @@
-from odoo import models, fields, api
+from odoo import models, fields
 
 
 class GradeInRejectReasonWizard(models.TransientModel):
@@ -10,7 +10,6 @@ class GradeInRejectReasonWizard(models.TransientModel):
     )
 
     def save_reject_reason(self):
-        # import pdb; pdb.set_trace()
         records = self.env["gradein.order"].browse(self.env.context.get("active_ids"))
         for rec in records:
             rec.write({"state": "rejected", "reject_motive_id": self.reject_motive_id})

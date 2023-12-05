@@ -11,8 +11,6 @@ services:
       - ./config:/etc/odoo
       - ./addons:/mnt/extra-addons
       - ./enterprise:/var/lib/odoo/addons/15.0
-    stdin_open: true
-    tty: true
   db:
     image: postgres:15-alpine3.18
     environment:
