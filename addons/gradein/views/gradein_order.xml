@@ -20,6 +20,7 @@
                         name="%(gradein_reject_reason_wizard_action)d"
                         type="action"
                         class="oe_highlight"
+                        attrs="{'invisible': [('state', 'in', ['rejected', 'confirmed'])]}"
                     />
                     <button
                         string="Volver orden a borrador"
