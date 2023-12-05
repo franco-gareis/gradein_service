@@ -29,6 +29,12 @@
                         class="oe_highlight"
                         attrs="{'invisible': [('state', '=', 'draft')]}"
                     />
+                    <button
+                        string="Validar IMEI"
+                        name="validate_imei"
+                        type="object"
+                        class="oe_highlight"
+                    />
                     <field
                         name="state"
                         widget="statusbar"
