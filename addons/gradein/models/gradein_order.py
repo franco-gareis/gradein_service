@@ -1,8 +1,11 @@
+import requests
+
+from requests.exceptions import ConnectionError, HTTPError, ConnectTimeout
 from datetime import datetime, timedelta
 from odoo import fields, models, api
 from odoo.exceptions import ValidationError
-import requests
-from requests.exceptions import ConnectionError,Timeout,HTTPError
+
+REQUEST_ERRORS = (ConnectionError, HTTPError, ConnectTimeout)
 
 
 class GradeInOrder(models.Model):
@@ -48,7 +51,7 @@ class GradeInOrder(models.Model):
         string="Motivo de rechazo",
         tracking=True,
     )
-    imei = fields.Char(string="IMEI", help="IMEI of the equipment to check",size=15)
+    imei = fields.Char(string="IMEI", help="IMEI of the equipment to check", size=15)
     partner_id = fields.Many2one(
         comodel_name="res.partner",
         string="Cliente",
@@ -71,7 +74,6 @@ class GradeInOrder(models.Model):
         tracking=True,
     )
     equipment_type_name = fields.Selection(related="equipment_type_id.name")
-
 
     def _gradein_order_states(self):
         return [
@@ -145,27 +147,25 @@ class GradeInOrder(models.Model):
 
     @api.constrains("imei")
     def validate_imei(self):
-
         if self.equipment_type_name == "smartphone":
-
             url = f"https://mirgor-alkemy-imei-api.azurewebsites.net/api/check_imei/{self.imei}"
-            errors = (ConnectionError,Timeout)
 
             try:
                 response = requests.get(url, timeout=10)
                 response.raise_for_status()
 
-            except errors as conerr:
+            except REQUEST_ERRORS as err:
                 raise ValidationError(
-                    "Hubo un error al iniciar la conexion "
-                ) from conerr
+                    f"Ocurrio un error inesperado: {err}"
+                )
 
-            response_dict = response.json()
-            is_valid_imei = response_dict.get("valid")
+            response_json = response.json()
+            is_valid_imei = response_json.get("valid")
 
             if not is_valid_imei:
-                raise ValidationError("El imei no es valido para realizar esta operacion")
-
+                raise ValidationError(
+                    "El imei no es valido para realizar esta operacion"
+                )
             else:
                 notification = {
                     "type": "ir.actions.client",
@@ -173,8 +173,8 @@ class GradeInOrder(models.Model):
                     "params": {
                         "title": ("Validador de IMEI"),
                         "message": "El IMEI ingresado es valido",
-                        "type": "success",  # types: success,warning,danger,info
-                        "sticky": True,  # True/False will display for few seconds if false
+                        "type": "success",
+                        "sticky": True,
                     },
                 }
 
