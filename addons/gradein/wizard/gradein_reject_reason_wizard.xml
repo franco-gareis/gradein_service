@@ -1,0 +1,27 @@
+<odoo>
+    <record id="gradein_reject_reason_wizard_view_form" model="ir.ui.view">
+        <field name="name">gradein.reject.reason.wizard.view.form</field>
+        <field name="model">gradein.reject.reason.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="reject_motive_id" widget="selection" required="1" />
+                </group>
+                <footer>
+                    <button string="Guardar" type="object" class="oe_highlight"
+                        name="save_reject_reason" />
+                    <button string="Cancel" class="oe_link" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="gradein_reject_reason_wizard_action" model="ir.actions.act_window">
+        <field name="name">Por favor, elija un motivo de rechazo</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">gradein.reject.reason.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="gradein_reject_reason_wizard_view_form" />
+        <field name="target">new</field>
+    </record>
+</odoo>

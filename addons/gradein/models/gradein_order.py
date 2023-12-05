@@ -1,11 +1,17 @@
+import requests
+
+from requests.exceptions import ConnectionError, HTTPError, ConnectTimeout
 from datetime import datetime, timedelta
 from odoo import fields, models, api
 from odoo.exceptions import ValidationError
+
+REQUEST_ERRORS = (ConnectionError, HTTPError, ConnectTimeout)
 
 
 class GradeInOrder(models.Model):
     _name = "gradein.order"
     _description = "GradeIn Order"
+    _inherit = ["mail.thread", "mail.activity.mixin"]
 
     name = fields.Char(
         string="Nombre",
@@ -20,6 +26,7 @@ class GradeInOrder(models.Model):
         default="draft",
         string="Estado de la orden",
         required=True,
+        tracking=True,
     )
     equipment_type_id = fields.Many2one(
         comodel_name="gradein.equipment.type",
@@ -33,20 +40,23 @@ class GradeInOrder(models.Model):
         help="Equipment of the order",
         required=True,
     )
-    equipment_type_name = fields.Selection(
-        related="equipment_id.equipment_type_id.name"
-    )
     review = fields.Text(
         string="Resumen de la evaluacion",
         help="Short review of the evaluation",
         required=True,
+        tracking=True,
     )
     reject_motive_id = fields.Many2one(
-        comodel_name="gradein.reject.reason", string="Motivo de rechazo"
+        comodel_name="gradein.reject.reason",
+        string="Motivo de rechazo",
+        tracking=True,
     )
-    imei = fields.Char(string="IMEI", help="IMEI of the equipment to check")
+    imei = fields.Char(string="IMEI", help="IMEI of the equipment to check", size=15)
     partner_id = fields.Many2one(
-        comodel_name="res.partner", string="Cliente", required=True
+        comodel_name="res.partner",
+        string="Cliente",
+        required=True,
+        tracking=True,
     )
     price = fields.Monetary(
         string="Importe a pagar",
@@ -61,18 +71,9 @@ class GradeInOrder(models.Model):
         inverse_name="order_id",
         string="Respuestas",
         required=True,
+        tracking=True,
     )
-    equipment_type_name = fields.Selection(
-        related="equipment_type_id.name"
-    )
-
-    @api.constrains("question_answer_ids")
-    def validate_answers(self):
-        for record in self.question_answer_ids:
-            if record.answer_id.blocking:
-                raise ValidationError(
-                    "Se ha ingresado una respuesta bloqueante, usted no puede continuar con la orden"
-                )
+    equipment_type_name = fields.Selection(related="equipment_type_id.name")
 
     def _gradein_order_states(self):
         return [
@@ -144,13 +145,51 @@ class GradeInOrder(models.Model):
                     f"El usuario ha superado el limite de {max_orders} ordenes permitidos en un periodo de {ORDER_LIMIT_DAYS} días"
                 )
 
-    def action_save_order(self):
+    @api.constrains("imei")
+    def validate_imei(self):
+        if self.equipment_type_name == "smartphone":
+            url = f"https://mirgor-alkemy-imei-api.azurewebsites.net/api/check_imei/{self.imei}"
+
+            try:
+                response = requests.get(url, timeout=10)
+                response.raise_for_status()
+            except REQUEST_ERRORS as err:
+                raise ValidationError(
+                    f"Ocurrio un error inesperado: {err}"
+                )
+
+            response_json = response.json()
+            is_valid_imei = response_json.get("valid")
+
+            if not is_valid_imei:
+                raise ValidationError(
+                    "El imei no es valido"
+                )
+            else:
+                notification = {
+                    "type": "ir.actions.client",
+                    "tag": "display_notification",
+                    "params": {
+                        "title": ("Validador de IMEI"),
+                        "message": "El IMEI es valido",
+                        "type": "success",
+                        "sticky": False,
+                    },
+                }
+                return notification
+
+    def action_confirm_order(self):
         """
-        Simple action to save the order
+        Simple action to confirm the order
 
         Returns:
             None
         """
+        for record in self.question_answer_ids:
+            if record.answer_id.blocking:
+                raise ValidationError(
+                    "Se ha ingresado una respuesta bloqueante, usted no puede continuar con la orden"
+                )
         self.write({"state": "confirmed"})
 
     def action_draft_order(self):
