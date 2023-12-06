@@ -146,6 +146,8 @@ class GradeInOrder(models.Model):
 
     @api.constrains("imei")
     def validate_imei(self):
+        """Method to validate IMEI if equipment is a smartphone"""
+
         if self.equipment_type_name == "smartphone":
             url = f"https://mirgor-alkemy-imei-api.azurewebsites.net/api/check_imei/{self.imei}"
 
@@ -153,17 +155,13 @@ class GradeInOrder(models.Model):
                 response = requests.get(url, timeout=10)
                 response.raise_for_status()
             except REQUEST_ERRORS as err:
-                raise ValidationError(
-                    f"Ocurrio un error inesperado: {err}"
-                )
+                raise ValidationError(f"Ocurrio un error inesperado: {err}")
 
             response_json = response.json()
             is_valid_imei = response_json.get("valid")
 
             if not is_valid_imei:
-                raise ValidationError(
-                    "El imei no es valido"
-                )
+                raise ValidationError("El imei no es valido")
             else:
                 notification = {
                     "type": "ir.actions.client",
@@ -180,9 +178,6 @@ class GradeInOrder(models.Model):
     def action_confirm_order(self):
         """
         Simple action to confirm the order
-
-        Returns:
-            None
         """
         for record in self.question_answer_ids:
             if not record.answer_id:
@@ -198,4 +193,4 @@ class GradeInOrder(models.Model):
 
     def action_draft_order(self):
         """Simple action to draft the order"""
-        self.write({"state": "draft"})
+        self.write({"state": "draft", "reject_motive_id": None})
