@@ -81,6 +81,7 @@ class GradeInOrder(models.Model):
             ("rejected", "Rechazado"),
         ]
 
+
     @api.model
     def create(self, vals_list):
         if vals_list.get("name", ("Nueva Orden")) == ("Nueva Orden"):
@@ -144,7 +145,6 @@ class GradeInOrder(models.Model):
                     f"El usuario ha superado el limite de {max_orders} ordenes permitidos en un periodo de {ORDER_LIMIT_DAYS} días"
                 )
 
-    @api.constrains("imei")
     def validate_imei(self):
         """Method to validate IMEI if equipment is a smartphone"""
 
@@ -179,6 +179,7 @@ class GradeInOrder(models.Model):
         """
         Simple action to confirm the order
         """
+        self.validate_imei()
         for record in self.question_answer_ids:
             if not record.answer_id:
                 raise ValidationError(
@@ -194,3 +195,5 @@ class GradeInOrder(models.Model):
     def action_draft_order(self):
         """Simple action to draft the order"""
         self.write({"state": "draft", "reject_motive_id": None})
+        
+    
