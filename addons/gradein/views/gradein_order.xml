@@ -45,28 +45,33 @@
                 <sheet>
                     <group>
                         <field name="name" />
-                        <field name="date" />
-                        <field name="equipment_type_id" widget="selection" />
+                        <field name="date" attrs="{'readonly': [('state', '!=', 'draft')]}" />
+                        <field name="equipment_type_id" widget="selection"
+                            attrs="{'readonly': [('state', '!=', 'draft')]}" />
                         <field name="equipment_type_name" invisible="1" />
                         <field name="equipment_id" widget="selection"
+                            attrs="{'readonly': [('state', '!=', 'draft')]}"
                             domain="[('equipment_type_id', '=', equipment_type_id)]" />
                         <field name="partner_id" widget="res_partner_many2one"
+                            attrs="{'readonly': [('state', '!=', 'draft')]}"
                             context="{'res_partner_search_mode': 'partner_id', 'show_address': 1, 'show_vat': True}"
                             options='{"always_reload": True}' />
                         <field name="currency_id" invisible="1" />
                         <field name="imei"
-                            attrs="{'invisible': [('equipment_type_name', '!=', 'smartphone')]}" />
+                            attrs="{'invisible': [('equipment_type_name', '!=', 'smartphone')], 'readonly': [('state', '!=', 'draft')]}" />
                         <field name="reject_motive_id"
                             attrs="{'invisible': [('state', '!=', 'rejected')]}" />
-                        <field name="price" readonly="1" force_save="1"/>
+                        <field name="price" readonly="1" force_save="1" />
                     </group>
                     <notebook>
                         <page string="Preguntas y respuestas">
-                            <field name="question_answer_ids">
+                            <field name="question_answer_ids"
+                                attrs="{'readonly': [('state', '!=', 'draft')]}">
                                 <tree editable="bottom" delete="false" create="false"
                                     decoration-danger="answer_blocking">
                                     <field name="question_id" readonly="1" force_save="1" />
-                                    <field name="answer_id" domain="[('question_id', '=', question_id)]" required="1" />
+                                    <field name="answer_id"
+                                        domain="[('question_id', '=', question_id)]" required="1" />
                                     <field name="answer_blocking" invisible="1" />
                                 </tree>
                             </field>
