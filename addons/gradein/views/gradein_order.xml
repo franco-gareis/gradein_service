@@ -28,6 +28,7 @@
                         type="object"
                         class="oe_highlight"
                         attrs="{'invisible': [('state', '=', 'draft')]}"
+                        groups="gradein.group_admin_service"
                     />
                     <button
                         string="Validar IMEI"
