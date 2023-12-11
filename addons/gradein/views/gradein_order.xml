@@ -62,7 +62,7 @@
                             attrs="{'invisible': [('equipment_type_name', '!=', 'smartphone')], 'readonly': [('state', '!=', 'draft')]}" />
                         <field name="reject_motive_id"
                             attrs="{'invisible': [('state', '!=', 'rejected')]}" />
-                        <field name="price" readonly="1" force_save="0"/>
+                        <field name="price" readonly="1" force_save="1"/>
                         <field name="total_price_with_discount" invisible="1"/>
                     </group>
                     <notebook>
