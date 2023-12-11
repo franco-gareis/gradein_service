@@ -4,7 +4,7 @@ from odoo import fields, models
 class GradeInEquipmentType(models.Model):
     _name = "gradein.equipment.type"
     _description = "Equipment type model"
-    _rec_name = "name"
+    _rec_name = "display_name"
 
     name = fields.Selection(
         "_equipment_type_selection",

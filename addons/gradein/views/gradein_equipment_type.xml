@@ -29,6 +29,7 @@
         <field name="arch" type="xml">
             <tree string="Tipos de equipos">
                 <field name="name" />
+                <field name="question_ids" widget="many2many_tags" />
             </tree>
         </field>
     </record>
@@ -64,7 +65,7 @@
         action="action_gradein_equipment_type"
         parent="configuration_menu"
         groups="gradein.group_admin_service"
-        sequence="2"
+        sequence="1"
     />
 
 </odoo>

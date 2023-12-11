@@ -115,7 +115,7 @@ class GradeInOrder(models.Model):
             )
         self.price = self.equipment_id.price - total
 
-    @api.constrains("partner_id")
+    @api.onchange("partner_id")
     def validate_order_user(self):
         """
         Checks the number of orders the customer had in a month
@@ -129,20 +129,19 @@ class GradeInOrder(models.Model):
         max_orders = int(self.env["ir.config_parameter"].sudo().get_param("max_orders"))
         monthly_user_orders = datetime.today() - timedelta(days=ORDER_LIMIT_DAYS)
 
-        for record in self:
-            numbers_of_records = self.env["gradein.order"].search_count(
-                [
-                    ("partner_id", "=", record.partner_id.id),
-                    ("state", "=", "confirmed"),
-                    ("date", ">", monthly_user_orders),
-                    ("date", "<=", datetime.today()),
-                ]
-            )
+        numbers_of_records = self.env["gradein.order"].search_count(
+            [
+                ("partner_id", "=", self.partner_id.id),
+                ("state", "=", "confirmed"),
+                ("date", ">", monthly_user_orders),
+                ("date", "<=", datetime.today()),
+            ]
+        )
 
-            if numbers_of_records >= max_orders:
-                raise ValidationError(
-                    f"El usuario ha superado el limite de {max_orders} ordenes permitidos en un periodo de {ORDER_LIMIT_DAYS} días"
-                )
+        if numbers_of_records >= max_orders:
+            raise ValidationError(
+                f"El usuario ha superado el limite de {max_orders} ordenes permitidos en un periodo de {ORDER_LIMIT_DAYS} días"
+            )
 
     @api.constrains("imei")
     def validate_imei(self):
@@ -163,7 +162,7 @@ class GradeInOrder(models.Model):
             if not is_valid_imei:
                 raise ValidationError("El imei no es valido")
             else:
-                notification = {
+                return {
                     "type": "ir.actions.client",
                     "tag": "display_notification",
                     "params": {
@@ -173,7 +172,6 @@ class GradeInOrder(models.Model):
                         "sticky": False,
                     },
                 }
-                return notification
 
     def action_confirm_order(self):
         """
@@ -181,14 +179,10 @@ class GradeInOrder(models.Model):
         """
         for record in self.question_answer_ids:
             if not record.answer_id:
-                raise ValidationError(
-                    "Debe ingresar todas las respuestas"
-                )
+                raise ValidationError("Debe ingresar todas las respuestas")
 
             if record.answer_id.blocking:
-                raise ValidationError(
-                    "Se ha ingresado una respuesta bloqueante, usted no puede continuar con la orden"
-                )
+                raise ValidationError("Se ha ingresado una respuesta bloqueante, no puede continuar la orden")
         self.write({"state": "confirmed"})
 
     def action_draft_order(self):

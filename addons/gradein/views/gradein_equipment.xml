@@ -30,6 +30,7 @@
         <field name="arch" type="xml">
             <tree string="Equipos">
                 <field name="name" />
+                <field name="equipment_type_id" />
                 <field name="description" />
                 <field name="currency_id" invisible="1" />
                 <field name="price" widget="monetary" options="{'currency_field': 'currency_id'}" />
@@ -64,7 +65,7 @@
         name="Equipos"
         action="action_gradein_equipment"
         parent="configuration_menu"
-        sequence="1"
+        sequence="2"
         groups="gradein.group_admin_service"
     />
 
