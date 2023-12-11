@@ -73,7 +73,6 @@ class GradeInOrder(models.Model):
         tracking=True,
     )
     equipment_type_name = fields.Selection(related="equipment_type_id.name")
-    
     total_price_with_discount = fields.Monetary(
         string="Precio con Descuento",
         currency_field="currency_id",
@@ -113,17 +112,18 @@ class GradeInOrder(models.Model):
     def _check_price_not_zero_negative(self):
         """Method validator for records so price is not zero or negative"""
         total_percentage = 0
+        equipment_price = self.equipment_id.price
+
         for question_answer in self.question_answer_ids:
-            total_percentage += question_answer.answer_id.price_reduction
-            
-        computed_price = self.equipment_id.price 
-        discounted_price = computed_price - (computed_price * total_percentage)
-        if computed_price <= discounted_price:
+            total_percentage += question_answer.answer_id.price_reduction_percentage
+
+        discounted_price = equipment_price - (equipment_price * total_percentage)
+
+        if equipment_price <= discounted_price:
             raise ValidationError(
                 "El importe a pagar no puede ser menor o igual a cero"
         )
         self.total_price_with_discount = discounted_price
-    
 
     @api.onchange("partner_id")
     def validate_order_user(self):
@@ -181,19 +181,6 @@ class GradeInOrder(models.Model):
                         "sticky": False,
                     },
                 }
-
-    def action_confirm_order(self):
-        """
-        Simple action to confirm the order
-        """
-        self.validate_imei()
-        for record in self.question_answer_ids:
-            if not record.answer_id:
-                raise ValidationError("Debe ingresar todas las respuestas")
-
-            if record.answer_id.blocking:
-                raise ValidationError("Se ha ingresado una respuesta bloqueante, no puede continuar la orden")
-        self.write({"state": "confirmed"})
 
     def action_draft_order(self):
         """Simple action to draft the order"""

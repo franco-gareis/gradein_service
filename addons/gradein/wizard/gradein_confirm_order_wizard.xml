@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="view_gradein_confirm_order_wizard_form" model="ir.ui.view">
+        <field name="name">gradein.confirm.order.wizard.form</field>
+        <field name="model">gradein.confirm.order.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="equipment_id"/>
+                    <field name="partner_id"/>
+                    <field name="percentage_sum" widget="percentage"/>
+                    <field name="price_with_discount"/>
+                    <field name="review" required="1" />
+                </group>
+                <footer>
+                    <button string="Confirmar Orden" type="object" class="oe_highlight" name="action_confirm_order"/>
+                    <button string="Cancelar" class="oe_highlight" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="gradein_confirm_order_wizard_action" model="ir.actions.act_window">
+        <field name="name">Resumen de la orden</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">gradein.confirm.order.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_gradein_confirm_order_wizard_form" />
+        <field name="target">new</field>
+    </record>
+
+</odoo>

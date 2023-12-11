@@ -10,8 +10,8 @@
                 <header>
                     <button
                         string="Aceptar orden"
-                        name="action_confirm_order"
-                        type="object"
+                        name="%(gradein_confirm_order_wizard_action)d"
+                        type="action"
                         class="oe_highlight"
                         attrs="{'invisible': [('state', 'in', ['rejected', 'confirmed'])]}"
                     />
