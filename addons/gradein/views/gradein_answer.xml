@@ -15,7 +15,7 @@
                         <field name="question_id" />
                         <field name="name" />
                         <field name="active" widget="boolean_toggle" />
-                        <field name="price_reduction" />
+                        <field name="price_reduction" widget="percentage"/>
                         <field name="blocking" widget="boolean_toggle" />
                     </group>
                 </sheet>
