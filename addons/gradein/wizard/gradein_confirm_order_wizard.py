@@ -44,6 +44,11 @@ class GradeinOrderConfirmationWizard(models.TransientModel):
             if not record.answer_id:
                 raise ValidationError("Debe ingresar todas las respuestas")
 
+            if self.gradein_order_id.total_price_with_discount <= 0:
+                raise ValidationError(
+                    "El importe a pagar no puede ser menor o igual a cero"
+                )
+
             if record.answer_id.blocking:
                 raise ValidationError("Se ha ingresado una respuesta bloqueante, no puede continuar la orden")
 
@@ -52,6 +57,6 @@ class GradeinOrderConfirmationWizard(models.TransientModel):
             {
                 "state": "confirmed",
                 "review": self.review,
-                "price": self.price_with_discount
+                "total_price_with_discount": self.price_with_discount
             }
         )

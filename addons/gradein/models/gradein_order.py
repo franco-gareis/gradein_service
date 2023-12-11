@@ -57,12 +57,6 @@ class GradeInOrder(models.Model):
         required=True,
         tracking=True,
     )
-    price = fields.Monetary(
-        string="Importe a pagar",
-        currency_field="currency_id",
-        help="Price that client will pay",
-        required=True,
-    )
     currency_id = fields.Many2one(related="equipment_id.currency_id")
     image_ids = fields.Many2many("ir.attachment", string="Imágenes", tracking=True)
     question_answer_ids = fields.One2many(
@@ -118,11 +112,6 @@ class GradeInOrder(models.Model):
             total_percentage += question_answer.answer_id.price_reduction_percentage
 
         discounted_price = equipment_price - (equipment_price * total_percentage)
-
-        if equipment_price <= discounted_price:
-            raise ValidationError(
-                "El importe a pagar no puede ser menor o igual a cero"
-        )
         self.total_price_with_discount = discounted_price
 
     @api.onchange("partner_id")

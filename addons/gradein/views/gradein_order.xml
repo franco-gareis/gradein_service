@@ -62,7 +62,7 @@
                             attrs="{'invisible': [('equipment_type_name', '!=', 'smartphone')], 'readonly': [('state', '!=', 'draft')]}" />
                         <field name="reject_motive_id"
                             attrs="{'invisible': [('state', '!=', 'rejected')]}" />
-                        <field name="price" readonly="1" force_save="1"/>
+                        <field name="total_price_with_discount" readonly="1" force_save="1"/>
                         <field name="total_price_with_discount" invisible="1"/>
                     </group>
                     <notebook>
@@ -107,7 +107,7 @@
                 <field name="imei" />
                 <field name="partner_id" />
                 <field name="currency_id" invisible="1" />
-                <field name="price" widget="monetary" options="{'currency_field': 'currency_id'}" />
+                <field name="total_price_with_discount" widget="monetary" options="{'currency_field': 'currency_id'}" />
                 <field name="state"
                     widget="badge"
                     decoration-info="state == 'draft'"
