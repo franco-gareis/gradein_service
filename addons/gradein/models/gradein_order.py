@@ -73,6 +73,13 @@ class GradeInOrder(models.Model):
         tracking=True,
     )
     equipment_type_name = fields.Selection(related="equipment_type_id.name")
+    
+    total_price_with_discount = fields.Monetary(
+        string="Precio con Descuento",
+        currency_field="currency_id",
+        store=True,
+        invisible=1,
+    )
 
     def _gradein_order_states(self):
         return [
@@ -105,15 +112,18 @@ class GradeInOrder(models.Model):
     @api.constrains("question_answer_ids")
     def _check_price_not_zero_negative(self):
         """Method validator for records so price is not zero or negative"""
-        total = 0
+        total_percentage = 0
         for question_answer in self.question_answer_ids:
-            total += question_answer.answer_id.price_reduction
-
-        if (self.equipment_id.price - total) <= 0:
+            total_percentage += question_answer.answer_id.price_reduction
+            
+        computed_price = self.equipment_id.price 
+        discounted_price = computed_price - (computed_price * total_percentage)
+        if computed_price <= discounted_price:
             raise ValidationError(
                 "El importe a pagar no puede ser menor o igual a cero"
-            )
-        self.price = self.equipment_id.price - total
+        )
+        self.total_price_with_discount = discounted_price
+    
 
     @api.onchange("partner_id")
     def validate_order_user(self):
