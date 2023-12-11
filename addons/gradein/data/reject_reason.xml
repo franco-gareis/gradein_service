@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="gradein_reject_reason_data_1" model="gradein.reject.reason">
+        <field name="name">Daños físicos severos</field>
+        <field name="active">1</field>
+    </record>
+    <record id="gradein_reject_reason_data_2" model="gradein.reject.reason">
+        <field name="name">Problemas de batería</field>
+        <field name="active">1</field>
+    </record>
+    <record id="gradein_reject_reason_data_3" model="gradein.reject.reason">
+        <field name="name">Problemas de conectividad</field>
+        <field name="active">1</field>
+    </record>
+    <record id="gradein_reject_reason_data_4" model="gradein.reject.reason">
+        <field name="name">Dispositivo no aprobado</field>
+        <field name="active">1</field>
+    </record>
+    <record id="gradein_reject_reason_data_5" model="gradein.reject.reason">
+        <field name="name">Modelo antiguo</field>
+        <field name="active">1</field>
+    </record>
+    <record id="gradein_reject_reason_data_6" model="gradein.reject.reason">
+        <field name="name">Problemas en el sistema de audio</field>
+        <field name="active">1</field>
+    </record>
+    <record id="gradein_reject_reason_data_7" model="gradein.reject.reason">
+        <field name="name">El cliente rechaza importe ofrecido</field>
+        <field name="active">1</field>
+    </record>
+</odoo>
