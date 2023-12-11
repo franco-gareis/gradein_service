@@ -10,6 +10,8 @@
     "data": [
         "security/gradein_groups.xml",
         "security/ir.model.access.csv",
+        "data/ir_config_parameter.xml",
+        "data/reject_reason.xml",
         'wizard/gradein_reject_reason_wizard.xml',
         "report/gradein_order_report.xml",
         "views/services_menu.xml",
@@ -19,8 +21,6 @@
         "views/gradein_question.xml",
         "views/gradein_reject_reason.xml",
         "views/gradein_order.xml",
-        "data/ir_config_parameter.xml",
-        "data/reject_reason.xml",
     ],
     "installable": True,
     "auto_install": False,
