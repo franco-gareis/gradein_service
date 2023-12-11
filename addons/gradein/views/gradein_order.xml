@@ -77,10 +77,10 @@
                             </field>
                         </page>
                         <page string="Resumen de la orden">
-                            <field name="review" />
+                            <field name="review" attrs="{'readonly': [('state', '!=', 'draft')]}" />
                         </page>
                         <page string="Imagenes">
-                            <field name="image_ids" widget="many2many_binary" required="1" />
+                            <field name="image_ids" widget="many2many_binary" required="1" attrs="{'readonly': [('state', '!=', 'draft')]}" />
                         </page>
                     </notebook>
                 </sheet>
