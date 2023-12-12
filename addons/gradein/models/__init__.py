@@ -1,7 +1,10 @@
-from . import gradein_equipment_type
-from . import gradein_question
-from . import gradein_equipment
-from . import gradein_answer
-from . import gradein_reject_reason
-from . import gradein_order
-from . import gradein_questions_answers
+from . import (
+    res_config_settings,
+    gradein_equipment_type,
+    gradein_question,
+    gradein_equipment,
+    gradein_answer,
+    gradein_reject_reason,
+    gradein_order,
+    gradein_questions_answers,
+)

@@ -10,10 +10,10 @@
     "data": [
         "security/gradein_groups.xml",
         "security/ir.model.access.csv",
-        "data/ir_config_parameter.xml",
         "data/reject_reason.xml",
         "wizard/gradein_reject_reason_wizard.xml",
         "wizard/gradein_confirm_order_wizard.xml",
+        "views/res_config_settings.xml",
         "views/services_menu.xml",
         "report/gradein_order_report.xml",
         "views/gradein_equipment_type.xml",

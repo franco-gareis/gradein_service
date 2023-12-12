@@ -120,6 +120,13 @@ class GradeInOrder(models.Model):
         discounted_price = self.equipment_price - (self.equipment_price * total_percentage)
         self.total_price_with_discount = discounted_price
 
+    def _get_equipment_limit(self):
+        return int(
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("gradein.equipment_limit_per_month", default=2)
+        )
+
     @api.onchange("partner_id")
     def validate_order_user(self):
         """
@@ -131,7 +138,7 @@ class GradeInOrder(models.Model):
 
         ORDER_LIMIT_DAYS = 30
 
-        max_orders = int(self.env["ir.config_parameter"].sudo().get_param("max_orders"))
+        max_orders = self._get_equipment_limit()
         monthly_user_orders = datetime.today() - timedelta(days=ORDER_LIMIT_DAYS)
 
         numbers_of_records = self.env["gradein.order"].search_count(
