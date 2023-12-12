@@ -1,4 +1,4 @@
-from odoo import fields, models
+from odoo import fields, models, api
 
 
 class GradeInEquipmentType(models.Model):
@@ -48,6 +48,7 @@ class GradeInEquipmentType(models.Model):
             ("smartwatch", "SmartWatch")
         ]
 
+    @api.depends("name")
     def _compute_display_name(self):
         """Simple method to compute the display_name field"""
         selection = self._equipment_type_selection()
