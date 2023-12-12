@@ -13,7 +13,7 @@ class GradeinConfigSettings(models.TransientModel):
 
     @api.constrains("equipment_limit_per_month")
     def _check_equipment_limit(self):
-        if self.equipment_limit_per_month < 0 :
+        if self.equipment_limit_per_month <= 0 :
             raise ValidationError(
                 "El límite de equipos por mes debe ser un número positivo."
             )
