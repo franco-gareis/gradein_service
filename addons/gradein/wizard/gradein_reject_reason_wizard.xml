@@ -6,6 +6,7 @@
             <form>
                 <group>
                     <field name="reject_motive_id" widget="selection" required="1" />
+                    <field name="review" required="1" />
                 </group>
                 <footer>
                     <button string="Guardar" type="object" class="oe_highlight"

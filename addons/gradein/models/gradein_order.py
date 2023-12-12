@@ -39,7 +39,10 @@ class GradeInOrder(models.Model):
         string="Equipo",
         help="Equipment of the order",
         required=True,
+        tracking=True
     )
+    equipment_type_name = fields.Selection(related="equipment_type_id.name")
+    equipment_price = fields.Monetary(string="Precio del equipo", currency_field="currency_id")
     review = fields.Text(
         string="Resumen de la evaluacion",
         help="Short review of the evaluation",
@@ -57,12 +60,6 @@ class GradeInOrder(models.Model):
         required=True,
         tracking=True,
     )
-    price = fields.Monetary(
-        string="Importe a pagar",
-        currency_field="currency_id",
-        help="Price that client will pay",
-        required=True,
-    )
     currency_id = fields.Many2one(related="equipment_id.currency_id")
     image_ids = fields.Many2many("ir.attachment", string="Imágenes", tracking=True)
     question_answer_ids = fields.One2many(
@@ -72,8 +69,6 @@ class GradeInOrder(models.Model):
         required=True,
         tracking=True,
     )
-    equipment_type_name = fields.Selection(related="equipment_type_id.name")
-    
     total_price_with_discount = fields.Monetary(
         string="Precio con Descuento",
         currency_field="currency_id",
@@ -109,21 +104,21 @@ class GradeInOrder(models.Model):
                 )  # We create this records with the questions of the equipment
         self.question_answer_ids = commands_data
 
+    @api.onchange("equipment_id")
+    def _compute_equipment_price(self):
+        self.total_price_with_discount = float(0)
+        self.equipment_price = self.equipment_id.price
+
     @api.constrains("question_answer_ids")
     def _check_price_not_zero_negative(self):
         """Method validator for records so price is not zero or negative"""
         total_percentage = 0
+
         for question_answer in self.question_answer_ids:
-            total_percentage += question_answer.answer_id.price_reduction
-            
-        computed_price = self.equipment_id.price 
-        discounted_price = computed_price - (computed_price * total_percentage)
-        if computed_price <= discounted_price:
-            raise ValidationError(
-                "El importe a pagar no puede ser menor o igual a cero"
-        )
+            total_percentage += question_answer.answer_id.price_reduction_percentage
+
+        discounted_price = self.equipment_price - (self.equipment_price * total_percentage)
         self.total_price_with_discount = discounted_price
-    
 
     @api.onchange("partner_id")
     def validate_order_user(self):
@@ -181,19 +176,6 @@ class GradeInOrder(models.Model):
                         "sticky": False,
                     },
                 }
-
-    def action_confirm_order(self):
-        """
-        Simple action to confirm the order
-        """
-        self.validate_imei()
-        for record in self.question_answer_ids:
-            if not record.answer_id:
-                raise ValidationError("Debe ingresar todas las respuestas")
-
-            if record.answer_id.blocking:
-                raise ValidationError("Se ha ingresado una respuesta bloqueante, no puede continuar la orden")
-        self.write({"state": "confirmed"})
 
     def action_draft_order(self):
         """Simple action to draft the order"""

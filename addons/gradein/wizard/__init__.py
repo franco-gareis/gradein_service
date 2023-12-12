@@ -1,1 +1,1 @@
-from . import gradein_reject_reason_wizard
+from . import gradein_reject_reason_wizard, gradein_confirm_order_wizard
