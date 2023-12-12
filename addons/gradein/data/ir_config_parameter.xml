@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<odoo>
-
-    <record id="gradein_max_order_environment" model="ir.config_parameter">
-        <field name="key">max_orders</field>
-        <field name="value">2</field>
-    </record>
-
-</odoo>
