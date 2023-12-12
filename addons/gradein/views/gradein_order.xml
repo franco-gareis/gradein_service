@@ -58,7 +58,7 @@
                         <field name="imei"
                             attrs="{'invisible': [('equipment_type_name', '!=', 'smartphone')], 'readonly': [('state', '!=', 'draft')]}" />
                         <field name="reject_motive_id" attrs="{'invisible': [('state', '!=', 'rejected')]}" />
-                        <field name="equipment_price" string="Precio del equipo" readonly="1" options="{'currency_field': 'currency_id'}" />
+                        <field name="equipment_price" string="Precio del equipo" readonly="1" force_save="1" options="{'currency_field': 'currency_id'}" />
                         <field name="total_price_with_discount" string="Precio final" readonly="1" force_save="1" />
                     </group>
                     <notebook>
