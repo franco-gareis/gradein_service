@@ -18,7 +18,7 @@
                         <t t-if="doc.state == 'rejected'">
                             <p>Motivo de rechazo: <t t-out="doc.reject_motive_id.name"/></p>
                         </t>
-                        <p>Importe a pagar: <t t-out="doc.price"/></p>
+                        <p>Importe a pagar: <t t-out="doc.total_price_with_discount"/></p>
                         <t t-if="doc.review">
                             <p>Resumen de la evaluacion: <t t-out="doc.review"/></p>
                         </t>
