@@ -39,7 +39,10 @@ class GradeInOrder(models.Model):
         string="Equipo",
         help="Equipment of the order",
         required=True,
+        tracking=True
     )
+    equipment_type_name = fields.Selection(related="equipment_type_id.name")
+    equipment_price = fields.Monetary(string="Precio del equipo", currency_field="currency_id")
     review = fields.Text(
         string="Resumen de la evaluacion",
         help="Short review of the evaluation",
@@ -66,7 +69,6 @@ class GradeInOrder(models.Model):
         required=True,
         tracking=True,
     )
-    equipment_type_name = fields.Selection(related="equipment_type_id.name")
     total_price_with_discount = fields.Monetary(
         string="Precio con Descuento",
         currency_field="currency_id",
@@ -102,16 +104,20 @@ class GradeInOrder(models.Model):
                 )  # We create this records with the questions of the equipment
         self.question_answer_ids = commands_data
 
+    @api.onchange("equipment_id")
+    def _compute_equipment_price(self):
+        self.total_price_with_discount = float(0)
+        self.equipment_price = self.equipment_id.price
+
     @api.constrains("question_answer_ids")
     def _check_price_not_zero_negative(self):
         """Method validator for records so price is not zero or negative"""
         total_percentage = 0
-        equipment_price = self.equipment_id.price
 
         for question_answer in self.question_answer_ids:
             total_percentage += question_answer.answer_id.price_reduction_percentage
 
-        discounted_price = equipment_price - (equipment_price * total_percentage)
+        discounted_price = self.equipment_price - (self.equipment_price * total_percentage)
         self.total_price_with_discount = discounted_price
 
     @api.onchange("partner_id")

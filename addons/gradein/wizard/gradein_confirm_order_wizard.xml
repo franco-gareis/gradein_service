@@ -9,7 +9,7 @@
                     <field name="equipment_id"/>
                     <field name="partner_id"/>
                     <field name="percentage_sum" widget="percentage"/>
-                    <field name="price_with_discount"/>
+                    <field name="price_with_discount" string="Precio final"/>
                     <field name="review" required="1" />
                 </group>
                 <footer>
