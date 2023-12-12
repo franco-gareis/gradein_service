@@ -43,7 +43,6 @@ class GradeInEquipment(models.Model):
         default=lambda x: x.env.company.currency_id,
         string="Moneda",
         required=True,
-        tracking=True,
     )
 
     @api.constrains("price")
