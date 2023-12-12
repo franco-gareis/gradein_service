@@ -8,7 +8,7 @@ class GradeinConfigSettings(models.TransientModel):
     equipment_limit_per_month = fields.Integer(
         string="Límite de Equipos por Mes",
         config_parameter="gradein.equipment_limit_per_month",
-        default=2
+        default=2,
     )
 
     @api.constrains("equipment_limit_per_month")
@@ -18,4 +18,3 @@ class GradeinConfigSettings(models.TransientModel):
                 raise ValidationError(
                     "El límite de equipos por mes debe ser un número positivo o cero."
                 )
-            

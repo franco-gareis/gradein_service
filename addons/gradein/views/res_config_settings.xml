@@ -5,7 +5,8 @@
         <field name="inherit_id" ref="base.res_config_settings_view_form" />
         <field name="arch" type="xml">
             <xpath expr="//div[hasclass('settings')]" position="inside">
-                <div class="app_settings_block" data-string="Opciones de Servicios" string="Opciones de Servicios"
+                <div class="app_settings_block" data-string="Opciones de Servicios"
+                    string="Opciones de Servicios"
                     datakey="gradein_settings"
                     groups="gradein.group_admin_service">
                     <h2>Configuraciones Específicas de Orden de Calificación</h2>
@@ -13,13 +14,15 @@
                         <div class="col-16 col-lg-12 o_setting_box">
                             <div class="col-12 col-lg-12 o_setting_box">
                                 <div class="o_setting_full_width">
-                                    <label for="equipment_limit_per_month" class="o_setting_label">Límite de Equipos por Mes</label>
+                                    <label for="equipment_limit_per_month" class="o_setting_label">Límite
+                                        de Equipos por Mes</label>
                                     <div class="text-muted o_setting_description">
                                         Configura el límite de equipos por mes.
                                     </div>
-                                    <field name="equipment_limit_per_month" class="o_field_widget o_setting_input" />
+                                    <field name="equipment_limit_per_month"
+                                        class="o_field_widget o_setting_input" />
                                 </div>
-                            </div>                            
+                            </div>
                         </div>
                     </div>
                 </div>
