@@ -20,6 +20,11 @@
                         <field name="image" widget="image" />
                     </group>
                 </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
             </form>
         </field>
     </record>
@@ -60,13 +65,6 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem
-        id="equipment_menu"
-        name="Equipos"
-        action="action_gradein_equipment"
-        parent="configuration_menu"
-        sequence="2"
-        groups="gradein.group_admin_service"
-    />
+    <menuitem id="equipment_menu" name="Equipos" action="action_gradein_equipment" parent="configuration_menu" sequence="2" groups="gradein.group_admin_service" />
 
 </odoo>

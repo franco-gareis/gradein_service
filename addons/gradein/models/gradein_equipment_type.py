@@ -17,7 +17,6 @@ class GradeInEquipmentType(models.Model):
         string="Imagen",
         verify_resolution=True,
         help="Image of the equipment",
-        required=True,
     )
     active = fields.Boolean(
         string="Activo",
