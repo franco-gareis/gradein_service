@@ -19,8 +19,8 @@ class GradeInRejectReasonWizard(models.TransientModel):
         return res
 
     def save_reject_reason(self):
-        record = self.env["gradein.order"].browse(self.env.context.get("active_ids"))
-        record.write(
+        active_order = self.env["gradein.order"].browse(self._context.get("active_id"))
+        active_order.write(
             {
                 "state": "rejected",
                 "reject_motive_id": self.reject_motive_id,
